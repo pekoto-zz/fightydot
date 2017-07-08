@@ -13,9 +13,11 @@
 		70D6EDA21F0EF106005A8BFD /* FightyDot.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 70D6EDA01F0EF106005A8BFD /* FightyDot.xcdatamodeld */; };
 		70D6EDA41F0EF106005A8BFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70D6EDA31F0EF106005A8BFD /* Assets.xcassets */; };
 		70D6EDA71F0EF106005A8BFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70D6EDA51F0EF106005A8BFD /* LaunchScreen.storyboard */; };
+		99F0949C9BD4CA17B86AF2E5 /* Pods_FightyDot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47034AB99EC0E8045B98C0A0 /* Pods_FightyDot.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		47034AB99EC0E8045B98C0A0 /* Pods_FightyDot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FightyDot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70D6ED961F0EF106005A8BFD /* FightyDot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FightyDot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70D6ED991F0EF106005A8BFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70D6ED9B1F0EF106005A8BFD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +26,8 @@
 		70D6EDA31F0EF106005A8BFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		70D6EDA61F0EF106005A8BFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		70D6EDA81F0EF106005A8BFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84518D9BFFDEB5CB9387AA03 /* Pods-FightyDot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightyDot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FightyDot/Pods-FightyDot.debug.xcconfig"; sourceTree = "<group>"; };
+		B648CD8975C30B139822B58E /* Pods-FightyDot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightyDot.release.xcconfig"; path = "Pods/Target Support Files/Pods-FightyDot/Pods-FightyDot.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99F0949C9BD4CA17B86AF2E5 /* Pods_FightyDot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12B12E5F49A1314039DD99ED /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				84518D9BFFDEB5CB9387AA03 /* Pods-FightyDot.debug.xcconfig */,
+				B648CD8975C30B139822B58E /* Pods-FightyDot.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		50678507DE62AD9FC04FC6F7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				47034AB99EC0E8045B98C0A0 /* Pods_FightyDot.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		70D6ED8D1F0EF106005A8BFD = {
 			isa = PBXGroup;
 			children = (
 				70D6ED981F0EF106005A8BFD /* FightyDot */,
 				70D6ED971F0EF106005A8BFD /* Products */,
+				12B12E5F49A1314039DD99ED /* Pods */,
+				50678507DE62AD9FC04FC6F7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +80,13 @@
 		70D6ED981F0EF106005A8BFD /* FightyDot */ = {
 			isa = PBXGroup;
 			children = (
+				70D6EDAE1F0EF39F005A8BFD /* Controller */,
+				70D6EDAF1F0EF3B0005A8BFD /* Engine */,
+				70D6EDB01F0EF3CA005A8BFD /* Model */,
+				70D6EDB21F0EF3DE005A8BFD /* Protocols */,
+				70D6EDB31F0EF3ED005A8BFD /* Resources */,
+				70D6EDB41F0EF3F7005A8BFD /* Util */,
+				70D6EDB11F0EF3D4005A8BFD /* View */,
 				70D6ED991F0EF106005A8BFD /* AppDelegate.swift */,
 				70D6ED9B1F0EF106005A8BFD /* ViewController.swift */,
 				70D6ED9D1F0EF106005A8BFD /* Main.storyboard */,
@@ -67,6 +98,95 @@
 			path = FightyDot;
 			sourceTree = "<group>";
 		};
+		70D6EDAE1F0EF39F005A8BFD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		70D6EDAF1F0EF3B0005A8BFD /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Engine;
+			sourceTree = "<group>";
+		};
+		70D6EDB01F0EF3CA005A8BFD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		70D6EDB11F0EF3D4005A8BFD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				70D6EDB81F0EF484005A8BFD /* CustomUI */,
+				70D6EDB71F0EF474005A8BFD /* ModelViews */,
+				70D6EDB91F0EF490005A8BFD /* Storyboards */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		70D6EDB21F0EF3DE005A8BFD /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		70D6EDB31F0EF3ED005A8BFD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				70D6EDB51F0EF450005A8BFD /* Fonts */,
+				70D6EDB61F0EF45E005A8BFD /* SFX */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		70D6EDB41F0EF3F7005A8BFD /* Util */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		70D6EDB51F0EF450005A8BFD /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
+		70D6EDB61F0EF45E005A8BFD /* SFX */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SFX;
+			sourceTree = "<group>";
+		};
+		70D6EDB71F0EF474005A8BFD /* ModelViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ModelViews;
+			sourceTree = "<group>";
+		};
+		70D6EDB81F0EF484005A8BFD /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CustomUI;
+			sourceTree = "<group>";
+		};
+		70D6EDB91F0EF490005A8BFD /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +194,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 70D6EDAB1F0EF106005A8BFD /* Build configuration list for PBXNativeTarget "FightyDot" */;
 			buildPhases = (
+				29A34595C3589BD0CD9E055D /* [CP] Check Pods Manifest.lock */,
 				70D6ED921F0EF106005A8BFD /* Sources */,
 				70D6ED931F0EF106005A8BFD /* Frameworks */,
 				70D6ED941F0EF106005A8BFD /* Resources */,
+				27548C9F8B844F31C44A6F4D /* [CP] Embed Pods Frameworks */,
+				68A0EB0CDDD37E4A50F3E158 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -134,6 +257,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		27548C9F8B844F31C44A6F4D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FightyDot/Pods-FightyDot-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		29A34595C3589BD0CD9E055D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		68A0EB0CDDD37E4A50F3E158 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FightyDot/Pods-FightyDot-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		70D6ED921F0EF106005A8BFD /* Sources */ = {
@@ -265,6 +436,7 @@
 		};
 		70D6EDAC1F0EF106005A8BFD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84518D9BFFDEB5CB9387AA03 /* Pods-FightyDot.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TK556R5872;
@@ -278,6 +450,7 @@
 		};
 		70D6EDAD1F0EF106005A8BFD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B648CD8975C30B139822B58E /* Pods-FightyDot.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TK556R5872;
@@ -308,6 +481,7 @@
 				70D6EDAD1F0EF106005A8BFD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
