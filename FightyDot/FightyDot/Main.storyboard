@@ -2274,7 +2274,7 @@
                 <navigationController id="XEN-P4-eqk" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Help" image="settings" id="IYi-x1-Mt5"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
+                    <size key="freeformSize" width="320" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="fdA-w4-xXw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2303,14 +2303,14 @@
                         <viewControllerLayoutGuide type="bottom" id="eC6-e4-W9b"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ZE9-HZ-lBb">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uFL-J9-ZRs" customClass="SkyBlueGradientView" customModule="FightyDot" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="554"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8g-cc-yKJ">
-                                        <rect key="frame" x="12" y="0.0" width="363" height="48"/>
+                                        <rect key="frame" x="12" y="0.0" width="308" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="cxC-Oy-0Nk"/>
                                         </constraints>
@@ -2323,21 +2323,21 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow Right" translatesAutoresizingMaskIntoConstraints="NO" id="xgZ-A6-l3g">
-                                        <rect key="frame" x="349" y="15" width="18" height="18"/>
+                                        <rect key="frame" x="294" y="15" width="18" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="18" id="8nr-Z9-MlU"/>
                                             <constraint firstAttribute="width" constant="18" id="pW9-Jj-0mJ"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UHn-nT-WsJ" userLabel="Divider">
-                                        <rect key="frame" x="8" y="48" width="367" height="1"/>
+                                        <rect key="frame" x="8" y="48" width="312" height="1"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="K8H-46-Cds"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3d-XQ-9UQ">
-                                        <rect key="frame" x="12" y="49" width="363" height="49"/>
+                                        <rect key="frame" x="12" y="49" width="308" height="49"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                         <state key="normal" title="Acknowledgements">
                                             <color key="titleColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -2347,21 +2347,21 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow Right" translatesAutoresizingMaskIntoConstraints="NO" id="khp-s6-j4P">
-                                        <rect key="frame" x="349" y="64" width="18" height="18"/>
+                                        <rect key="frame" x="294" y="64" width="18" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="18" id="BIN-gQ-wQA"/>
                                             <constraint firstAttribute="height" constant="18" id="Qge-X8-ckb"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v7a-jX-6xS" userLabel="Divider">
-                                        <rect key="frame" x="8" y="98" width="367" height="1"/>
+                                        <rect key="frame" x="8" y="98" width="312" height="1"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="9HY-oD-XlQ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPq-FO-rXc" userLabel="Sound">
-                                        <rect key="frame" x="12" y="98" width="363" height="49"/>
+                                        <rect key="frame" x="12" y="98" width="308" height="49"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sounds" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTO-TV-NVh">
                                                 <rect key="frame" x="0.0" y="14" width="139" height="21"/>
@@ -2374,7 +2374,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QEm-ew-HMm">
-                                                <rect key="frame" x="306" y="9" width="51" height="31"/>
+                                                <rect key="frame" x="251" y="9" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="soundEnabledSwitchChanged:" destination="zoW-Uz-1aY" eventType="valueChanged" id="RrN-Ft-VPl"/>
                                                 </connections>
@@ -2389,7 +2389,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHh-7s-riP" userLabel="Divider">
-                                        <rect key="frame" x="8" y="147" width="367" height="1"/>
+                                        <rect key="frame" x="8" y="147" width="312" height="1"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="Srs-YX-ZAZ"/>
@@ -2660,14 +2660,14 @@
                         <viewControllerLayoutGuide type="bottom" id="zPp-XA-SEl"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="czt-na-SQU">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C5e-rp-yum" customClass="SkyBlueGradientView" customModule="FightyDot" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="554"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="491-0Q-Ca9">
-                                        <rect key="frame" x="8" y="8" width="359" height="538"/>
+                                        <rect key="frame" x="8" y="8" width="304" height="538"/>
                                         <string key="text">Help page gesture and tap icons by Maxim Kulikov, obtained from nounproject.com under the Creative Commons license, with shadows added by app developer.
 https://creativecommons.org/licenses/by/3.0/us/  Lato fonts provided under the open font license http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;id=OFL_web</string>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
