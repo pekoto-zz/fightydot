@@ -50,6 +50,9 @@ Both of these are pretty generic and could probably be reused or extracted to a 
 ### AI 
 (**TODO**)
 
+## Screenshots
+(**TODO**)
+
 ## Acknowledgements
 ### Fonts
 Lato fonts are licensed under the [Open Font License](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL)
