@@ -120,6 +120,22 @@ class Board {
         }
     }
     
+    func print() {
+        Swift.print("\(_nodes[0].printColour())---------\(_nodes[1].printColour())---------\(_nodes[2].printColour())")
+        Swift.print("|         |         |")
+        Swift.print("|  \(_nodes[3].printColour())------\(_nodes[4].printColour())------\(_nodes[5].printColour())  |")
+        Swift.print("|  |      |      |  |")
+        Swift.print("|  |   \(_nodes[6].printColour())--\(_nodes[7].printColour())--\(_nodes[8].printColour())   |  |")
+        Swift.print("|  |   |     |   |  |")
+        Swift.print("\(_nodes[9].printColour())--\(_nodes[10].printColour())---\(_nodes[11].printColour())     \(_nodes[12].printColour())---\(_nodes[13].printColour())--\(_nodes[14].printColour())")
+        Swift.print("|  |   |     |   |  |")
+        Swift.print("|  |   \(_nodes[15].printColour())--\(_nodes[16].printColour())--\(_nodes[17].printColour())   |  |")
+        Swift.print("|  |      |      |  |")
+        Swift.print("|  \(_nodes[18].printColour())------\(_nodes[19].printColour())------\(_nodes[20].printColour())  |")
+        Swift.print("|         |         |")
+        Swift.print("\(_nodes[21].printColour())---------\(_nodes[22].printColour())---------\(_nodes[23].printColour())")
+    }
+    
     // MARK: - Private functions
     
     private func setup(view: EngineDelegate?) {

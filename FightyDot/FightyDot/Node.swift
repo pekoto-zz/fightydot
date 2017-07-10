@@ -144,6 +144,16 @@ class Node {
         
         return millFormedResult
     }
+    
+    func printColour() -> String {
+        if(_colour == .none) {
+            return "O"
+        } else if (_colour == .green) {
+            return "g"
+        } else {
+            return "r"
+        }
+    }
 }
 
 // MARK: - Equatable
