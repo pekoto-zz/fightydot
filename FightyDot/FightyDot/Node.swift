@@ -113,17 +113,6 @@ class Node {
         _mills = [Mill]()
     }
     
-    // For cloning
-    private init(id: Int, neighbours: [Node], mills: [Mill], colour: PieceColour, activeMillCount: Int, isTappable: Bool, isDraggable: Bool) {
-        _id = id
-        _neighbours = neighbours
-        _mills = mills
-        _colour = colour
-        _activeMillCount = activeMillCount
-        _isTappable = isTappable
-        _isDraggable = isDraggable
-    }
-    
     func disable() {
         _isTappable = false
         _isDraggable = false
@@ -166,10 +155,13 @@ class Node {
         }
     }
     
-    func clone() -> Node {
-        // TODO need to deep copy mills
-        return Node(id: _id, neighbours: _neighbours, mills: _mills, colour: _colour, activeMillCount: _activeMillCount, isTappable: _isTappable, isDraggable: _isDraggable)
+    func copyValues(from otherNode: Node) {
+        _colour = otherNode._colour
+        _activeMillCount = otherNode._activeMillCount
+        _isTappable = otherNode._isTappable
+        _isDraggable = otherNode._isDraggable
     }
+    
 }
 
 // MARK: - Equatable

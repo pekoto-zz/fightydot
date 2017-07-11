@@ -143,7 +143,7 @@ class Player {
     }
     
     // For cloning
-    private init(name: String, colour: PlayerColour, type: PlayerType, isStartingPlayer: Bool, playerNum: PlayerNumber, piecesLeftToPlay: Int, isCurrentPlayer: Bool, piecesOnBoard: [Node]) {
+    private init(name: String, colour: PlayerColour, type: PlayerType, isStartingPlayer: Bool, playerNum: PlayerNumber, piecesLeftToPlay: Int, isCurrentPlayer: Bool) {
         _name = name
         _colour = colour
         _type = type
@@ -151,7 +151,6 @@ class Player {
         _playerNum = playerNum
         _piecesLeftToPlay = piecesLeftToPlay
         _isCurrentPlayer = isCurrentPlayer
-        _piecesOnBoard = piecesOnBoard
     }
     
     // Returns true if mill formed
@@ -180,9 +179,18 @@ class Player {
         _piecesOnBoard = []
     }
     
-    func clone() -> Player {
-        // TODO Nodes have to be deep copied
-        return Player(name: _name, colour: _colour, type: _type, isStartingPlayer: _isStartingPlayer, playerNum: _playerNum, piecesLeftToPlay: _piecesLeftToPlay, isCurrentPlayer: _isCurrentPlayer, piecesOnBoard: _piecesOnBoard)
+    func clone(to board: Board) -> Player {
+        let player = Player(name: _name, colour: _colour, type: _type, isStartingPlayer: _isStartingPlayer, playerNum: _playerNum, piecesLeftToPlay: _piecesLeftToPlay, isCurrentPlayer: _isCurrentPlayer)
+        
+        for i in 0..._piecesOnBoard.count-1 {
+            let nodeId = _piecesOnBoard[i].id
+            
+            if let nodeToAdd = board.getNode(withID: nodeId) {
+                player._piecesOnBoard.append(nodeToAdd)
+            }
+        }
+        
+        return player
     }
     
     // MARK: - Private functions

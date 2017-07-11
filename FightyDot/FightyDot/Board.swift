@@ -87,6 +87,22 @@ class Board {
         Swift.print("\(_nodes[21].printColour())---------\(_nodes[22].printColour())---------\(_nodes[23].printColour())")
     }
     
+    func clone() -> Board {
+        // Clones are used for building game trees/predicting the best move,
+        // so they don't need view delegates.
+        let board = Board(view: nil)
+        
+        for i in 0...board._nodes.count-1 {
+            board._nodes[i].copyValues(from: _nodes[i])
+        }
+        
+        for i in 0...board._mills.count-1 {
+            board._mills[i].copyValues(from: _mills[i])
+        }
+        
+        return board
+    }
+    
     // MARK: - Private functions
     
     private func setup(view: EngineDelegate?) {
