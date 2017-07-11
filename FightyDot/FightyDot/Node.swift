@@ -154,6 +154,14 @@ class Node {
             return "r"
         }
     }
+    
+    func copyValues(from otherNode: Node) {
+        _colour = otherNode._colour
+        _activeMillCount = otherNode._activeMillCount
+        _isTappable = otherNode._isTappable
+        _isDraggable = otherNode._isDraggable
+    }
+    
 }
 
 // MARK: - Equatable

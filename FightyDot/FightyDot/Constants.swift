@@ -23,6 +23,72 @@ struct Constants {
         static let pop = "pop"
     }
     
+    //  The board looks like this:
+    //
+    //  0) 0---------1---------2
+    //     |         |         |
+    //  2) |  3------4------5  |
+    //     |  |      |      |  |
+    //  3) |  |   6--7--8   |  |
+    //     |  |   |     |   |  |
+    //  4) 9--10--11    12--13-14
+    //     |  |   |     |   |  |
+    //  5) |  |   15-16-17  |  |
+    //     |  |      |      |  |
+    //  6) |  18-----19-----20 |
+    //     |         |         |
+    //  7) 21--------22-------23
+    struct BoardSetup {
+        static let nodeNeighbours = [
+            [1, 9],           // Node 0
+            [0, 2, 4],        // Node 1
+            [1, 14],          // Node 2
+            [4, 10],          // Node 3
+            [1, 3, 5, 7],     // Node 4
+            [4, 13],          // Node 5
+            [7, 11],          // Node 6
+            [4, 6, 8],        // Node 7
+            [7, 12],          // Node 8
+            [0, 10, 21],      // Node 9
+            [3, 9, 11, 18],   // Node 10
+            [6, 10, 15],      // Node 11
+            [8, 13, 17],      // Node 12
+            [5, 12, 14, 20],  // Node 13
+            [2, 13, 23],      // Node 14
+            [11, 16],         // Node 15
+            [15, 17, 19],     // Node 16
+            [12, 16],         // Node 17
+            [10, 19],         // Node 18
+            [16, 18, 20, 22], // Node 19
+            [13, 19],         // Node 20
+            [9, 22],          // Node 21
+            [19, 21, 23],     // Node 22
+            [14, 22]          // Node 23
+        ]
+        
+        static let millNodes = [
+            // Horizontal mills, left to right
+            [0, 1, 2],      // Node 0
+            [3, 4, 5],      // Node 1
+            [6, 7, 8],      // Node 2
+            [9, 10, 11],    // Node 3
+            [12, 13, 14],   // Node 4
+            [15, 16, 17],   // Node 5
+            [18, 19, 20],   // Node 6
+            [21, 22, 23],   // Node 7
+            
+            // Vertical mills, top to bottom
+            [0, 9, 21],     // Node 8
+            [3, 10, 18],    // Node 9
+            [6, 11, 15],    // Node 10
+            [1, 4, 7],      // Node 11
+            [16, 19, 22],   // Node 12
+            [8, 12, 17],    // Node 13
+            [5, 13, 20],    // Node 14
+            [2, 14, 23]     // Node 15
+        ]
+    }
+    
     struct Colours {
         static let darkBlue = UIColor(red: 42.0/255.0, green: 106.0/255.0, blue: 185.0/255.0, alpha: 1.0)
         static let lightBlue = UIColor(red: 83.0/255.0, green: 161.0/255.0, blue: 221.0/255.0, alpha: 1.0)

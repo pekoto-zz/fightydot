@@ -84,6 +84,11 @@ class Mill {
         
         return false
     }
+
+    func copyValues(from otherMill: Mill) {
+        _pieceCounts = otherMill._pieceCounts
+        _colour = otherMill._colour
+    }
     
     // MARK: - Private functions
     
