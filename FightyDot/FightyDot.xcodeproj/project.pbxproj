@@ -44,6 +44,7 @@
 		701AF5931F10A6C900F15A50 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 701AF5741F109ED600F15A50 /* Lato-Light.ttf */; };
 		701AF5941F10A6CC00F15A50 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 701AF5751F109ED600F15A50 /* Lato-Regular.ttf */; };
 		701AF5961F10AD3B00F15A50 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 701AF5951F10AD3B00F15A50 /* GoogleService-Info.plist */; };
+		70CD2EF11F14F1ED00F7B14E /* GameSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CD2EF01F14F1ED00F7B14E /* GameSnapshot.swift */; };
 		70D6ED9A1F0EF106005A8BFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D6ED991F0EF106005A8BFD /* AppDelegate.swift */; };
 		70D6EDA41F0EF106005A8BFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70D6EDA31F0EF106005A8BFD /* Assets.xcassets */; };
 		99F0949C9BD4CA17B86AF2E5 /* Pods_FightyDot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47034AB99EC0E8045B98C0A0 /* Pods_FightyDot.framework */; };
@@ -88,6 +89,7 @@
 		701AF58E1F10A5B700F15A50 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		701AF5901F10A5CA00F15A50 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		701AF5951F10AD3B00F15A50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		70CD2EF01F14F1ED00F7B14E /* GameSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSnapshot.swift; sourceTree = "<group>"; };
 		70D6ED961F0EF106005A8BFD /* FightyDot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FightyDot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70D6ED991F0EF106005A8BFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70D6EDA31F0EF106005A8BFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -125,6 +127,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		70CD2EEF1F14F1CE00F7B14E /* AI */ = {
+			isa = PBXGroup;
+			children = (
+				70CD2EF01F14F1ED00F7B14E /* GameSnapshot.swift */,
+			);
+			name = AI;
+			sourceTree = "<group>";
+		};
 		70D6ED8D1F0EF106005A8BFD = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +156,7 @@
 		70D6ED981F0EF106005A8BFD /* FightyDot */ = {
 			isa = PBXGroup;
 			children = (
+				70CD2EEF1F14F1CE00F7B14E /* AI */,
 				70D6EDAE1F0EF39F005A8BFD /* Controller */,
 				70D6EDAF1F0EF3B0005A8BFD /* Engine */,
 				70D6EDB01F0EF3CA005A8BFD /* Model */,
@@ -436,6 +447,7 @@
 				701AF5531F109E6300F15A50 /* HelpVC.swift in Sources */,
 				701AF5641F109E8A00F15A50 /* PlayerDelegate.swift in Sources */,
 				701AF5831F109FE400F15A50 /* Unowned.swift in Sources */,
+				70CD2EF11F14F1ED00F7B14E /* GameSnapshot.swift in Sources */,
 				701AF5541F109E6300F15A50 /* MainTabBarVC.swift in Sources */,
 				701AF5561F109E7200F15A50 /* Engine.swift in Sources */,
 				701AF57E1F109FE400F15A50 /* AudioPlayer.swift in Sources */,

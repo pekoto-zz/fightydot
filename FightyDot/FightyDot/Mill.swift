@@ -52,6 +52,13 @@ class Mill {
         _view = view
     }
     
+    private init(id: Int, pieceCounts: [Int], nodes: [Unowned<Node>], colour: PieceColour) {
+        _id = id
+        _pieceCounts = pieceCounts
+        _nodes = nodes
+        _colour = colour
+    }
+    
     func reset() {
         _colour = PieceColour.none
         _pieceCounts[PieceColour.none.rawValue] = Constants.GameplayNumbers.piecesInMill
@@ -83,6 +90,12 @@ class Mill {
         }
         
         return false
+    }
+    
+    func clone() -> Mill? {
+        // TODO The node array needs to be deep copied since it's a reference type
+        
+        return Mill(id: _id, pieceCounts: _pieceCounts, nodes: _nodes, colour: _colour)
     }
     
     // MARK: - Private functions
