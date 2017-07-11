@@ -142,6 +142,18 @@ class Player {
         _view?.setupUIFor(player: self)
     }
     
+    // For cloning
+    private init(name: String, colour: PlayerColour, type: PlayerType, isStartingPlayer: Bool, playerNum: PlayerNumber, piecesLeftToPlay: Int, isCurrentPlayer: Bool, piecesOnBoard: [Node]) {
+        _name = name
+        _colour = colour
+        _type = type
+        _isStartingPlayer = isStartingPlayer
+        _playerNum = playerNum
+        _piecesLeftToPlay = piecesLeftToPlay
+        _isCurrentPlayer = isCurrentPlayer
+        _piecesOnBoard = piecesOnBoard
+    }
+    
     // Returns true if mill formed
     func playPiece(node: Node) -> Bool {
         _piecesLeftToPlay = _piecesLeftToPlay - 1
@@ -166,6 +178,11 @@ class Player {
     func reset() {
         _piecesLeftToPlay = Constants.GameplayNumbers.startingPieces
         _piecesOnBoard = []
+    }
+    
+    func clone() -> Player {
+        // TODO Nodes have to be deep copied
+        return Player(name: _name, colour: _colour, type: _type, isStartingPlayer: _isStartingPlayer, playerNum: _playerNum, piecesLeftToPlay: _piecesLeftToPlay, isCurrentPlayer: _isCurrentPlayer, piecesOnBoard: _piecesOnBoard)
     }
     
     // MARK: - Private functions
