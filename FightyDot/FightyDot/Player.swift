@@ -114,7 +114,7 @@ class Player {
               return .MovingPieces
             } else if canFly() {
                 return .FlyingPieces
-            } else{
+            } else {
                 return .GameOver
             }
         }

@@ -19,38 +19,65 @@ class GameSnapshot {
     private var _board: Board
     private var _currentPlayer: Player
     private var _opponent: Player
-
-    init(board: Board, currentPlayer: Player, opponent: Player) {
+    
+    private var _millFormedLastTurn: Bool
+    
+    init(board: Board, currentPlayer: Player, opponent: Player, millFormedLastTurn: Bool = false) {
         _board = board
         _currentPlayer = currentPlayer
         _opponent = opponent
+        _millFormedLastTurn = millFormedLastTurn
     }
     
+    // Return the possible based on the state of this game
     func getPossibleMoves() -> [Move] {
-        var possibleMoves: [Move]
+        var possibleMoves: [Move] = []
         
-        let state = _currentPlayer.state
-        
-        switch (state) {
-        case .PlacingPieces:
-            possibleMoves = getPlacementMoves()
-        case .MovingPieces, .MovingPieces_PieceSelected:
-            possibleMoves = getMovementMoves()
-        case .TakingPiece:
+        if(_millFormedLastTurn) {
             possibleMoves = getTakingMoves()
-        case .FlyingPieces, .FlyingPieces_PieceSelected:
+        } else if (_currentPlayer.state == .PlacingPieces) {
+            possibleMoves = getPlacementMoves()
+        } else if (_currentPlayer.state == .MovingPieces) {
+            possibleMoves = getMovementMoves()
+        } else if (_currentPlayer.state == .FlyingPieces) {
             possibleMoves = getFlyingMoves()
-        case .GameOver:
+        } else if (_currentPlayer.state == .GameOver) {
             possibleMoves = []
         }
         
         return possibleMoves
     }
     
-    func make(move: Move) -> GameSnapshot? {
-        // TODO: clone board/players and update them based on move
-        // TODO: GameSnapshot(board...update, opponent, currentPlayer)    (switch player argument order)
-        return nil
+    // What the game will look like if we make this move
+    // (We need to store every game state for ranking -- hence why we clone())
+    func make(move: Move) -> GameSnapshot {
+        
+        let board = _board.clone()
+        let currentPlayer = _currentPlayer.clone(to: board)
+        let opponent = _opponent.clone(to: board)
+        
+        let nextPlayer: Player
+        let nextOpponent: Player
+        var millFormed = false
+        
+        switch (move.type) {
+        case .PlacePiece:
+            millFormed = currentPlayer.playPiece(node: move.targetNode)
+        case .MovePiece, .FlyPiece:
+            millFormed = currentPlayer.movePiece(from: move.targetNode, to: move.destinationNode!)
+        case .TakePiece:
+            opponent.losePiece(node: move.targetNode)
+        }
+        
+        if(millFormed) {
+            nextPlayer = currentPlayer
+            nextOpponent = opponent
+        } else {
+            nextPlayer = opponent
+            nextOpponent = currentPlayer
+        }
+        
+        return GameSnapshot(board: board, currentPlayer: nextPlayer, opponent: nextOpponent, millFormedLastTurn: millFormed)
     }
     
     // MARK: - Private functions
