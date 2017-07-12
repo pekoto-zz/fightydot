@@ -10,19 +10,19 @@ import Foundation
 
 class AIPlayer: Player {
 
-    private var _state: AIPlayerState = .Waiting {
+    private var _processingState: AIPlayerState = .Waiting {
         didSet {
-            view?.update(status: _state)
+            view?.update(status: _processingState)
         }
     }
     
     private var _thinkTime: Double
     
-    var state: AIPlayerState {
+    var processingState: AIPlayerState {
         get {
-            return _state
+            return _processingState
         } set {
-            _state = newValue
+            _processingState = newValue
         }
     }
     
@@ -33,7 +33,7 @@ class AIPlayer: Player {
     }
     
     init(name: String, colour: PlayerColour, type: PlayerType, isStartingPlayer: Bool, playerNum: PlayerNumber, view: PlayerDelegate?, thinkTime: Double) throws {
-        _state = .Waiting
+        _processingState = .Waiting
         _thinkTime = thinkTime
         
         try super.init(name: name, colour: colour, type: type, isStartingPlayer: isStartingPlayer, playerNum: playerNum, view: view)
@@ -41,7 +41,7 @@ class AIPlayer: Player {
     
     override func reset() {
         super.reset()
-        _state = .Waiting
+        _processingState = .Waiting
     }
     
     func pickNodeToPlaceFrom(board: Board) -> Node {

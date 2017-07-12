@@ -106,7 +106,7 @@ class Player {
         }
     }
     
-    var nextState: GameState {
+    var state: GameState {
         get {
             if canPlacePiece() {
                 return .PlacingPieces

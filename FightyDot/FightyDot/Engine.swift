@@ -168,35 +168,35 @@ class Engine {
     // rather than the view, which could be incorrectly configured.
     private func makeAIMoveFor(player: AIPlayer) {
         
-        player.state = .Thinking
+        player.processingState = .Thinking
         
         DispatchQueue.main.asyncAfter(deadline: .now() + player.thinkTime, execute: {
             if(self._state == .PlacingPieces) {
                 let spotToPlace = player.pickNodeToPlaceFrom(board: self._board)
-                player.state = .Moving
+                player.processingState = .Moving
                 
                 try! self.placeNodeFor(player: player, nodeId: spotToPlace.id)
             } else if (self._state == .TakingPiece) {
                 let takableNodes = self.nextPlayer().takeableNodes
                 let pieceToTake = player.pickNodeToTakeFrom(takableNodes: takableNodes)
-                player.state = .Moving
+                player.processingState = .Moving
                 
                 try! self.takeNodeBelongingTo(player: self.nextPlayer(), nodeId: pieceToTake!.id)
             } else if (self._state == .MovingPieces) || (self._state == .FlyingPieces) {
                 let nodeToMove = player.pickNodeToMove()
                 let validMoveSpots = try! self.getMovablePositionsFor(nodeWithId: nodeToMove!.id)
                 let spotToMoveTo = player.pickSpotToMoveToFrom(validMoveSpots: validMoveSpots)
-                player.state = .Moving
+                player.processingState = .Moving
                 
                 try! self.moveNodeFor(player: player, from: nodeToMove!.id, to: spotToMoveTo!)
             }
             
-            player.state = .Waiting
+            player.processingState = .Waiting
         })
     }
     
     private func nextTurn() throws {
-        _state = nextPlayer().nextState
+        _state = nextPlayer().state
         
         if(_state == .GameOver) {
             _view?.gameWon(by: _currentPlayer)
