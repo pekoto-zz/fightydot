@@ -103,6 +103,20 @@ class Board {
         return board
     }
     
+    // MARK: - Heuristic evaluation helpers
+    
+    var numOfGreenMills: Int {
+        get {
+            return _mills.filter { mill in mill.colour == .green }.count
+        }
+    }
+    
+    var numOfRedMills: Int {
+        get {
+            return _mills.filter { mill in mill.colour == .red }.count
+        }
+    }
+    
     // MARK: - Private functions
     
     private func setup(view: EngineDelegate?) {

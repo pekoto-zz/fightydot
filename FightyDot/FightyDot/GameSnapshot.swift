@@ -152,13 +152,16 @@ class GameSnapshot {
             // https://arxiv.org/pdf/1408.0032.pdf
             
             // Possible factors (can use differences for some of these):
-            // If you/your opponent closed a mill
-            // Number of morrises
-            // Number of blocked pieces
-            // Number of pieces
+            // If you/your opponent closed a mill -- DONE
+            // Number of morrises -- DONE
+            // Number of blocked pieces -- DONE
+            // Number of pieces -- DONE
             // Number of 2-piece configurations -- one way to close this mill
             // Number of 3-piece configurations -- two ways to close this mill
             // Number of double morrises -- two morrises share a common piece
+            
+            // (The evaluation function differs depending on game state.
+            //  For exmaple, there are no blocked nodes while flying.)
         }
         
         return heuristicScore

@@ -199,6 +199,14 @@ class Player {
         return player
     }
     
+    // MARK: - Heuristic evaluation helpers
+
+    var numOfBlockedNodes: Int {
+        get {
+            return _piecesOnBoard.filter{ (node) in node.blocked }.count
+        }
+    }
+    
     // MARK: - Private functions
     
     private func canPlacePiece() -> Bool {

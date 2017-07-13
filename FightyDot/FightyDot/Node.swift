@@ -48,6 +48,12 @@ class Node {
         }
     }
     
+    var blocked: Bool {
+        get {
+            return emptyNeighbours.count == 0
+        }
+    }
+    
     var neighbours: [Node] {
         get {
             return _neighbours
