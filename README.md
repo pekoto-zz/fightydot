@@ -41,7 +41,7 @@ The basic flow is as follows:
 
 The `ModelViews` encapsulate parts of the view that naturally belong together. For example, a `PlayerView` encapsulates all of the labels, counters, and icons for a player.
 
-The board is described using an [adjacency list](https://en.wikipedia.org/wiki/Adjacency_list) in `Board.swift`, with the related view images connected in storyboard.
+The board is described using an [adjacency list](https://en.wikipedia.org/wiki/Adjacency_list), with the related view images connected in storyboard.
 
 `Animations.swift` contains some custom Core Animation animations, and `AudioPlayer.swift`...well, what do you think it does? :)
 
