@@ -106,6 +106,12 @@ class Player {
         }
     }
     
+    var lostGame: Bool {
+        get {
+            return hasLost()
+        }
+    }
+    
     var state: GameState {
         get {
             if canPlacePiece() {

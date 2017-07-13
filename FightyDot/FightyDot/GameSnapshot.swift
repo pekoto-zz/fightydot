@@ -22,6 +22,12 @@ class GameSnapshot {
     
     private var _millFormedLastTurn: Bool
     
+    var heuristicEvaluation: Int {
+        get {
+            return evaluateHeuristics()
+        }
+    }
+    
     init(board: Board, currentPlayer: Player, opponent: Player, millFormedLastTurn: Bool = false) {
         _board = board
         _currentPlayer = currentPlayer
@@ -128,5 +134,41 @@ class GameSnapshot {
         }
         
         return flyingMoves
+    }
+    
+    private func evaluateHeuristics() -> Int {
+        let (greenPlayer, redPlayer) = getPlayers()
+        var heuristicScore = 0
+        
+        // Red wins
+        if(greenPlayer.lostGame) {
+            heuristicScore = Int.min
+        } // Green wins
+        else if (redPlayer.lostGame) {
+            heuristicScore = Int.max
+        } else {
+            // References: http://www.dasconference.ro/papers/2008/B7.pdf
+            // Some example weights here: https://kartikkukreja.wordpress.com/2014/03/17/heuristicevaluation-function-for-nine-mens-morris/
+            // https://arxiv.org/pdf/1408.0032.pdf
+            
+            // Possible factors (can use differences for some of these):
+            // If you/your opponent closed a mill
+            // Number of morrises
+            // Number of blocked pieces
+            // Number of pieces
+            // Number of 2-piece configurations -- one way to close this mill
+            // Number of 3-piece configurations -- two ways to close this mill
+            // Number of double morrises -- two morrises share a common piece
+        }
+        
+        return heuristicScore
+    }
+    
+    private func getPlayers() -> (greenPlayer: Player, redPlayer: Player) {
+        if(_currentPlayer.colour == .green) {
+            return (_currentPlayer, _opponent)
+        } else {
+            return (_opponent, _currentPlayer)
+        }
     }
 }
