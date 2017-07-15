@@ -16,10 +16,6 @@ class Unowned<T: AnyObject> {
     init(value: T) {
         self.value = value
     }
-    
-    func isblah() -> Bool {
-        return true
-    }
 }
 
 // MARK: - Equatable

@@ -47,6 +47,7 @@
 //  7) G---------G--------[O]
 //
 //  Double mill (can move pieces back and forth between 2 mills):
+//  (I.e., a 2 piece configuration, where the empty node has a neighbour in a mill)
 //
 //  0) O---------O---------O
 //     |         |         |

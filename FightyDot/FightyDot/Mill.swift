@@ -92,6 +92,22 @@ class Mill {
     
     // MARK: - Heuristic evaluation helpers
 
+    func isInDoubleMillConfiguration(for colour: PieceColour) -> Bool {
+        if(!isInTwoPieceConfiguration(for: colour)) {
+            return false
+        }
+        
+        let emptyNode = _nodes.filter{ node in node.value.colour == .none}.first
+        
+        for neighbour in (emptyNode?.value.neighbours)! {
+            if(neighbour.inActiveMill) {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     func isInTwoPieceConfiguration(for colour: PieceColour) -> Bool {
         return (_pieceCounts[PieceColour.none.rawValue] == 1) && (_pieceCounts[colour.rawValue] == 2)
     }
