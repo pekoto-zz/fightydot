@@ -105,16 +105,27 @@ class Board {
     
     // MARK: - Heuristic evaluation helpers
     
-    var numOfGreenMills: Int {
-        get {
-            return _mills.filter { mill in mill.colour == .green }.count
-        }
+    func numOfMills(for colour: PieceColour) -> Int {
+        return _mills.filter{ mill in mill.colour == colour }.count
     }
     
-    var numOfRedMills: Int {
-        get {
-            return _mills.filter { mill in mill.colour == .red }.count
+    // We always use these together when evaluating, so it's more efficient to group the calculations
+    func numOfTwoAndThreePieceConfigurations(for colour: PieceColour) -> (twoPieceCount: Int, threePieceCount: Int) {
+        
+        var threePieceCount = 0
+        
+        let twoPieceMills = _mills.filter{ mill in mill.isInTwoPieceConfiguration(for: colour) }
+    
+        // The number of two piece mills will always be fairly small
+        for i in 0...twoPieceMills.count-2 {
+            for j in i+1...twoPieceMills.count-1 {
+                if(twoPieceMills[i].intersects(with: twoPieceMills[j])) {
+                    threePieceCount += 1
+                }
+            }
         }
+        
+        return (twoPieceMills.count, threePieceCount)
     }
     
     // MARK: - Private functions

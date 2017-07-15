@@ -156,8 +156,8 @@ class GameSnapshot {
             // Number of morrises -- DONE
             // Number of blocked pieces -- DONE
             // Number of pieces -- DONE
-            // Number of 2-piece configurations -- one way to close this mill
-            // Number of 3-piece configurations -- two ways to close this mill
+            // Number of 2-piece configurations -- one way to close this mill -- DONE
+            // Number of 3-piece configurations -- two ways to close this mill -- DONE
             // Number of double morrises -- two morrises share a common piece
             
             // (The evaluation function differs depending on game state.

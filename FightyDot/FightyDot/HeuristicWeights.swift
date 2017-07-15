@@ -13,6 +13,7 @@
 //  Ultimately I would like to adjust these dynamically, syncing the best weights over Firebase.
 //
 //  Two piece configuration (adding one more piece would close a mill:
+//  (I.e., 2 mill nodes are the same colour, and the other is empty)
 //
 //  0) O---------O---------O
 //     |         |         |
@@ -29,6 +30,7 @@
 //  7) G---------G--------[O]
 //
 //  Three piece configuration (two uncompleted mills with a shared piece):
+//  (I.e., 2 2-piece-configurations share a node)
 //
 //  0)[O]--------O---------O
 //     |         |         |

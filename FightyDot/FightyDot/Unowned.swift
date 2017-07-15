@@ -16,4 +16,17 @@ class Unowned<T: AnyObject> {
     init(value: T) {
         self.value = value
     }
+    
+    func isblah() -> Bool {
+        return true
+    }
+}
+
+// MARK: - Equatable
+
+extension Unowned: Equatable {
+    
+    static func ==(lhs: Unowned<T>, rhs: Unowned<T>) -> Bool {
+        return lhs === rhs
+    }
 }

@@ -90,6 +90,16 @@ class Mill {
         _colour = otherMill._colour
     }
     
+    // MARK: - Heuristic evaluation helpers
+
+    func isInTwoPieceConfiguration(for colour: PieceColour) -> Bool {
+        return (_pieceCounts[PieceColour.none.rawValue] == 1) && (_pieceCounts[colour.rawValue] == 2)
+    }
+    
+    func intersects(with otherMill: Mill) -> Bool {
+        return _nodes.filter(otherMill.nodes.contains).count > 0
+    }
+    
     // MARK: - Private functions
     
     // Once a mill has 3 pieces of a certain colour, the colour of the mill changes
