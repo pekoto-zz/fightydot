@@ -6,6 +6,10 @@ target 'FightyDot' do
   use_frameworks!
 
   # Pods for FightyDot
-  pod ‘Firebase/Core’
+  pod 'Firebase/Core'
 
+  target 'FightyDotTests' do
+    inherit! :search_paths
+    pod 'Firebase'
+  end
 end

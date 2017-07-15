@@ -87,7 +87,7 @@ class Engine {
         case .MovingPieces:
             return (_board.getNode(withID: id)?.emptyNeighbours.map { $0.id})!
         case .FlyingPieces:
-            return _board.getNodes(withColour: .none).map { $0.id }
+            return _board.getNodes(for: .none).map { $0.id }
         default:
             throw EngineError.InvalidState
         }
@@ -148,7 +148,7 @@ class Engine {
         case .MovingPieces, .FlyingPieces:
             return _currentPlayer.movableNodes
         default:
-            return _board.getNodes(withColour: .none)
+            return _board.getNodes(for: .none)
         }
     }
     

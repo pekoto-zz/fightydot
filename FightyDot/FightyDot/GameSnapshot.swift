@@ -91,7 +91,7 @@ class GameSnapshot {
     private func getPlacementMoves() -> [Move] {
         var placementMoves: [Move] = []
         
-        for node in _board.getNodes(withColour: .none) {
+        for node in _board.getNodes(for: .none) {
             let move = Move(type: .PlacePiece, targetNode: node)
             placementMoves.append(move)
         }
@@ -127,7 +127,7 @@ class GameSnapshot {
         var flyingMoves: [Move] = []
         
         for node in _currentPlayer.movableNodes {
-            for emptyNode in _board.getNodes(withColour: .none) {
+            for emptyNode in _board.getNodes(for: .none) {
                 let move = Move(type: .FlyPiece, targetNode: node, destinationNode: emptyNode)
                 flyingMoves.append(move)
             }

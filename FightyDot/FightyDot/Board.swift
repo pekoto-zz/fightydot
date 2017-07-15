@@ -47,7 +47,7 @@ class Board {
         }
     }
     
-    func getNodes(withColour colour: PieceColour) -> [Node] {
+    func getNodes(for colour: PieceColour) -> [Node] {
         return _nodes.filter { (node) in node.colour == colour }
     }
     
@@ -109,6 +109,10 @@ class Board {
         return _mills.filter{ mill in mill.colour == colour }.count
     }
     
+    func numOfDoubleMills(for colour: PieceColour) -> Int {
+        return _mills.filter{ mill in mill.isInDoubleMillConfiguration(for: colour) }.count
+    }
+    
     // We always use these together when evaluating, so it's more efficient to group the calculations
     func numOfTwoAndThreePieceConfigurations(for colour: PieceColour) -> (twoPieceCount: Int, threePieceCount: Int) {
         
@@ -117,10 +121,12 @@ class Board {
         let twoPieceMills = _mills.filter{ mill in mill.isInTwoPieceConfiguration(for: colour) }
     
         // The number of two piece mills will always be fairly small
-        for i in 0...twoPieceMills.count-2 {
-            for j in i+1...twoPieceMills.count-1 {
-                if(twoPieceMills[i].intersects(with: twoPieceMills[j])) {
-                    threePieceCount += 1
+        if(twoPieceMills.count >= 2) {
+            for i in 0...twoPieceMills.count-2 {
+                for j in i+1...twoPieceMills.count-1 {
+                    if(twoPieceMills[i].intersects(with: twoPieceMills[j])) {
+                        threePieceCount += 1
+                    }
                 }
             }
         }

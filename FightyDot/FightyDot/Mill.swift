@@ -113,7 +113,15 @@ class Mill {
     }
     
     func intersects(with otherMill: Mill) -> Bool {
-        return _nodes.filter(otherMill.nodes.contains).count > 0
+        for node in _nodes {
+            for otherNode in otherMill.nodes {
+                if(node.value.id == otherNode.value.id) {
+                    return true
+                }
+            }
+        }
+        
+        return false
     }
     
     // MARK: - Private functions

@@ -45,7 +45,7 @@ class AIPlayer: Player {
     }
     
     func pickNodeToPlaceFrom(board: Board) -> Node {
-        let emptyNodes = board.getNodes(withColour: .none)
+        let emptyNodes = board.getNodes(for: .none)
         
         // Since we have more nodes than pieces, there will always be an empty spot
         return emptyNodes.randomElement()!
