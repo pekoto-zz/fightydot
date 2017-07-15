@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		70005D431F19B68000FB1DDF /* HeuristicWeights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70005D421F19B68000FB1DDF /* HeuristicWeights.swift */; };
 		701AF5511F109E6300F15A50 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701AF54D1F109E6300F15A50 /* AlertVC.swift */; };
 		701AF5521F109E6300F15A50 /* GameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701AF54E1F109E6300F15A50 /* GameVC.swift */; };
 		701AF5531F109E6300F15A50 /* HelpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701AF54F1F109E6300F15A50 /* HelpVC.swift */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		47034AB99EC0E8045B98C0A0 /* Pods_FightyDot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FightyDot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70005D421F19B68000FB1DDF /* HeuristicWeights.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeuristicWeights.swift; sourceTree = "<group>"; };
 		701AF54D1F109E6300F15A50 /* AlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
 		701AF54E1F109E6300F15A50 /* GameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameVC.swift; sourceTree = "<group>"; };
 		701AF54F1F109E6300F15A50 /* HelpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpVC.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				701AF5791F109FE400F15A50 /* Enums.swift */,
 				701AF57A1F109FE400F15A50 /* Errors.swift */,
 				701AF57B1F109FE400F15A50 /* Extensions.swift */,
+				70005D421F19B68000FB1DDF /* HeuristicWeights.swift */,
 				701AF57C1F109FE400F15A50 /* Unowned.swift */,
 			);
 			name = Util;
@@ -443,6 +446,7 @@
 				701AF55E1F109E8000F15A50 /* Node.swift in Sources */,
 				701AF58C1F109FFD00F15A50 /* MillView.swift in Sources */,
 				701AF55F1F109E8000F15A50 /* Player.swift in Sources */,
+				70005D431F19B68000FB1DDF /* HeuristicWeights.swift in Sources */,
 				701AF5871F109FF500F15A50 /* SkyBlueGradientView.swift in Sources */,
 				701AF5811F109FE400F15A50 /* Errors.swift in Sources */,
 				70680B1D1F1645440078342B /* Move.swift in Sources */,
