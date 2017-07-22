@@ -57,10 +57,11 @@ class GameSnapshot {
     // Returns the resulting game snapshot (board & player states) after a certain move is made
     // (We need to store every game state for minimax ranking -- hence why we clone())
     func make(move: Move) -> GameSnapshot {
-        
         let board = _board.clone()
         let currentPlayer = _currentPlayer.clone(to: board)
         let opponent = _opponent.clone(to: board)
+        
+        let targetNode = board.getNode(withID: move.targetNode.id)!
         
         let nextPlayer: Player
         let nextOpponent: Player
@@ -68,9 +69,10 @@ class GameSnapshot {
         
         switch (move.type) {
         case .PlacePiece:
-            millFormed = currentPlayer.playPiece(node: move.targetNode)
+            millFormed = currentPlayer.playPiece(node: targetNode)
         case .MovePiece, .FlyPiece:
-            millFormed = currentPlayer.movePiece(from: move.targetNode, to: move.destinationNode!)
+            let destinationNode = board.getNode(withID: move.destinationNode!.id)!
+            millFormed = currentPlayer.movePiece(from: targetNode, to: destinationNode)
         case .TakePiece:
             opponent.losePiece(node: move.targetNode)
         }

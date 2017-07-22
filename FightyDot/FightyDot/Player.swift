@@ -194,11 +194,13 @@ class Player {
     func clone(to board: Board) -> Player {
         let player = Player(name: _name, colour: _colour, type: _type, isStartingPlayer: _isStartingPlayer, playerNum: _playerNum, piecesLeftToPlay: _piecesLeftToPlay, isCurrentPlayer: _isCurrentPlayer)
         
-        for i in 0..._piecesOnBoard.count-1 {
-            let nodeId = _piecesOnBoard[i].id
+        if(!_piecesOnBoard.isEmpty) {
+            for i in 0..._piecesOnBoard.count-1 {
+                let nodeId = _piecesOnBoard[i].id
             
-            if let nodeToAdd = board.getNode(withID: nodeId) {
-                player._piecesOnBoard.append(nodeToAdd)
+                if let nodeToAdd = board.getNode(withID: nodeId) {
+                    player._piecesOnBoard.append(nodeToAdd)
+                }
             }
         }
         
