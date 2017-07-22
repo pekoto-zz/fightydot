@@ -54,7 +54,7 @@ class GameSnapshot {
         return possibleMoves
     }
     
-    // Returns the resulting game state (board & player states) after a certain move is made
+    // Returns the resulting game snapshot (board & player states) after a certain move is made
     // (We need to store every game state for minimax ranking -- hence why we clone())
     func make(move: Move) -> GameSnapshot {
         
