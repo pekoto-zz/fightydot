@@ -132,6 +132,12 @@ class Player {
         }
     }
     
+    var numOfPiecesInPlay: Int {
+        get {
+            return _piecesOnBoard.count
+        }
+    }
+    
     init(name: String, colour: PlayerColour, type: PlayerType, isStartingPlayer: Bool, playerNum: PlayerNumber, view: PlayerDelegate?) throws {
         guard !name.isEmpty else {
             throw PlayerError.EmptyName

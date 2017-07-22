@@ -67,21 +67,21 @@ import Foundation
 
 struct HeuristicWeights {
     struct PlacementPhase {
-        static let closedMill = 18
-        static let mills = 26
-        static let blockedOpponentPieces = 1
-        static let totalPieces = 6
-        static let twoPieceConfigurations = 12  // Mill can be closed in one way (see comments)
-        static let threePieceConfigurations = 7 // Mill can be closed in two ways (see comments)
+        static let closedMill = 17
+        static let mills = 29
+        static let blockedOpponentPieces = 2
+        static let piecesInPlay = 8
+        static let twoPieceConfigurations = 16  // Mill can be closed in one way (see comments)
+        static let threePieceConfigurations = 6 // Mill can be closed in two ways (see comments)
     }
     
     struct MovementPhase {
-        static let closedMill = 14
-        static let mills = 43
-        static let blockedOpponentPieces = 10
-        static let totalPieces = 8
+        static let closedMill = 22
+        static let mills = 39
+        static let blockedOpponentPieces = 12
+        static let piecesInPlay = 6
         static let openedMill = 21
-        static let doubleMill = 40  // Moving one piece between mills forms another mill (see comments)
+        static let doubleMill = 36  // Moving one piece between mills forms another mill (see comments)
     }
     
     struct FlyingPhase {

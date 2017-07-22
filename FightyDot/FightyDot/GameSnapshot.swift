@@ -35,7 +35,7 @@ class GameSnapshot {
         _millFormedLastTurn = millFormedLastTurn
     }
     
-    // Return the possible based on the state of this game
+    // Return the possible moves based on the state of this game
     func getPossibleMoves() -> [Move] {
         var possibleMoves: [Move] = []
         
@@ -54,8 +54,8 @@ class GameSnapshot {
         return possibleMoves
     }
     
-    // What the game will look like if we make this move
-    // (We need to store every game state for ranking -- hence why we clone())
+    // Returns the resulting game state (board & player states) after a certain move is made
+    // (We need to store every game state for minimax ranking -- hence why we clone())
     func make(move: Move) -> GameSnapshot {
         
         let board = _board.clone()
@@ -135,36 +135,97 @@ class GameSnapshot {
         
         return flyingMoves
     }
-    
+
+    // Reference: http://www.dasconference.ro/papers/2008/B7.pdf
+    // Returns Int.max if green is in a winning position (red lost)
+    // Return Int.min if red is in a winning position (green lost)
+    // Returns green score - red score otherwise
     private func evaluateHeuristics() -> Int {
         let (greenPlayer, redPlayer) = getPlayers()
-        var heuristicScore = 0
         
-        // Red wins
-        if(greenPlayer.lostGame) {
-            heuristicScore = Int.min
-        } // Green wins
-        else if (redPlayer.lostGame) {
-            heuristicScore = Int.max
+        let greenPlayerScore = getScorefor(player: greenPlayer, opponent: redPlayer)
+        let redPlayerScore = getScorefor(player: redPlayer, opponent: greenPlayer)
+            
+        return greenPlayerScore - redPlayerScore
+    }
+    
+    private func getScorefor(player: Player, opponent: Player) -> Int {
+        var score = 0
+        
+        let state = player.state
+        let millClosedLastTurn = closedMillLastTurn(player: player)
+        
+        if(player.lostGame) {
+            player.colour == .green ? (score = Int.min) : (score = Int.max)
+        } else if (state == .PlacingPieces) {
+            score = calculatePlacementScore(player: player, opponent: opponent, millClosedLastTurn: millClosedLastTurn)
+        } else if (state == .MovingPieces) {
+            score = calculateMovementScore(player: player, opponent: opponent, millClosedLastTurn: millClosedLastTurn)
         } else {
-            // References: http://www.dasconference.ro/papers/2008/B7.pdf
-            // Some example weights here: https://kartikkukreja.wordpress.com/2014/03/17/heuristicevaluation-function-for-nine-mens-morris/
-            // https://arxiv.org/pdf/1408.0032.pdf
-            
-            // Possible factors (can use differences for some of these):
-            // If you/your opponent closed a mill -- DONE
-            // Number of morrises -- DONE
-            // Number of blocked pieces -- DONE
-            // Number of pieces -- DONE
-            // Number of 2-piece configurations -- one way to close this mill -- DONE
-            // Number of 3-piece configurations -- two ways to close this mill -- DONE
-            // Number of double morrises -- two morrises share a common piece -- DONE
-            
-            // (The evaluation function differs depending on game state.
-            //  For exmaple, there are no blocked nodes while flying.)
+            score = calculateFlyingScore(player: player, opponent: opponent, millClosedLastTurn: millClosedLastTurn)
         }
         
-        return heuristicScore
+        return score
+    }
+    
+    // Factors:
+    //  - closed a mill
+    //  - number of mills
+    //  - blocked oppoent pieces
+    //  - number of pieces in play
+    //  - two piece configurations (mill can be closed in 1 way)
+    //  - three piece configurations (mill can be closed in 2 ways)
+    private func calculatePlacementScore(player: Player, opponent: Player, millClosedLastTurn: Bool) -> Int {
+        let(twoPieceConfigs, threePieceConfigs) = _board.numOfTwoAndThreePieceConfigurations(for: player.pieceColour)
+        
+        var score = (_board.numOfMills(for: player.pieceColour) * HeuristicWeights.PlacementPhase.mills)
+                  + (opponent.numOfBlockedNodes * HeuristicWeights.PlacementPhase.blockedOpponentPieces)
+                  + (player.numOfPiecesInPlay * HeuristicWeights.PlacementPhase.piecesInPlay)
+                  + (twoPieceConfigs * HeuristicWeights.PlacementPhase.twoPieceConfigurations)
+                  + (threePieceConfigs * HeuristicWeights.PlacementPhase.threePieceConfigurations)
+        
+        if(millClosedLastTurn) {
+            score += HeuristicWeights.PlacementPhase.closedMill
+        }
+        
+        return score
+    }
+    
+    // Factors:
+    //  - closed a mill
+    //  - number of mills
+    //  - blocked opponent pieces
+    //  - number of pieces in play
+    //  - TODO opened a mill
+    //  - double mill
+    private func calculateMovementScore(player: Player, opponent: Player, millClosedLastTurn: Bool) -> Int {
+        var score = (_board.numOfMills(for: player.pieceColour) * HeuristicWeights.MovementPhase.mills)
+                  + (opponent.numOfBlockedNodes * HeuristicWeights.MovementPhase.blockedOpponentPieces)
+                  + (player.numOfPiecesInPlay * HeuristicWeights.MovementPhase.piecesInPlay)
+                  + (_board.numOfDoubleMills(for: player.pieceColour) * HeuristicWeights.MovementPhase.doubleMill)
+        
+        if(millClosedLastTurn) {
+            score += HeuristicWeights.MovementPhase.closedMill
+        }
+        
+        return score
+    }
+    
+    // Factors:
+    //  - Two piece configurations (mill can be closed in 1 way)
+    //  - Three piece configurations (mill can be closed in 2 ways)
+    //  - closed a mill
+    private func calculateFlyingScore(player: Player, opponent: Player, millClosedLastTurn: Bool) -> Int {
+        let(twoPieceConfigs, threePieceConfigs) = _board.numOfTwoAndThreePieceConfigurations(for: player.pieceColour)
+
+        var score = (twoPieceConfigs * HeuristicWeights.FlyingPhase.twoPieceConfigurations)
+                  + (threePieceConfigs * HeuristicWeights.FlyingPhase.threePieceConfigurations)
+        
+        if(millClosedLastTurn) {
+            score += HeuristicWeights.FlyingPhase.closedMill
+        }
+        
+        return score
     }
     
     private func getPlayers() -> (greenPlayer: Player, redPlayer: Player) {
@@ -173,5 +234,9 @@ class GameSnapshot {
         } else {
             return (_opponent, _currentPlayer)
         }
+    }
+    
+    private func closedMillLastTurn(player: Player) -> Bool {
+        return player === _currentPlayer && _millFormedLastTurn
     }
 }
