@@ -22,7 +22,7 @@ class GameSnapshot {
     
     private var _millFormedLastTurn: Bool
     
-    var heuristicEvaluation: Int {
+    var heuristicScore: Int {
         get {
             return evaluateHeuristics()
         }
@@ -144,11 +144,20 @@ class GameSnapshot {
     // Returns green score - red score otherwise
     private func evaluateHeuristics() -> Int {
         let (greenPlayer, redPlayer) = getPlayers()
+        var score = 0
         
-        let greenPlayerScore = getScorefor(player: greenPlayer, opponent: redPlayer)
-        let redPlayerScore = getScorefor(player: redPlayer, opponent: greenPlayer)
+        if(redPlayer.lostGame) {
+            return Int.max
+        } else if (greenPlayer.lostGame) {
+            return Int.min
+        } else {
+            let greenPlayerScore = getScorefor(player: greenPlayer, opponent: redPlayer)
+            let redPlayerScore = getScorefor(player: redPlayer, opponent: greenPlayer)
             
-        return greenPlayerScore - redPlayerScore
+            score = greenPlayerScore - redPlayerScore
+        }
+        
+        return score
     }
     
     private func getScorefor(player: Player, opponent: Player) -> Int {
@@ -157,9 +166,7 @@ class GameSnapshot {
         let state = player.state
         let millClosedLastTurn = closedMillLastTurn(player: player)
         
-        if(player.lostGame) {
-            player.colour == .green ? (score = Int.min) : (score = Int.max)
-        } else if (state == .PlacingPieces) {
+        if (state == .PlacingPieces) {
             score = calculatePlacementScore(player: player, opponent: opponent, millClosedLastTurn: millClosedLastTurn)
         } else if (state == .MovingPieces) {
             score = calculateMovementScore(player: player, opponent: opponent, millClosedLastTurn: millClosedLastTurn)

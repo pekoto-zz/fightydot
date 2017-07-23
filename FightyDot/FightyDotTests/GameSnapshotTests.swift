@@ -178,9 +178,7 @@ class GameSnapshotTests: XCTestCase {
     }
     
     // MARK: - Make move tests
-    // Feed in some move and check the resulting
-    // game snapshot looks correct
-    // TODO tests for -- fly, fly mill formed, take piece
+    // Feed in some move and check the resulting game snapshot is correct
     
     func testPlacePiece() {
         let move = Move(type: .PlacePiece, targetNode: _board.getNode(withID: 1)!)
@@ -357,5 +355,240 @@ class GameSnapshotTests: XCTestCase {
         XCTAssertEqual(moves.filter {move in move.type == .TakePiece }.count, 9)
     }
     
-    // (TODO) MARK: - Heuristic evaluation score tests
+    // MARK: - Heuristic evaluation score tests
+    
+    func testHeuristic_ScoreEven() {
+        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 2)!)
+        
+        _ = _p2.playPiece(node: _board.getNode(withID: 15)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 16)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 17)!)
+        
+        XCTAssertEqual(_gameSnapshot.heuristicScore, 0)
+    }
+    
+    func testHeuristic_GreenWinState() {
+        _ = _p2.playPiece(node: _board.getNode(withID: 15)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 16)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 17)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 18)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 19)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 20)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 21)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 22)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 23)!)
+        
+        _p2.losePiece(node: _board.getNode(withID: 15)!)
+        _p2.losePiece(node: _board.getNode(withID: 16)!)
+        _p2.losePiece(node: _board.getNode(withID: 17)!)
+        _p2.losePiece(node: _board.getNode(withID: 18)!)
+        _p2.losePiece(node: _board.getNode(withID: 19)!)
+        _p2.losePiece(node: _board.getNode(withID: 20)!)
+        _p2.losePiece(node: _board.getNode(withID: 21)!)
+        
+        XCTAssertEqual(_gameSnapshot.heuristicScore, Int.max)
+    }
+    
+    func testHeuristic_RedWinState() {
+        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 2)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 3)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 4)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 5)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 6)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 7)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 8)!)
+        
+        _p1.losePiece(node: _board.getNode(withID: 0)!)
+        _p1.losePiece(node: _board.getNode(withID: 1)!)
+        _p1.losePiece(node: _board.getNode(withID: 2)!)
+        _p1.losePiece(node: _board.getNode(withID: 3)!)
+        _p1.losePiece(node: _board.getNode(withID: 4)!)
+        _p1.losePiece(node: _board.getNode(withID: 5)!)
+        _p1.losePiece(node: _board.getNode(withID: 6)!)
+        
+        XCTAssertEqual(_gameSnapshot.heuristicScore, Int.min)
+    }
+    
+    func testHeuristic_PlacingGreenWinning() {
+        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 2)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 3)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 4)!)
+        
+        _ = _p2.playPiece(node: _board.getNode(withID: 10)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 18)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 19)!)
+        
+        XCTAssertGreaterThan(_gameSnapshot.heuristicScore, 0)
+    }
+    
+    func testHeuristic_PlacingRedWinning() {
+        _ = _p1.playPiece(node: _board.getNode(withID: 23)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 22)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 12)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 5)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 18)!)
+        
+        _ = _p2.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 1)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 9)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 4)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 10)!)
+        
+        XCTAssertLessThan(_gameSnapshot.heuristicScore, 0)
+    }
+    
+    func testHeuristic_MovementGreenWinning() {
+        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 2)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 19)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 22)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 8)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 12)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 17)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 3)!)
+        
+        _p1.losePiece(node: _board.getNode(withID: 0)!)
+        _p1.losePiece(node: _board.getNode(withID: 1)!)
+        _p1.losePiece(node: _board.getNode(withID: 2)!)
+        _p1.losePiece(node: _board.getNode(withID: 3)!)
+        
+        _ = _p2.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 1)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 2)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 3)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 9)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 21)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 23)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 13)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 14)!)
+        
+        _p2.losePiece(node: _board.getNode(withID: 0)!)
+        _p2.losePiece(node: _board.getNode(withID: 1)!)
+        _p2.losePiece(node: _board.getNode(withID: 2)!)
+        _p2.losePiece(node: _board.getNode(withID: 9)!)
+        _p2.losePiece(node: _board.getNode(withID: 23)!)
+        
+        XCTAssertGreaterThan(_gameSnapshot.heuristicScore, 0)
+    }
+    
+    func testHeuristic_MovementRedWinning() {
+        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 2)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 19)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 22)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 8)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 12)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 17)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 3)!)
+        
+        _p1.losePiece(node: _board.getNode(withID: 0)!)
+        _p1.losePiece(node: _board.getNode(withID: 1)!)
+        _p1.losePiece(node: _board.getNode(withID: 2)!)
+        _p1.losePiece(node: _board.getNode(withID: 3)!)
+        _p1.losePiece(node: _board.getNode(withID: 22)!)
+        _p1.losePiece(node: _board.getNode(withID: 8)!)
+        
+        _ = _p2.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 1)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 2)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 3)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 9)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 21)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 22)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 13)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 14)!)
+        
+        _p2.losePiece(node: _board.getNode(withID: 23)!)
+        _p2.losePiece(node: _board.getNode(withID: 14)!)
+        _p2.losePiece(node: _board.getNode(withID: 21)!)
+        _p2.losePiece(node: _board.getNode(withID: 13)!)
+        _p2.losePiece(node: _board.getNode(withID: 14)!)
+        
+        XCTAssertLessThan(_gameSnapshot.heuristicScore, 0)
+    }
+    
+    func testHeuristic_FlyingGreenWinning() {
+        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 2)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 3)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 4)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 5)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 6)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 7)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 8)!)
+        
+        _ = _p2.playPiece(node: _board.getNode(withID: 15)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 16)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 17)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 18)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 19)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 20)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 21)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 22)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 23)!)
+        
+        _p1.losePiece(node: _board.getNode(withID: 0)!)
+        _p1.losePiece(node: _board.getNode(withID: 2)!)
+        _p1.losePiece(node: _board.getNode(withID: 3)!)
+        _p1.losePiece(node: _board.getNode(withID: 5)!)
+        _p1.losePiece(node: _board.getNode(withID: 6)!)
+        _p1.losePiece(node: _board.getNode(withID: 7)!)
+        
+        _p2.losePiece(node: _board.getNode(withID: 15)!)
+        _p2.losePiece(node: _board.getNode(withID: 16)!)
+        _p2.losePiece(node: _board.getNode(withID: 17)!)
+        _p2.losePiece(node: _board.getNode(withID: 18)!)
+        _p2.losePiece(node: _board.getNode(withID: 19)!)
+        _p2.losePiece(node: _board.getNode(withID: 20)!)
+        
+        XCTAssertGreaterThan(_gameSnapshot.heuristicScore, 0)
+    }
+    
+    func testHeuristic_FlyingRedWinning() {
+        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 2)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 3)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 4)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 5)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 6)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 7)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 8)!)
+        
+        _ = _p2.playPiece(node: _board.getNode(withID: 15)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 16)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 17)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 18)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 19)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 20)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 21)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 22)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 23)!)
+        
+        _p1.losePiece(node: _board.getNode(withID: 0)!)
+        _p1.losePiece(node: _board.getNode(withID: 1)!)
+        _p1.losePiece(node: _board.getNode(withID: 2)!)
+        _p1.losePiece(node: _board.getNode(withID: 3)!)
+        _p1.losePiece(node: _board.getNode(withID: 4)!)
+        _p1.losePiece(node: _board.getNode(withID: 5)!)
+        
+        _p2.losePiece(node: _board.getNode(withID: 15)!)
+        _p2.losePiece(node: _board.getNode(withID: 16)!)
+        _p2.losePiece(node: _board.getNode(withID: 17)!)
+        _p2.losePiece(node: _board.getNode(withID: 18)!)
+        _p2.losePiece(node: _board.getNode(withID: 21)!)
+        _p2.losePiece(node: _board.getNode(withID: 23)!)
+        
+        XCTAssertLessThan(_gameSnapshot.heuristicScore, 0)
+    }
+
 }

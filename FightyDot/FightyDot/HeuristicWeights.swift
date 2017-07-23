@@ -8,9 +8,9 @@
 //  Roughly based on the results in this paper:
 //  http://www.dasconference.ro/papers/2008/B7.pdf (See: "Coefficient sets of best estimators")
 //
-//  There is no weight for "winning", since minimax should just return a max/min value for this state.
+//  There is no weight for "winning", since we just return a max/min value for this state.
 //
-//  Ultimately I would like to adjust these dynamically, syncing the best weights over Firebase.
+//  Later, I would like to adjust these dynamically, syncing the best weights over Firebase.
 //
 //  Two piece configuration (adding one more piece would close a mill:
 //  (I.e., 2 mill nodes are the same colour, and the other is empty)
