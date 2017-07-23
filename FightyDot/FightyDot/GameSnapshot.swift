@@ -28,6 +28,12 @@ class GameSnapshot {
         }
     }
     
+    var isInEndState: Bool {
+        get {
+            return _currentPlayer.lostGame || _opponent.lostGame
+        }
+    }
+    
     init(board: Board, currentPlayer: Player, opponent: Player, millFormedLastTurn: Bool = false) {
         _board = board
         _currentPlayer = currentPlayer
