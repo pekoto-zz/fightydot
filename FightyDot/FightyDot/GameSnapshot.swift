@@ -48,6 +48,14 @@ class GameSnapshot {
         _millFormedLastTurn = millFormedLastTurn
     }
     
+    init(board: Board, currentPlayer: Player, opponent: Player, millFormedLastTurn: Bool = false, generatedBy move: Move? = nil) {
+        _board = board
+        _currentPlayer = currentPlayer
+        _opponent = opponent
+        _millFormedLastTurn = millFormedLastTurn
+        _move = move
+    }
+    
     // Return the possible moves based on the state of this game
     func getPossibleMoves() -> [Move] {
         var possibleMoves: [Move] = []
@@ -70,8 +78,6 @@ class GameSnapshot {
     // Returns the resulting game snapshot (board & player states) after a certain move is made
     // (We need to store every game state for minimax ranking -- hence why we clone())
     func make(move: Move) -> GameSnapshot {
-        _move = move
-        
         let board = _board.clone()
         let currentPlayer = _currentPlayer.clone(to: board)
         let opponent = _opponent.clone(to: board)
@@ -100,7 +106,7 @@ class GameSnapshot {
             nextOpponent = currentPlayer
         }
         
-        return GameSnapshot(board: board, currentPlayer: nextPlayer, opponent: nextOpponent, millFormedLastTurn: millFormed)
+        return GameSnapshot(board: board, currentPlayer: nextPlayer, opponent: nextOpponent, millFormedLastTurn: millFormed, generatedBy: move)
     }
     
     // MARK: - Private functions

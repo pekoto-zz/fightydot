@@ -12,6 +12,7 @@ class MiniMax {
     
     static func calculateBestMove(gameSnapshot: GameSnapshot, depth: Int, playerColour: PlayerColour) -> ScoredMove {
         if(depth == 0 || gameSnapshot.isInEndState) {
+            print("Score: \(gameSnapshot.heuristicScore) Depth: \(depth)")
             return ScoredMove(move: gameSnapshot.move, score: gameSnapshot.heuristicScore)
         }
         
@@ -20,8 +21,10 @@ class MiniMax {
             
             for move in gameSnapshot.getPossibleMoves() {
                 let nextGameSnapshot = gameSnapshot.make(move: move)
+                print("Green move get... Depth: \(depth)")
                 let scoredMove = calculateBestMove(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: .red)
-
+                print("Green move done. Depth: \(depth)")
+                
                 if(scoredMove.score > bestMove.score) {
                     bestMove = scoredMove
                 }
@@ -33,7 +36,10 @@ class MiniMax {
             
             for move in gameSnapshot.getPossibleMoves() {
                 let nextGameSnapshot = gameSnapshot.make(move: move)
+                
+                print("Red move get... Depth: \(depth)")
                 let scoredMove = calculateBestMove(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: .green)
+                print("Red move done. Depth: \(depth)")
                 
                 if(scoredMove.score < bestMove.score) {
                     bestMove = scoredMove
