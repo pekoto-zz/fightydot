@@ -47,6 +47,7 @@
 		701AF5931F10A6C900F15A50 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 701AF5741F109ED600F15A50 /* Lato-Light.ttf */; };
 		701AF5941F10A6CC00F15A50 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 701AF5751F109ED600F15A50 /* Lato-Regular.ttf */; };
 		701AF5961F10AD3B00F15A50 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 701AF5951F10AD3B00F15A50 /* GoogleService-Info.plist */; };
+		703368F71F26134D00F23DDD /* ScoredMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703368F61F26134D00F23DDD /* ScoredMove.swift */; };
 		70680B1D1F1645440078342B /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70680B1C1F1645440078342B /* Move.swift */; };
 		708056D11F247FFC0016A3C5 /* MiniMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708056D01F247FFC0016A3C5 /* MiniMax.swift */; };
 		70CD2EF11F14F1ED00F7B14E /* GameSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CD2EF01F14F1ED00F7B14E /* GameSnapshot.swift */; };
@@ -113,6 +114,7 @@
 		701AF58E1F10A5B700F15A50 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		701AF5901F10A5CA00F15A50 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		701AF5951F10AD3B00F15A50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		703368F61F26134D00F23DDD /* ScoredMove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoredMove.swift; sourceTree = "<group>"; };
 		70680B1C1F1645440078342B /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		708056D01F247FFC0016A3C5 /* MiniMax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniMax.swift; sourceTree = "<group>"; };
 		70CD2EF01F14F1ED00F7B14E /* GameSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSnapshot.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				70CD2EF01F14F1ED00F7B14E /* GameSnapshot.swift */,
 				708056D01F247FFC0016A3C5 /* MiniMax.swift */,
 				70680B1C1F1645440078342B /* Move.swift */,
+				703368F61F26134D00F23DDD /* ScoredMove.swift */,
 			);
 			name = AI;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				70D6ED9A1F0EF106005A8BFD /* AppDelegate.swift in Sources */,
 				701AF5601F109E8000F15A50 /* AIPlayer.swift in Sources */,
 				701AF55E1F109E8000F15A50 /* Node.swift in Sources */,
+				703368F71F26134D00F23DDD /* ScoredMove.swift in Sources */,
 				701AF58C1F109FFD00F15A50 /* MillView.swift in Sources */,
 				701AF55F1F109E8000F15A50 /* Player.swift in Sources */,
 				70005D431F19B68000FB1DDF /* HeuristicWeights.swift in Sources */,

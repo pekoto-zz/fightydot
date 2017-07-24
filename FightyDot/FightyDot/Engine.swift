@@ -30,7 +30,7 @@ class Engine {
             _currentPlayer.isCurrentPlayer = true
             
             if let aiPlayer = _currentPlayer as? AIPlayer {
-                makeAIMoveFor(player: aiPlayer)
+                makeMoveFor(aiPlayer: aiPlayer)
             }
         }
     }
@@ -121,7 +121,7 @@ class Engine {
     private func promptToTakePiece() throws {
         _state = .TakingPiece
         if let aiPlayer = _currentPlayer as? AIPlayer {
-            makeAIMoveFor(player: aiPlayer)
+            makeMoveFor(aiPlayer: aiPlayer)
         } else {
             try updateSelectableNodes()
         }
@@ -164,35 +164,44 @@ class Engine {
     }
 
     // Simulate thinking time and make a move.
-    // The engine calls won't fail since nodes come not from the board
-    // rather than the view, which could be incorrectly configured.
-    private func makeAIMoveFor(player: AIPlayer) {
+    // The engine calls won't fail since nodes come from the board
+    // rather than the view
+    private func makeMoveFor(aiPlayer: AIPlayer) {
+        aiPlayer.processingState = .Thinking
         
-        player.processingState = .Thinking
+        let opponent = nextPlayer()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + player.thinkTime, execute: {
-            if(self._state == .PlacingPieces) {
-                let spotToPlace = player.pickNodeToPlaceFrom(board: self._board)
-                player.processingState = .Moving
-                
-                try! self.placeNodeFor(player: player, nodeId: spotToPlace.id)
-            } else if (self._state == .TakingPiece) {
-                let takableNodes = self.nextPlayer().takeableNodes
-                let pieceToTake = player.pickNodeToTakeFrom(takableNodes: takableNodes)
-                player.processingState = .Moving
-                
-                try! self.takeNodeBelongingTo(player: self.nextPlayer(), nodeId: pieceToTake!.id)
-            } else if (self._state == .MovingPieces) || (self._state == .FlyingPieces) {
-                let nodeToMove = player.pickNodeToMove()
-                let validMoveSpots = try! self.getMovablePositionsFor(nodeWithId: nodeToMove!.id)
-                let spotToMoveTo = player.pickSpotToMoveToFrom(validMoveSpots: validMoveSpots)
-                player.processingState = .Moving
-                
-                try! self.moveNodeFor(player: player, from: nodeToMove!.id, to: spotToMoveTo!)
-            }
+        
+        let bestMove: Move?
+        
+        if(aiPlayer.hasPlayedNoPieces()) {
+            // If there are no nodes placed yet, just pick a random node
+            // Keeps things unpredictable and avoids a large pointless minimax tree search
+            let targetNode = aiPlayer.pickNodeToPlaceFrom(board: _board)
+            bestMove = Move(type: .PlacePiece, targetNode: targetNode)
+        } else {
+            bestMove = aiPlayer.getBestMove(board: _board, opponent: opponent)
+        }
+        
+        guard let moveToMake = bestMove else {
+            _view?.gameWon(by: opponent)
+            return
+        }
+        
+        switch (moveToMake.type) {
+        case .PlacePiece:
+            aiPlayer.processingState = .Placing
+            try! placeNodeFor(player: aiPlayer, nodeId: moveToMake.targetNode.id)
+        case .TakePiece:
+            aiPlayer.processingState = .TakingPiece
+            try! takeNodeBelongingTo(player: opponent, nodeId: moveToMake.targetNode.id)
+        case .MovePiece, .FlyPiece:
+            aiPlayer.processingState = .Moving
+            try! moveNodeFor(player: aiPlayer, from: moveToMake.targetNode.id, to: moveToMake.targetNode.id)
+        }
+        
             
-            player.processingState = .Waiting
-        })
+        aiPlayer.processingState = .Waiting
     }
     
     private func nextTurn() throws {

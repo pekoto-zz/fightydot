@@ -10,6 +10,8 @@ import Foundation
 
 class AIPlayer: Player {
 
+    private var _lookAheadDepth: Int = 1
+    
     private var _processingState: AIPlayerState = .Waiting {
         didSet {
             view?.update(status: _processingState)
@@ -44,23 +46,21 @@ class AIPlayer: Player {
         _processingState = .Waiting
     }
     
+    func hasPlayedNoPieces() -> Bool {
+        return piecesLeftToPlay == Constants.GameplayNumbers.startingPieces
+    }
+    
+    func getBestMove(board: Board, opponent: Player) -> Move? {
+        let gameSnapshot = GameSnapshot(board: board, currentPlayer: self, opponent: opponent)
+        let bestMove = MiniMax.calculateBestMove(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour)
+        
+        return bestMove.move
+    }
+    
     func pickNodeToPlaceFrom(board: Board) -> Node {
         let emptyNodes = board.getNodes(for: .none)
         
         // Since we have more nodes than pieces, there will always be an empty spot
         return emptyNodes.randomElement()!
-    }
-    
-    func pickNodeToTakeFrom(takableNodes: [Node]) -> Node? {
-        return takableNodes.randomElement()
-    }
-    
-    
-    func pickNodeToMove() -> Node? {
-        return movableNodes.randomElement()
-    }
-    
-    func pickSpotToMoveToFrom(validMoveSpots: [Int]) -> Int? {
-        return validMoveSpots.randomElement()
     }
 }

@@ -9,9 +9,11 @@
 import Foundation
 
 enum AIPlayerState: String {
-    case Waiting = "Waiting"
-    case Thinking = "Thinking..."
     case Moving = "Moving..."
+    case Placing = "Placing..."
+    case TakingPiece = "Taking piece..."
+    case Thinking = "Thinking..."
+    case Waiting = "Waiting"
 }
 
 enum AnimationDirection {

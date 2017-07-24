@@ -19,6 +19,7 @@ class GameSnapshot {
     private var _board: Board
     private var _currentPlayer: Player
     private var _opponent: Player
+    private var _move: Move?    // Used to return associated move in minimax
     
     private var _millFormedLastTurn: Bool
     
@@ -31,6 +32,12 @@ class GameSnapshot {
     var isInEndState: Bool {
         get {
             return _currentPlayer.lostGame || _opponent.lostGame
+        }
+    }
+    
+    var move: Move? {
+        get {
+            return _move
         }
     }
     
@@ -63,6 +70,8 @@ class GameSnapshot {
     // Returns the resulting game snapshot (board & player states) after a certain move is made
     // (We need to store every game state for minimax ranking -- hence why we clone())
     func make(move: Move) -> GameSnapshot {
+        _move = move
+        
         let board = _board.clone()
         let currentPlayer = _currentPlayer.clone(to: board)
         let opponent = _opponent.clone(to: board)
