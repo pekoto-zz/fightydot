@@ -11,6 +11,7 @@ import Foundation
 class AIPlayer: Player {
 
     private var _lookAheadDepth: Int = 1
+    private var _moveCalculator: CalculateMoveProtocol
     
     private var _processingState: AIPlayerState = .Waiting {
         didSet {
@@ -34,9 +35,10 @@ class AIPlayer: Player {
         }
     }
     
-    init(name: String, colour: PlayerColour, type: PlayerType, isStartingPlayer: Bool, playerNum: PlayerNumber, view: PlayerDelegate?, thinkTime: Double) throws {
+    init(name: String, colour: PlayerColour, type: PlayerType, isStartingPlayer: Bool, playerNum: PlayerNumber, view: PlayerDelegate?, thinkTime: Double, moveCalculator: CalculateMoveProtocol) throws {
         _processingState = .Waiting
         _thinkTime = thinkTime
+        _moveCalculator = moveCalculator
         
         try super.init(name: name, colour: colour, type: type, isStartingPlayer: isStartingPlayer, playerNum: playerNum, view: view)
     }
@@ -50,9 +52,13 @@ class AIPlayer: Player {
         return piecesLeftToPlay == Constants.GameplayNumbers.startingPieces
     }
     
-    func getBestMove(board: Board, opponent: Player) -> Move? {
-        let gameSnapshot = GameSnapshot(board: board, currentPlayer: self, opponent: opponent)
-        let bestMove = MiniMax.calculateBestMove(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour)
+    func getBestMove(board: Board, opponent: Player, millFormed: Bool) -> Move? {
+        let boardClone = board.clone()
+        let playerClone = self.clone(to: boardClone)
+        let opponentClone = opponent.clone(to: boardClone)
+        
+        let gameSnapshot = GameSnapshot(board: boardClone, currentPlayer: playerClone, opponent: opponentClone, millFormedLastTurn: millFormed)
+        let bestMove = _moveCalculator.calculateBestMove(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour)
         
         return bestMove.move
     }

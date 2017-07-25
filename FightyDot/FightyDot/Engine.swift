@@ -41,7 +41,7 @@ class Engine {
         if(gameType == .PlayerVsPlayer) {
             _p2 = try! Player(name: Constants.PlayerData.defaultPvpP2Name, colour: .red, type: .humanLocal, isStartingPlayer: false, playerNum: PlayerNumber.p2, view: engineView.p2View)
         } else {
-            _p2 = try! AIPlayer(name: Constants.PlayerData.defaultAIName, colour: .red, type: .AI, isStartingPlayer: false, playerNum: PlayerNumber.p2, view: engineView.p2View, thinkTime: 0.5)
+            _p2 = try! AIPlayer(name: Constants.PlayerData.defaultAIName, colour: .red, type: .AI, isStartingPlayer: false, playerNum: PlayerNumber.p2, view: engineView.p2View, thinkTime: 0.5, moveCalculator: MiniMax())
         }
         
         _view = engineView
@@ -168,10 +168,9 @@ class Engine {
     // rather than the view
     private func makeMoveFor(aiPlayer: AIPlayer) {
         aiPlayer.processingState = .Thinking
-        
+
+        let millFormed = _state == .TakingPiece
         let opponent = nextPlayer()
-        
-        
         let bestMove: Move?
         
         if(aiPlayer.hasPlayedNoPieces()) {
@@ -180,7 +179,7 @@ class Engine {
             let targetNode = aiPlayer.pickNodeToPlaceFrom(board: _board)
             bestMove = Move(type: .PlacePiece, targetNode: targetNode)
         } else {
-            bestMove = aiPlayer.getBestMove(board: _board, opponent: opponent)
+            bestMove = aiPlayer.getBestMove(board: _board, opponent: nextPlayer(), millFormed: millFormed)
         }
         
         guard let moveToMake = bestMove else {
@@ -197,7 +196,13 @@ class Engine {
             try! takeNodeBelongingTo(player: opponent, nodeId: moveToMake.targetNode.id)
         case .MovePiece, .FlyPiece:
             aiPlayer.processingState = .Moving
-            try! moveNodeFor(player: aiPlayer, from: moveToMake.targetNode.id, to: moveToMake.targetNode.id)
+            
+            guard let destinationNode = moveToMake.destinationNode else {
+                _view?.gameWon(by: opponent)
+                return
+            }
+            
+            try! moveNodeFor(player: aiPlayer, from: moveToMake.targetNode.id, to: destinationNode.id)
         }
         
             
