@@ -226,12 +226,13 @@ class GameSnapshot {
     //  - number of mills
     //  - blocked opponent pieces
     //  - number of pieces in play
-    //  - TODO opened a mill
+    //  - opened a mill
     //  - double mill
     private func calculateMovementScore(player: Player, opponent: Player, millClosedLastTurn: Bool) -> Int {
         var score = (_board.numOfMills(for: player.pieceColour) * HeuristicWeights.MovementPhase.mills)
                   + (opponent.numOfBlockedNodes * HeuristicWeights.MovementPhase.blockedOpponentPieces)
                   + (player.numOfPiecesInPlay * HeuristicWeights.MovementPhase.piecesInPlay)
+                  + (_board.numOfOpenMills(for: player.pieceColour) * HeuristicWeights.MovementPhase.openMill)
                   + (_board.numOfDoubleMills(for: player.pieceColour) * HeuristicWeights.MovementPhase.doubleMill)
         
         if(millClosedLastTurn) {

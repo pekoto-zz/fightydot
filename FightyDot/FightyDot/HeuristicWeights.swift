@@ -46,6 +46,23 @@
 //     |         |         |
 //  7) G---------G--------[O]
 //
+//  Open mill (can move a piece next turn to close this mill):
+// (I.e., a 2 piece configuration, where the empty node has a neighbour of the same colour)
+//
+//  0) O---------O---------O
+//     |         |         |
+//  2) |  O------O------O  |
+//     |  |      |      |  |
+//  3) |  |   O--O--0   |  |
+//     |  |   |     |   |  |
+//  4) O--O---O     0---O--O
+//     |  |   |     |   |  |
+//  5) |  |   O-[O]-G   |  |
+//     |  |      |      |  |
+//  6) |  O------G------O  |
+//     |         |         |
+//  7) O---------G---------O
+//
 //  Double mill (can move pieces back and forth between 2 mills):
 //  (I.e., a 2 piece configuration, where the empty node has a neighbour in a mill)
 //
@@ -77,16 +94,16 @@ struct HeuristicWeights {
     
     struct MovementPhase {
         static let closedMill = 22
-        static let mills = 39
+        static let mills = 34
         static let blockedOpponentPieces = 12
         static let piecesInPlay = 6
-        static let openedMill = 21
+        static let openMill = 21
         static let doubleMill = 36  // Moving one piece between mills forms another mill (see comments)
     }
     
     struct FlyingPhase {
         static let twoPieceConfigurations = 12
         static let threePieceConfigurations = 13
-        static let closedMill = 16
+        static let closedMill = 27
     }
 }

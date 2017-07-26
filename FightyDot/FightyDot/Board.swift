@@ -113,6 +113,10 @@ class Board {
         return _mills.filter{ mill in mill.isInDoubleMillConfiguration(for: colour) }.count
     }
     
+    func numOfOpenMills(for colour: PieceColour) -> Int {
+        return _mills.filter{ mill in mill.isOpen(for: colour) }.count
+    }
+    
     // We always use these together when evaluating, so it's more efficient to group the calculations
     func numOfTwoAndThreePieceConfigurations(for colour: PieceColour) -> (twoPieceCount: Int, threePieceCount: Int) {
         

@@ -100,7 +100,7 @@ class Mill {
         let emptyNode = _nodes.filter{ node in node.value.colour == .none}.first
         
         for neighbour in (emptyNode?.value.neighbours)! {
-            if(neighbour.inActiveMill) {
+            if(neighbour.inActiveMill && neighbour.colour == colour) {
                 return true
             }
         }
@@ -110,6 +110,27 @@ class Mill {
     
     func isInTwoPieceConfiguration(for colour: PieceColour) -> Bool {
         return (_pieceCounts[PieceColour.none.rawValue] == 1) && (_pieceCounts[colour.rawValue] == 2)
+    }
+    
+    func isOpen(for colour: PieceColour) -> Bool {
+        if(!isInTwoPieceConfiguration(for: colour)) {
+            return false
+        }
+        
+        let emptyNode = _nodes.filter{ node in node.value.colour == .none}.first
+        
+        for neighbour in (emptyNode?.value.neighbours)! {
+            // Check neighbour is not in the mill we're checking
+            if _nodes.contains(where: {node in node.value.id == neighbour.id}) {
+                continue
+            }
+            
+            if(neighbour.colour == colour) {
+                return true
+            }
+        }
+        
+        return false
     }
     
     func intersects(with otherMill: Mill) -> Bool {

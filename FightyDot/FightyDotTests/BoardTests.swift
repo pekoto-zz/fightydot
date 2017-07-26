@@ -145,6 +145,32 @@ class BoardTests: XCTestCase {
         XCTAssertEqual(_board.numOfTwoAndThreePieceConfigurations(for: .green).threePieceCount, 2)
     }
     
+    func testZeroOpenMills() {
+        _ = _board.getNode(withID: 19)!.setColour(newColour: .green)
+        _ = _board.getNode(withID: 22)!.setColour(newColour: .green)
+        _ = _board.getNode(withID: 17)!.setColour(newColour: .red)
+        
+        XCTAssertEqual(_board.numOfOpenMills(for: .green), 0)
+    }
+    
+    func testOneOpenMill() {
+        _ = _board.getNode(withID: 19)!.setColour(newColour: .green)
+        _ = _board.getNode(withID: 22)!.setColour(newColour: .green)
+        _ = _board.getNode(withID: 17)!.setColour(newColour: .green)
+        
+        XCTAssertEqual(_board.numOfOpenMills(for: .green), 1)
+    }
+    
+    func testMultipleOpenMills() {
+        _ = _board.getNode(withID: 19)!.setColour(newColour: .green)
+        _ = _board.getNode(withID: 22)!.setColour(newColour: .green)
+        _ = _board.getNode(withID: 17)!.setColour(newColour: .green)
+        _ = _board.getNode(withID: 23)!.setColour(newColour: .green)
+        _ = _board.getNode(withID: 9)!.setColour(newColour: .green)
+        
+        XCTAssertEqual(_board.numOfOpenMills(for: .green), 2)
+    }
+    
     func testClonesDifferent() {
         _ = _board.getNode(withID: 0)!.setColour(newColour: .green)
         _ = _board.getNode(withID: 1)!.setColour(newColour: .green)

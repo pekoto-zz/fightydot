@@ -171,42 +171,45 @@ class Engine {
 
         let millFormed = _state == .TakingPiece
         let opponent = nextPlayer()
-        let bestMove: Move?
+        var bestMove: Move?
         
-        if(aiPlayer.hasPlayedNoPieces()) {
-            // If there are no nodes placed yet, just pick a random node
-            // Keeps things unpredictable and avoids a large pointless minimax tree search
-            let targetNode = aiPlayer.pickNodeToPlaceFrom(board: _board)
-            bestMove = Move(type: .PlacePiece, targetNode: targetNode)
-        } else {
-            bestMove = aiPlayer.getBestMove(board: _board, opponent: nextPlayer(), millFormed: millFormed)
-        }
-        
-        guard let moveToMake = bestMove else {
-            _view?.gameWon(by: opponent)
-            return
-        }
-        
-        switch (moveToMake.type) {
-        case .PlacePiece:
-            aiPlayer.processingState = .Placing
-            try! placeNodeFor(player: aiPlayer, nodeId: moveToMake.targetNode.id)
-        case .TakePiece:
-            aiPlayer.processingState = .TakingPiece
-            try! takeNodeBelongingTo(player: opponent, nodeId: moveToMake.targetNode.id)
-        case .MovePiece, .FlyPiece:
-            aiPlayer.processingState = .Moving
+        DispatchQueue.main.asyncAfter(deadline: .now() + aiPlayer.artificialThinkTime) {
+            if(aiPlayer.hasPlayedNoPieces()) {
+                // If there are no nodes placed yet, just pick a random node
+                // Keeps things unpredictable and avoids a large pointless minimax tree search
+                let targetNode = aiPlayer.pickNodeToPlaceFrom(board: self._board)
+                bestMove = Move(type: .PlacePiece, targetNode: targetNode)
+            } else {
+                bestMove = aiPlayer.getBestMove(board: self._board, opponent: self.nextPlayer(), millFormed: millFormed)
+            }
             
-            guard let destinationNode = moveToMake.destinationNode else {
-                _view?.gameWon(by: opponent)
+            guard let moveToMake = bestMove else {
+                self._view?.gameWon(by: opponent)
                 return
             }
             
-            try! moveNodeFor(player: aiPlayer, from: moveToMake.targetNode.id, to: destinationNode.id)
+            switch (moveToMake.type) {
+            case .PlacePiece:
+                aiPlayer.processingState = .Placing
+                try! self.placeNodeFor(player: aiPlayer, nodeId: moveToMake.targetNode.id)
+            case .TakePiece:
+                aiPlayer.processingState = .TakingPiece
+                try! self.takeNodeBelongingTo(player: opponent, nodeId: moveToMake.targetNode.id)
+            case .MovePiece, .FlyPiece:
+                aiPlayer.processingState = .Moving
+                
+                guard let destinationNode = moveToMake.destinationNode else {
+                    self._view?.gameWon(by: opponent)
+                    return
+                }
+                
+                try! self.moveNodeFor(player: aiPlayer, from: moveToMake.targetNode.id, to: destinationNode.id)
+            }
+            
+            aiPlayer.processingState = .Waiting
         }
         
-            
-        aiPlayer.processingState = .Waiting
+        
     }
     
     private func nextTurn() throws {

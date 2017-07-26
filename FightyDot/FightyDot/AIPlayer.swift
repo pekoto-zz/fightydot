@@ -19,7 +19,7 @@ class AIPlayer: Player {
         }
     }
     
-    private var _thinkTime: Double
+    private var _artificialThinkTime: Double
     
     var processingState: AIPlayerState {
         get {
@@ -29,15 +29,15 @@ class AIPlayer: Player {
         }
     }
     
-    var thinkTime: Double {
+    var artificialThinkTime: Double {
         get {
-            return _thinkTime
+            return _artificialThinkTime
         }
     }
     
     init(name: String, colour: PlayerColour, type: PlayerType, isStartingPlayer: Bool, playerNum: PlayerNumber, view: PlayerDelegate?, thinkTime: Double, moveCalculator: CalculateMoveProtocol) throws {
         _processingState = .Waiting
-        _thinkTime = thinkTime
+        _artificialThinkTime = thinkTime
         _moveCalculator = moveCalculator
         
         try super.init(name: name, colour: colour, type: type, isStartingPlayer: isStartingPlayer, playerNum: playerNum, view: view)
