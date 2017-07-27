@@ -109,6 +109,14 @@ class GameSnapshot {
         return GameSnapshot(board: board, currentPlayer: nextPlayer, opponent: nextOpponent, millFormedLastTurn: millFormed, generatedBy: move)
     }
     
+    func printBoard() {
+        _board.print()
+    }
+    
+    func printScore() {
+        print("{\(heuristicScore)}")
+    }
+    
     // MARK: - Private functions
 
     private func getPlacementMoves() -> [Move] {
