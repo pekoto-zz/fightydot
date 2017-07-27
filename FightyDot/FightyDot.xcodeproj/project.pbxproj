@@ -50,6 +50,7 @@
 		703368F71F26134D00F23DDD /* ScoredMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703368F61F26134D00F23DDD /* ScoredMove.swift */; };
 		70680B1D1F1645440078342B /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70680B1C1F1645440078342B /* Move.swift */; };
 		708056D11F247FFC0016A3C5 /* MiniMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708056D01F247FFC0016A3C5 /* MiniMax.swift */; };
+		709E155C1F2A17E500501176 /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709E155B1F2A17E500501176 /* TreeNode.swift */; };
 		70CD2EF11F14F1ED00F7B14E /* GameSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CD2EF01F14F1ED00F7B14E /* GameSnapshot.swift */; };
 		70D6ED9A1F0EF106005A8BFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D6ED991F0EF106005A8BFD /* AppDelegate.swift */; };
 		70D6EDA41F0EF106005A8BFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70D6EDA31F0EF106005A8BFD /* Assets.xcassets */; };
@@ -118,6 +119,7 @@
 		703368F61F26134D00F23DDD /* ScoredMove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoredMove.swift; sourceTree = "<group>"; };
 		70680B1C1F1645440078342B /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		708056D01F247FFC0016A3C5 /* MiniMax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniMax.swift; sourceTree = "<group>"; };
+		709E155B1F2A17E500501176 /* TreeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
 		70CD2EF01F14F1ED00F7B14E /* GameSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSnapshot.swift; sourceTree = "<group>"; };
 		70D6ED961F0EF106005A8BFD /* FightyDot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FightyDot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70D6ED991F0EF106005A8BFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				708056D01F247FFC0016A3C5 /* MiniMax.swift */,
 				70680B1C1F1645440078342B /* Move.swift */,
 				703368F61F26134D00F23DDD /* ScoredMove.swift */,
+				709E155B1F2A17E500501176 /* TreeNode.swift */,
 			);
 			name = AI;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				701AF5801F109FE400F15A50 /* Enums.swift in Sources */,
 				701AF5861F109FF500F15A50 /* RoundedShadowView.swift in Sources */,
 				701AF55D1F109E8000F15A50 /* Mill.swift in Sources */,
+				709E155C1F2A17E500501176 /* TreeNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
