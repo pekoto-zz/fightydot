@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ScoredMove {
+class ScoredMove: CustomStringConvertible {
     
     private var _move: Move?
     private var _score: Int
@@ -22,6 +22,16 @@ class ScoredMove {
     var score: Int {
         get {
             return _score
+        } set {
+            _score = newValue
+        }
+    }
+    
+    var description: String {
+        if let moveToPrint = move {
+            return "[\(moveToPrint)] \(score)"
+        } else {
+            return "[nil] \(score)"
         }
     }
     

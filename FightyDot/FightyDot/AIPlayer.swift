@@ -10,8 +10,9 @@ import Foundation
 
 class AIPlayer: Player {
 
-    private var _lookAheadDepth: Int = 1
+    private var _lookAheadDepth: Int = 2
     private var _moveCalculator: CalculateMoveProtocol
+    private var _turn = 1
     
     private var _processingState: AIPlayerState = .Waiting {
         didSet {
@@ -53,12 +54,22 @@ class AIPlayer: Player {
     }
     
     func getBestMove(board: Board, opponent: Player, millFormed: Bool) -> Move? {
+        print("AI turn: \(_turn)")
+        _turn = _turn + 1
+        
         let boardClone = board.clone()
         let playerClone = self.clone(to: boardClone)
         let opponentClone = opponent.clone(to: boardClone)
         
         let gameSnapshot = GameSnapshot(board: boardClone, currentPlayer: playerClone, opponent: opponentClone, millFormedLastTurn: millFormed)
-        let bestMove = _moveCalculator.calculateBestMove(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour)
+        
+        let debugTree = TreeNode<ScoredMove>(data: ScoredMove(move: nil, score: 0))
+        
+        let bestMove = _moveCalculator.calculateBestMoveWithDebugTree(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour, tree: debugTree)
+        
+        debugTree.data = bestMove
+        
+        debugTree.printTree()
         
         return bestMove.move
     }

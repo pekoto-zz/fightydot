@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Move {
+class Move: CustomStringConvertible {
     private var _type: MoveType
     private var _targetNode: Node
     private var _destinationNode: Node?
@@ -28,6 +28,14 @@ class Move {
     var destinationNode: Node? {
         get {
             return _destinationNode
+        }
+    }
+    
+    var description: String {
+        if let destinationNodeToPrint = _destinationNode {
+            return "\(_targetNode.id) -> \(destinationNodeToPrint.id)"
+        } else {
+            return "\(_targetNode.id)"
         }
     }
     

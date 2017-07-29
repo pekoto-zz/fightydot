@@ -17,6 +17,8 @@ class TreeNode<T> {
     var data: T {
         get {
             return _data
+        } set {
+            _data = newValue
         }
     }
     
@@ -34,10 +36,10 @@ class TreeNode<T> {
     
     func printTree(level: Int = 0) {
         for _ in 0 ..< level {
-            print("\t")
+            print("\t", terminator: " ")
         }
         
-        print("\n")
+        print(data)
         
         for child in _children {
             child.printTree(level: level + 1)

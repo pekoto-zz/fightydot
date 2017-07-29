@@ -590,5 +590,5 @@ class GameSnapshotTests: XCTestCase {
         
         XCTAssertLessThan(_gameSnapshot.heuristicScore, 0)
     }
-
+    
 }
