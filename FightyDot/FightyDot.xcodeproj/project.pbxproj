@@ -256,11 +256,11 @@
 		70D6EDB01F0EF3CA005A8BFD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				701AF55B1F109E8000F15A50 /* AIPlayer.swift */,
 				701AF5571F109E8000F15A50 /* Board.swift */,
 				701AF5581F109E8000F15A50 /* Mill.swift */,
 				701AF5591F109E8000F15A50 /* Node.swift */,
 				701AF55A1F109E8000F15A50 /* Player.swift */,
-				701AF55B1F109E8000F15A50 /* AIPlayer.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";

@@ -64,6 +64,32 @@ class AIPlayer: Player {
     }
     
     func pickNodeToPlaceFrom(board: Board) -> Node {
+        if(pickIntersection()) {
+            return pickRandomIntersectionFrom(board: board)
+        } else {
+            return pickRandomNodeFrom(board: board)
+        }
+    }
+    
+    // MARK: - Private functions
+    
+    // Usually pick an intersection (arguably the best starting pos)
+    // but sometimes pick another node, to stop things being too predictable.
+    private func pickIntersection() -> Bool {
+        return arc4random_uniform(10) <= 7
+    }
+    
+    private func pickRandomIntersectionFrom(board: Board) -> Node {
+        let emptyIntersections = board.getNodes(for: .none).filter{ Constants.BoardSetup.intersections.contains($0.id) }
+        
+        if(emptyIntersections.count == 0) {
+            return pickRandomNodeFrom(board: board)
+        }
+        
+        return emptyIntersections.randomElement()!
+    }
+    
+    private func pickRandomNodeFrom(board: Board) -> Node {
         let emptyNodes = board.getNodes(for: .none)
         
         // Since we have more nodes than pieces, there will always be an empty spot

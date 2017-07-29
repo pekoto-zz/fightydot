@@ -87,6 +87,9 @@ struct Constants {
             [5, 13, 20],    // Node 14
             [2, 14, 23]     // Node 15
         ]
+        
+        // These can arguably be the best starting positions
+        static let intersections = [4, 10, 13, 19]
     }
     
     struct Colours {
