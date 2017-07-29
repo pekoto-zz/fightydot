@@ -60,9 +60,11 @@ class GameSnapshot {
     func getPossibleMoves() -> [Move] {
         var possibleMoves: [Move] = []
         
-        if(_millFormedLastTurn) {
+        /*if(_millFormedLastTurn) {
             possibleMoves = getTakingMoves()
-        } else if (_currentPlayer.state == .PlacingPieces) {
+        } else*/
+        
+        if (_currentPlayer.state == .PlacingPieces) {
             possibleMoves = getPlacementMoves()
         } else if (_currentPlayer.state == .MovingPieces) {
             possibleMoves = getMovementMoves()
@@ -71,6 +73,12 @@ class GameSnapshot {
         } else if (_currentPlayer.state == .GameOver) {
             possibleMoves = []
         }
+        
+        //let moveOne = Move(type: .PlacePiece, targetNode: Node(id: 2, view: nil))
+        //let moveTwo = Move(type: .PlacePiece, targetNode: Node(id: 21, view: nil))
+        
+        //possibleMoves.append(moveOne)
+        //possibleMoves.append(moveTwo)
         
         return possibleMoves
     }
@@ -99,12 +107,20 @@ class GameSnapshot {
         }
         
         if(millFormed) {
-            nextPlayer = currentPlayer
-            nextOpponent = opponent
+          //  nextPlayer = currentPlayer
+          //  nextOpponent = opponent
+            let takeableNodes = opponent.takeableNodes
+            
+            if(takeableNodes.count != 0) {
+                opponent.losePiece(node: takeableNodes.randomElement()!)
+            }
         } else {
-            nextPlayer = opponent
-            nextOpponent = currentPlayer
+          //  nextPlayer = opponent
+          //  nextOpponent = currentPlayer
         }
+        
+        nextPlayer = opponent
+        nextOpponent = currentPlayer
         
         return GameSnapshot(board: board, currentPlayer: nextPlayer, opponent: nextOpponent, millFormedLastTurn: millFormed, generatedBy: move)
     }
@@ -193,7 +209,8 @@ class GameSnapshot {
         var score = 0
         
         let state = player.state
-        let millClosedLastTurn = closedMillLastTurn(player: player)
+        //let millClosedLastTurn = closedMillLastTurn(player: player)
+        let millClosedLastTurn = false
         
         if (state == .PlacingPieces) {
             score = calculatePlacementScore(player: player, opponent: opponent, millClosedLastTurn: millClosedLastTurn)
@@ -275,7 +292,7 @@ class GameSnapshot {
         }
     }
     
-    private func closedMillLastTurn(player: Player) -> Bool {
-        return player === _currentPlayer && _millFormedLastTurn
-    }
+    //private func closedMillLastTurn(player: Player) -> Bool {
+    //    return player === _currentPlayer && _millFormedLastTurn
+    //}
 }

@@ -47,6 +47,7 @@ class AIPlayer: Player {
     override func reset() {
         super.reset()
         _processingState = .Waiting
+        _turn = 1
     }
     
     func hasPlayedNoPieces() -> Bool {

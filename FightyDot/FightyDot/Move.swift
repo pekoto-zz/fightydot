@@ -44,4 +44,14 @@ class Move: CustomStringConvertible {
         _targetNode = targetNode
         _destinationNode = destinationNode
     }
+    
+    func clone() -> Move {
+        let targetNodeClone = Node(id: _targetNode.id, view: nil)
+        
+        if let destinationNodeClone = destinationNode {
+            return Move(type: _type, targetNode: targetNodeClone, destinationNode: destinationNodeClone)
+        } else {
+            return Move(type: _type, targetNode: targetNodeClone)
+        }
+    }
 }
