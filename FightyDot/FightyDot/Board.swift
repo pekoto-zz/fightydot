@@ -55,6 +55,10 @@ class Board {
         return _nodes.filter { (node) in node.id == id }.first
     }
     
+    func setNode(withID id: Int, to colour: PieceColour) -> Bool {
+        return (getNode(withID: id)?.setColour(newColour: colour))!
+    }
+    
     func disableNodes() {
         for node in _nodes {
             node.disable()

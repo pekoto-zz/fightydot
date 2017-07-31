@@ -23,7 +23,8 @@ class MiniMax: CalculateMoveProtocol {
                 let scoredMove = calculateBestMove(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: .red)
                 
                 if(scoredMove.score > bestMove.score) {
-                    bestMove = scoredMove
+                    bestMove.move = move
+                    bestMove.score = scoredMove.score
                 }
             }
             
@@ -36,7 +37,8 @@ class MiniMax: CalculateMoveProtocol {
                 let scoredMove = calculateBestMove(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: .green)
                 
                 if(scoredMove.score < bestMove.score) {
-                    bestMove = scoredMove
+                    bestMove.move = move
+                    bestMove.score = scoredMove.score
                 }
             }
             
@@ -64,7 +66,7 @@ class MiniMax: CalculateMoveProtocol {
                 
                 if(scoredMove.score > bestMove.score) {
                     print("GREEN UPDATED BEST MOVE!")
-                    bestMove.move = move.clone()//scoredMove.move?.clone()
+                    bestMove.move = move //scoredMove.move?.clone()
                     bestMove.score = scoredMove.score
                 }
             }
@@ -85,7 +87,7 @@ class MiniMax: CalculateMoveProtocol {
                 
                 if(scoredMove.score < bestMove.score) {
                     print("RED UPDATED BEST MOVE!")
-                    bestMove.move = move.clone()//scoredMove.move?.clone()
+                    bestMove.move = move //scoredMove.move?.clone()
                     bestMove.score = scoredMove.score
                 }
             }

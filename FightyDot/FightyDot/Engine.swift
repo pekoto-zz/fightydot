@@ -192,10 +192,7 @@ class Engine {
             case .PlacePiece:
                 aiPlayer.processingState = .Placing
                 try! self.placeNodeFor(player: aiPlayer, nodeId: moveToMake.targetNode.id)
-            case .TakePiece:
-                aiPlayer.processingState = .TakingPiece
-                try! self.takeNodeBelongingTo(player: opponent, nodeId: moveToMake.targetNode.id)
-            case .MovePiece, .FlyPiece:
+            case .MovePiece:
                 aiPlayer.processingState = .Moving
                 
                 guard let destinationNode = moveToMake.destinationNode else {
@@ -204,6 +201,14 @@ class Engine {
                 }
                 
                 try! self.moveNodeFor(player: aiPlayer, from: moveToMake.targetNode.id, to: destinationNode.id)
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + aiPlayer.artificialThinkTime) {
+                if(moveToMake.formsMill) {
+                    if let nodeToTake = moveToMake.nodeToTake {
+                        try! self.takeNodeBelongingTo(player: opponent, nodeId: nodeToTake.id)
+                    }
+                }
             }
             
             aiPlayer.processingState = .Waiting
