@@ -75,7 +75,7 @@ class GameSnapshot {
     
     // Returns the resulting game snapshot (board & player states) after a certain move is made
     // (We need to store every game state for minimax ranking -- hence why we clone())
-    func make(move: Move) -> GameSnapshot {
+    func getNewSnapshotFrom(move: Move) -> GameSnapshot {
         let board = _board.clone()
         let currentPlayer = _currentPlayer.clone(to: board)
         let opponent = _opponent.clone(to: board)
@@ -126,21 +126,77 @@ class GameSnapshot {
             placementMoves.append(move)
         }
         
-        for move in placementMoves {
-            let millFormed = _currentPlayer.playPiece(node: move.targetNode)
-            
-            // If a mill is formed, append all the possible takeable nodes
-            // that result from this move.
-            if(millFormed) {
-                let takeableNodeMoves = getTakeableNodesFor(move: move)
-                placementMoves.append(contentsOf: takeableNodeMoves)
-            }
-            
-            // Undo move
-            _ = _board.setNode(withID: move.targetNode.id, to: .none)
-        }
+        placementMoves.append(contentsOf: getTakeableNodeMovesFor(moves: placementMoves))
         
         return placementMoves
+    }
+    
+    private func getMovementMoves() -> [Move] {
+        var movementMoves: [Move] = []
+        
+        for node in _currentPlayer.movableNodes {
+            for emptyNeighbour in node.emptyNeighbours {
+                let move = Move(type: .MovePiece, targetNode: node, destinationNode: emptyNeighbour)
+                movementMoves.append(move)
+            }
+        }
+        
+        movementMoves.append(contentsOf: getTakeableNodeMovesFor(moves: movementMoves))
+        
+        return movementMoves
+    }
+    
+    private func getFlyingMoves() -> [Move] {
+        var flyingMoves: [Move] = []
+        
+        for node in _currentPlayer.movableNodes {
+            for emptyNode in _board.getNodes(for: .none) {
+                let move = Move(type: .MovePiece, targetNode: node, destinationNode: emptyNode)
+                flyingMoves.append(move)
+            }
+        }
+        
+        flyingMoves.append(contentsOf: getTakeableNodeMovesFor(moves: flyingMoves))
+        
+        return flyingMoves
+    }
+
+    private func getTakeableNodeMovesFor(moves: [Move]) -> [Move] {
+        var takeableNodeMoves: [Move] = []
+        
+        for move in moves {
+            let millFormed = make(move: move)
+            
+            if(millFormed) {
+                takeableNodeMoves.append(contentsOf: getTakeableNodesFor(move: move))
+            }
+            
+            undo(move: move)
+        }
+        
+        return takeableNodeMoves
+    }
+    
+    private func make(move: Move) -> Bool {
+        let millFormed: Bool
+        
+        switch (move.type) {
+        case .PlacePiece:
+            millFormed = _currentPlayer.playPiece(node: move.targetNode)
+        case .MovePiece:
+            millFormed = _currentPlayer.movePiece(from: move.targetNode, to: move.destinationNode!)
+        }
+        
+        return millFormed
+    }
+    
+    private func undo(move: Move) {
+        switch(move.type) {
+        case .PlacePiece:
+            _currentPlayer.undoPlayPiece(node: move.targetNode)
+        case .MovePiece:
+            _ = _currentPlayer.movePiece(from: move.destinationNode!, to: move.targetNode)
+        }
     }
     
     private func getTakeableNodesFor(move: Move) -> [Move] {
@@ -160,32 +216,6 @@ class GameSnapshot {
         return takeableNodeMoves
     }
     
-    private func getMovementMoves() -> [Move] {
-        var movementMoves: [Move] = []
-        
-        for node in _currentPlayer.movableNodes {
-            for emptyNeighbour in node.emptyNeighbours {
-                let move = Move(type: .MovePiece, targetNode: node, destinationNode: emptyNeighbour)
-                movementMoves.append(move)
-            }
-        }
-        
-        return movementMoves
-    }
-    
-    private func getFlyingMoves() -> [Move] {
-        var flyingMoves: [Move] = []
-        
-        for node in _currentPlayer.movableNodes {
-            for emptyNode in _board.getNodes(for: .none) {
-                let move = Move(type: .MovePiece, targetNode: node, destinationNode: emptyNode)
-                flyingMoves.append(move)
-            }
-        }
-        
-        return flyingMoves
-    }
-
     // Reference: http://www.dasconference.ro/papers/2008/B7.pdf
     // Returns Int.max if green is in a winning position (red lost)
     // Return Int.min if red is in a winning position (green lost)
@@ -225,7 +255,6 @@ class GameSnapshot {
     }
     
     // Factors:
-    //  - closed a mill
     //  - number of mills
     //  - blocked oppoent pieces
     //  - number of pieces in play
@@ -244,7 +273,6 @@ class GameSnapshot {
     }
     
     // Factors:
-    //  - closed a mill
     //  - number of mills
     //  - blocked opponent pieces
     //  - number of pieces in play

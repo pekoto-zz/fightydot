@@ -16,10 +16,10 @@ class MiniMax: CalculateMoveProtocol {
         }
         
         if (playerColour == .green) {
-            var bestMove = ScoredMove(move: nil, score: Int.min)
+            let bestMove = ScoredMove(move: nil, score: Int.min)
             
             for move in gameSnapshot.getPossibleMoves() {
-                let nextGameSnapshot = gameSnapshot.make(move: move)
+                let nextGameSnapshot = gameSnapshot.getNewSnapshotFrom(move: move)
                 let scoredMove = calculateBestMove(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: .red)
                 
                 if(scoredMove.score > bestMove.score) {
@@ -30,10 +30,10 @@ class MiniMax: CalculateMoveProtocol {
             
             return bestMove
         } else /* red player */ {
-            var bestMove = ScoredMove(move: nil, score: Int.max)
+            let bestMove = ScoredMove(move: nil, score: Int.max)
             
             for move in gameSnapshot.getPossibleMoves() {
-                let nextGameSnapshot = gameSnapshot.make(move: move)
+                let nextGameSnapshot = gameSnapshot.getNewSnapshotFrom(move: move)
                 let scoredMove = calculateBestMove(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: .green)
                 
                 if(scoredMove.score < bestMove.score) {
@@ -56,7 +56,7 @@ class MiniMax: CalculateMoveProtocol {
             let possibleMoves = gameSnapshot.getPossibleMoves()
             
             for move in possibleMoves {
-                let nextGameSnapshot = gameSnapshot.make(move: move)
+                let nextGameSnapshot = gameSnapshot.getNewSnapshotFrom(move: move)
                 let debugScoredMove = ScoredMove(move: move, score: 0)
                 let childNode = tree.addChild(data: debugScoredMove)
                 let scoredMove = calculateBestMoveWithDebugTree(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: .red, tree: childNode)
@@ -77,7 +77,7 @@ class MiniMax: CalculateMoveProtocol {
             let possibleMoves = gameSnapshot.getPossibleMoves()
             
             for move in possibleMoves {
-                let nextGameSnapshot = gameSnapshot.make(move: move)
+                let nextGameSnapshot = gameSnapshot.getNewSnapshotFrom(move: move)
                 let debugScoredMove = ScoredMove(move: move, score: 0)
                 let childNode = tree.addChild(data: debugScoredMove)
                 let scoredMove = calculateBestMoveWithDebugTree(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: .green, tree: childNode)

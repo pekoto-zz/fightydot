@@ -172,6 +172,12 @@ class Player {
         return node.setColour(newColour: pieceColour)
     }
     
+    func undoPlayPiece(node: Node) {
+        _piecesLeftToPlay = _piecesLeftToPlay + 1
+        _piecesOnBoard.remove(object: node)
+        _ = node.setColour(newColour: .none)
+    }
+    
     // Returns true if mill formed
     func movePiece(from oldNode: Node, to newNode: Node) -> Bool {
         losePiece(node: oldNode)

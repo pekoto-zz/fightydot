@@ -132,7 +132,7 @@ class GameSnapshotTests: XCTestCase {
     
     func testPlacePiece() {
         let move = Move(type: .PlacePiece, targetNode: _board.getNode(withID: 1)!)
-        let nextGameSnapshot = _gameSnapshot.make(move: move)
+        let nextGameSnapshot = _gameSnapshot.getNewSnapshotFrom(move: move)
         
         let moves = nextGameSnapshot.getPossibleMoves()
         
@@ -142,10 +142,10 @@ class GameSnapshotTests: XCTestCase {
     
     func testPlaceMultiplePieces() {
         let greenMoveOne = Move(type: .PlacePiece, targetNode: _board.getNode(withID: 1)!)
-        let greenTurnOne = _gameSnapshot.make(move: greenMoveOne)
+        let greenTurnOne = _gameSnapshot.getNewSnapshotFrom(move: greenMoveOne)
         
         let redMoveOne = Move(type: .PlacePiece, targetNode: _board.getNode(withID: 0)!)
-        let redTurnOne = greenTurnOne.make(move: redMoveOne)
+        let redTurnOne = greenTurnOne.getNewSnapshotFrom(move: redMoveOne)
         
         let moves = redTurnOne.getPossibleMoves()
         
@@ -189,7 +189,7 @@ class GameSnapshotTests: XCTestCase {
         _ = _p2.playPiece(node: _board.getNode(withID: 23)!)
         
         let move = Move(type: .MovePiece, targetNode: _board.getNode(withID: 0)!, destinationNode: _board.getNode(withID: 9)!)
-        let nextGameSnapshot = _gameSnapshot.make(move: move)
+        let nextGameSnapshot = _gameSnapshot.getNewSnapshotFrom(move: move)
         
         let moves = nextGameSnapshot.getPossibleMoves()
         
@@ -219,7 +219,7 @@ class GameSnapshotTests: XCTestCase {
         _ = _p2.playPiece(node: _board.getNode(withID: 23)!)
         
         let move = Move(type: .MovePiece, targetNode: _board.getNode(withID: 12)!, destinationNode: _board.getNode(withID: 8)!)
-        let nextGameSnapshot = _gameSnapshot.make(move: move)
+        let nextGameSnapshot = _gameSnapshot.getNewSnapshotFrom(move: move)
         
         let moves = nextGameSnapshot.getPossibleMoves()
         
@@ -256,7 +256,7 @@ class GameSnapshotTests: XCTestCase {
         _p1.losePiece(node: _board.getNode(withID: 5)!)
         
         let move = Move(type: .MovePiece, targetNode: _board.getNode(withID: 6)!, destinationNode: _board.getNode(withID: 0)!)
-        let nextGameSnapshot = _gameSnapshot.make(move: move)
+        let nextGameSnapshot = _gameSnapshot.getNewSnapshotFrom(move: move)
         
         let moves = nextGameSnapshot.getPossibleMoves()
         
