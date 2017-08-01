@@ -82,9 +82,6 @@ class GameSnapshot {
         
         let targetNode = board.getNode(withID: move.targetNode.id)!
         
-        let nextPlayer: Player
-        let nextOpponent: Player
-        
         switch (move.type) {
         case .PlacePiece:
             _ = currentPlayer.playPiece(node: targetNode)
@@ -94,15 +91,11 @@ class GameSnapshot {
         }
         
         if(move.formsMill) {
-            if let nodeToTake = move.nodeToTake {
-                _opponent.losePiece(node: nodeToTake)
-            }
+            let nodeToTake = board.getNode(withID: move.nodeToTake!.id)!
+            opponent.losePiece(node: nodeToTake)
         }
         
-        nextPlayer = opponent
-        nextOpponent = currentPlayer
-        
-        return GameSnapshot(board: board, currentPlayer: nextPlayer, opponent: nextOpponent, generatedBy: move)
+        return GameSnapshot(board: board, currentPlayer: opponent, opponent: currentPlayer, generatedBy: move)
     }
     
     func printBoard() {
