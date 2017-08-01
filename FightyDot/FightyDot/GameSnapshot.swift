@@ -47,7 +47,7 @@ class GameSnapshot {
         _opponent = opponent
     }
     
-    init(board: Board, currentPlayer: Player, opponent: Player, millFormedLastTurn: Bool = false, generatedBy move: Move? = nil) {
+    init(board: Board, currentPlayer: Player, opponent: Player, generatedBy move: Move? = nil) {
         _board = board
         _currentPlayer = currentPlayer
         _opponent = opponent
@@ -84,28 +84,25 @@ class GameSnapshot {
         
         let nextPlayer: Player
         let nextOpponent: Player
-        var millFormed = false
         
         switch (move.type) {
         case .PlacePiece:
-            millFormed = currentPlayer.playPiece(node: targetNode)
+            _ = currentPlayer.playPiece(node: targetNode)
         case .MovePiece:
             let destinationNode = board.getNode(withID: move.destinationNode!.id)!
-            millFormed = currentPlayer.movePiece(from: targetNode, to: destinationNode)
+            _ = currentPlayer.movePiece(from: targetNode, to: destinationNode)
         }
         
-        if(millFormed) {
-            let takeableNodes = opponent.takeableNodes
-            
-            if(takeableNodes.count != 0) {
-                opponent.losePiece(node: takeableNodes.randomElement()!)
+        if(move.formsMill) {
+            if let nodeToTake = move.nodeToTake {
+                _opponent.losePiece(node: nodeToTake)
             }
         }
         
         nextPlayer = opponent
         nextOpponent = currentPlayer
         
-        return GameSnapshot(board: board, currentPlayer: nextPlayer, opponent: nextOpponent, millFormedLastTurn: millFormed, generatedBy: move)
+        return GameSnapshot(board: board, currentPlayer: nextPlayer, opponent: nextOpponent, generatedBy: move)
     }
     
     func printBoard() {

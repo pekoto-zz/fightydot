@@ -82,4 +82,13 @@ class PlayerTests: XCTestCase {
         }
     }
     
+    func testUndoPlayPiece() {
+        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
+        _p1.undoPlayPiece(node: _board.getNode(withID: 0)!)
+        
+        XCTAssertEqual(_p1.piecesLeftToPlay, 9)
+        XCTAssertEqual(_p1.numOfPiecesInPlay, 0)
+        XCTAssertEqual(_board.getNode(withID: 0)!.colour, PieceColour.none)
+    }
+    
 }

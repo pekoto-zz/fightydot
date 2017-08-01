@@ -64,9 +64,22 @@ class GameSnapshotTests: XCTestCase {
         let moves = _gameSnapshot.getPossibleMoves()
         
         XCTAssertEqual(moves.count, 20) // all empty nodes returned
-        XCTAssertEqual(moves.filter {move in move.type == .PlacePiece }.count, 20)  // all move types are for placing a piece
-        XCTAssertEqual(moves.filter {move in move.targetNode.id == 3 }.count, 1)    // empty node is included
-        XCTAssertEqual(moves.filter {move in move.targetNode.id == 0 }.count, 0)    // filled node not included
+        XCTAssertEqual(moves.filter { move in move.type == .PlacePiece }.count, 20)  // all move types are for placing a piece
+        XCTAssertEqual(moves.filter { move in move.targetNode.id == 3 }.count, 1)    // empty node is included
+        XCTAssertEqual(moves.filter { move in move.targetNode.id == 0 }.count, 0)    // filled node not included
+    }
+    
+    func testGetPlacementMoves_MillFormed() {
+        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
+        
+        _ = _p2.playPiece(node: _board.getNode(withID: 15)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 16)!)
+        
+        let moves = _gameSnapshot.getPossibleMoves()
+        
+        XCTAssertEqual(moves.count, 21)
+        XCTAssertEqual(moves.filter { move in move.formsMill }.count, 2)
     }
     
     func testGetMovementMoves() {
@@ -83,10 +96,30 @@ class GameSnapshotTests: XCTestCase {
         let moves = _gameSnapshot.getPossibleMoves()
         
         XCTAssertEqual(moves.count, 6)
-        XCTAssertEqual(moves.filter {move in move.type == .MovePiece }.count, 6)
-        XCTAssertEqual(moves.filter {move in move.targetNode.id == 0 }.count, 1)
-        XCTAssertEqual(moves.filter {move in move.destinationNode!.id == 9 }.count, 1)
-        XCTAssertEqual(moves.filter {move in move.targetNode.id == 1 }.count, 0)    // Node is blocked
+        XCTAssertEqual(moves.filter { move in move.type == .MovePiece }.count, 6)
+        XCTAssertEqual(moves.filter { move in move.targetNode.id == 0 }.count, 1)
+        XCTAssertEqual(moves.filter { move in move.destinationNode!.id == 9 }.count, 1)
+        XCTAssertEqual(moves.filter { move in move.targetNode.id == 1 }.count, 0)    // Node is blocked
+    }
+    
+    func testgetMovementMoves_MillFormed() {
+        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 2)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 3)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 4)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 5)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 6)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 7)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 12)!)
+        
+        _ = _p2.playPiece(node: _board.getNode(withID: 21)!)
+        
+        let moves = _gameSnapshot.getPossibleMoves()
+        
+        XCTAssertEqual(moves.count, 9)
+        XCTAssertEqual(moves.filter { move in move.type == .MovePiece }.count, 9)
+        XCTAssertEqual(moves.filter { move in move.formsMill }.count, 1)
     }
     
     func testGetFlyingMoves() {
@@ -121,10 +154,46 @@ class GameSnapshotTests: XCTestCase {
         
         // 3 nodes left * 12 empty spaces = 36 possible moves
         XCTAssertEqual(moves.count, 36)
-        XCTAssertEqual(moves.filter {move in move.type == .MovePiece }.count, 36)
-        XCTAssertEqual(moves.filter {move in move.targetNode.id == 6 }.count, 12)
-        XCTAssertEqual(moves.filter {move in move.destinationNode!.id == 0 }.count, 3)
-        XCTAssertEqual(moves.filter {move in move.destinationNode!.id == 6 }.count, 0)
+        XCTAssertEqual(moves.filter { move in move.type == .MovePiece }.count, 36)
+        XCTAssertEqual(moves.filter { move in move.targetNode.id == 6 }.count, 12)
+        XCTAssertEqual(moves.filter { move in move.destinationNode!.id == 0 }.count, 3)
+        XCTAssertEqual(moves.filter { move in move.destinationNode!.id == 6 }.count, 0)
+    }
+    
+    func testGetFlyingMoves_MillFormed() {
+        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 2)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 3)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 4)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 5)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 6)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 7)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 12)!)
+        
+        _ = _p2.playPiece(node: _board.getNode(withID: 15)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 16)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 17)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 18)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 19)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 20)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 21)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 22)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 23)!)
+        
+        _p1.losePiece(node: _board.getNode(withID: 0)!)
+        _p1.losePiece(node: _board.getNode(withID: 1)!)
+        _p1.losePiece(node: _board.getNode(withID: 2)!)
+        _p1.losePiece(node: _board.getNode(withID: 3)!)
+        _p1.losePiece(node: _board.getNode(withID: 4)!)
+        _p1.losePiece(node: _board.getNode(withID: 5)!)
+        
+        let moves = _gameSnapshot.getPossibleMoves()
+        
+        // 3 nodes left * 12 empty spaces = 36 possible moves + moves to take p2's pieces
+        XCTAssertEqual(moves.count, 44)
+        XCTAssertEqual(moves.filter { move in move.type == .MovePiece }.count, 44)
+        XCTAssertEqual(moves.filter { move in move.formsMill }.count, 9)
     }
     
     // MARK: - Make move tests
@@ -137,7 +206,7 @@ class GameSnapshotTests: XCTestCase {
         let moves = nextGameSnapshot.getPossibleMoves()
         
         XCTAssertEqual(moves.count, 23)
-        XCTAssertEqual(moves.filter {move in move.targetNode.id == 1 }.count, 0)
+        XCTAssertEqual(moves.filter { move in move.targetNode.id == 1 }.count, 0)
     }
     
     func testPlaceMultiplePieces() {
@@ -150,23 +219,10 @@ class GameSnapshotTests: XCTestCase {
         let moves = redTurnOne.getPossibleMoves()
         
         XCTAssertEqual(moves.count, 22)
-        XCTAssertEqual(moves.filter {move in move.targetNode.id == 0 }.count, 0)
-        XCTAssertEqual(moves.filter {move in move.targetNode.id == 1 }.count, 0)
+        XCTAssertEqual(moves.filter { move in move.targetNode.id == 0 }.count, 0)
+        XCTAssertEqual(moves.filter { move in move.targetNode.id == 1 }.count, 0)
     }
-    
-    func testPlacePiece_MillFormed() {
-        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
-        
-        _ = _p2.playPiece(node: _board.getNode(withID: 15)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 16)!)
-        
-        let moves = _gameSnapshot.getPossibleMoves()
-        
-        XCTAssertEqual(moves.count, 21)
-        XCTAssertEqual(moves.filter {move in move.formsMill }.count, 2)
-    }
-    
+
     func testMovePiece() {
         _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
         _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
@@ -194,37 +250,7 @@ class GameSnapshotTests: XCTestCase {
         let moves = nextGameSnapshot.getPossibleMoves()
         
         XCTAssertEqual(moves.count, 5)
-        XCTAssertEqual(moves.filter {move in move.type == .MovePiece }.count, 5)
-    }
-    
-    func testMovePiece_MillFormed() {
-        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 2)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 3)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 4)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 5)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 6)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 7)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 12)!)
-        
-        _ = _p2.playPiece(node: _board.getNode(withID: 15)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 16)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 17)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 18)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 19)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 20)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 21)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 22)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 23)!)
-        
-        let move = Move(type: .MovePiece, targetNode: _board.getNode(withID: 12)!, destinationNode: _board.getNode(withID: 8)!)
-        let nextGameSnapshot = _gameSnapshot.getNewSnapshotFrom(move: move)
-        
-        let moves = nextGameSnapshot.getPossibleMoves()
-        
-        XCTAssertEqual(moves.count, 9)
-        XCTAssertEqual(moves.filter {move in move.type == .MovePiece }.count, 9)
+        XCTAssertEqual(moves.filter { move in move.type == .MovePiece }.count, 5)
     }
     
     func testFlyPiece() {
@@ -261,7 +287,7 @@ class GameSnapshotTests: XCTestCase {
         let moves = nextGameSnapshot.getPossibleMoves()
         
         XCTAssertEqual(moves.count, 6)
-        XCTAssertEqual(moves.filter {move in move.type == .MovePiece }.count, 6)
+        XCTAssertEqual(moves.filter { move in move.type == .MovePiece }.count, 6)
     }
     
     // MARK: - Heuristic evaluation score tests

@@ -62,7 +62,7 @@ class AIPlayer: Player {
         let playerClone = self.clone(to: boardClone)
         let opponentClone = opponent.clone(to: boardClone)
         
-        let gameSnapshot = GameSnapshot(board: boardClone, currentPlayer: playerClone, opponent: opponentClone, millFormedLastTurn: millFormed)
+        let gameSnapshot = GameSnapshot(board: boardClone, currentPlayer: playerClone, opponent: opponentClone)
         
         let debugTree = TreeNode<ScoredMove>(data: ScoredMove(move: nil, score: 0))
         
