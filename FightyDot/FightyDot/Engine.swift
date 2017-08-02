@@ -207,13 +207,10 @@ class Engine {
 
                     if let nodeToTake = moveToMake.nodeToTake {
                         try! self.takeNodeBelongingTo(player: opponent, nodeId: nodeToTake.id)
-                        aiPlayer.processingState = .Waiting
                     }
                 }
             }
         }
-        
-        
     }
     
     private func nextTurn() throws {
@@ -264,6 +261,10 @@ class Engine {
     }
     
     private func switchPlayers() {
+        if let aiPlayer = _currentPlayer as? AIPlayer {
+            aiPlayer.processingState = .Waiting
+        }
+        
         _currentPlayer = nextPlayer()
     }
     

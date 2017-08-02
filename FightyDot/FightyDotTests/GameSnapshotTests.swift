@@ -609,4 +609,17 @@ class GameSnapshotTests: XCTestCase {
         XCTAssertLessThan(_gameSnapshot.heuristicScore, 0)
     }
     
+    func testWeights() {
+        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
+        _ = _p1.playPiece(node: _board.getNode(withID: 9)!)
+        
+        _ = _p2.playPiece(node: _board.getNode(withID: 19)!)
+        _ = _p2.playPiece(node: _board.getNode(withID: 1)!)
+
+        _ = _p1.playPiece(node: _board.getNode(withID: 10)!)
+        
+        print(_gameSnapshot.heuristicScore)
+        
+    }
+    
 }

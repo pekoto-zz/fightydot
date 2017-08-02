@@ -75,7 +75,7 @@ class AIPlayer: Player {
         return bestMove.move
     }
     
-    func pickNodeToPlaceFrom(board: Board) -> Node {
+    func pickNodeToPlaceFrom(board: Board) -> Node {        
         if(pickIntersection()) {
             return pickRandomIntersectionFrom(board: board)
         } else {

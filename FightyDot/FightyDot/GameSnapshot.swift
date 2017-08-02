@@ -253,6 +253,13 @@ class GameSnapshot {
     private func calculatePlacementScore(player: Player, opponent: Player) -> Int {
         let(twoPieceConfigs, threePieceConfigs) = _board.numOfTwoAndThreePieceConfigurations(for: player.pieceColour)
         
+        print("Player: \(player.colour)")
+        print("Mills: \(_board.numOfMills(for: player.pieceColour) * HeuristicWeights.PlacementPhase.mills)")
+        print("Blocked nodes: \(opponent.numOfBlockedNodes * HeuristicWeights.PlacementPhase.blockedOpponentPieces)")
+        print("In play: \(player.numOfPiecesInPlay * HeuristicWeights.PlacementPhase.piecesInPlay)")
+        print("Two piece configs: \(twoPieceConfigs * HeuristicWeights.PlacementPhase.twoPieceConfigurations)")
+        print("Three piece configs: \(threePieceConfigs * HeuristicWeights.PlacementPhase.threePieceConfigurations)")
+        
         let score = (_board.numOfMills(for: player.pieceColour) * HeuristicWeights.PlacementPhase.mills)
                   + (opponent.numOfBlockedNodes * HeuristicWeights.PlacementPhase.blockedOpponentPieces)
                   + (player.numOfPiecesInPlay * HeuristicWeights.PlacementPhase.piecesInPlay)
