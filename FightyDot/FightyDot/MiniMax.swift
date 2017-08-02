@@ -16,27 +16,29 @@ class MiniMax: CalculateMoveProtocol {
         }
         
         if (playerColour == .green) {
-            var bestMove = ScoredMove(move: nil, score: Int.min)
+            let bestMove = ScoredMove(move: nil, score: Int.min)
             
             for move in gameSnapshot.getPossibleMoves() {
-                let nextGameSnapshot = gameSnapshot.make(move: move)
+                let nextGameSnapshot = gameSnapshot.getNewSnapshotFrom(move: move)
                 let scoredMove = calculateBestMove(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: .red)
                 
                 if(scoredMove.score > bestMove.score) {
-                    bestMove = scoredMove
+                    bestMove.move = move
+                    bestMove.score = scoredMove.score
                 }
             }
             
             return bestMove
         } else /* red player */ {
-            var bestMove = ScoredMove(move: nil, score: Int.max)
+            let bestMove = ScoredMove(move: nil, score: Int.max)
             
             for move in gameSnapshot.getPossibleMoves() {
-                let nextGameSnapshot = gameSnapshot.make(move: move)
+                let nextGameSnapshot = gameSnapshot.getNewSnapshotFrom(move: move)
                 let scoredMove = calculateBestMove(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: .green)
                 
                 if(scoredMove.score < bestMove.score) {
-                    bestMove = scoredMove
+                    bestMove.move = move
+                    bestMove.score = scoredMove.score
                 }
             }
             
@@ -50,33 +52,43 @@ class MiniMax: CalculateMoveProtocol {
         }
         
         if (playerColour == .green) {
-            var bestMove = ScoredMove(move: nil, score: Int.min)
+            let bestMove = ScoredMove(move: nil, score: Int.min)
+            let possibleMoves = gameSnapshot.getPossibleMoves()
             
-            for move in gameSnapshot.getPossibleMoves() {
-                let nextGameSnapshot = gameSnapshot.make(move: move)
+            for move in possibleMoves {
+                let nextGameSnapshot = gameSnapshot.getNewSnapshotFrom(move: move)
                 let debugScoredMove = ScoredMove(move: move, score: 0)
                 let childNode = tree.addChild(data: debugScoredMove)
                 let scoredMove = calculateBestMoveWithDebugTree(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: .red, tree: childNode)
                 debugScoredMove.score = scoredMove.score
                 
-                if(scoredMove.score > bestMove.score) {
-                    bestMove = scoredMove
+                print("GREEN: Move: \(scoredMove.move!.targetNode.id) [\(scoredMove.score)]")
+                
+                if(scoredMove.score >= bestMove.score) {
+                    print("GREEN UPDATED BEST MOVE!")
+                    bestMove.move = move //scoredMove.move?.clone()
+                    bestMove.score = scoredMove.score
                 }
             }
             
             return bestMove
         } else /* red player */ {
-            var bestMove = ScoredMove(move: nil, score: Int.max)
+            let bestMove = ScoredMove(move: nil, score: Int.max)
+            let possibleMoves = gameSnapshot.getPossibleMoves()
             
-            for move in gameSnapshot.getPossibleMoves() {
-                let nextGameSnapshot = gameSnapshot.make(move: move)
+            for move in possibleMoves {
+                let nextGameSnapshot = gameSnapshot.getNewSnapshotFrom(move: move)
                 let debugScoredMove = ScoredMove(move: move, score: 0)
                 let childNode = tree.addChild(data: debugScoredMove)
                 let scoredMove = calculateBestMoveWithDebugTree(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: .green, tree: childNode)
                 debugScoredMove.score = scoredMove.score
                 
-                if(scoredMove.score < bestMove.score) {
-                    bestMove = scoredMove
+                print("RED: Move: \(scoredMove.move!.targetNode.id) [\(scoredMove.score)]")
+                
+                if(scoredMove.score <= bestMove.score) {
+                    print("RED UPDATED BEST MOVE!")
+                    bestMove.move = move //scoredMove.move?.clone()
+                    bestMove.score = scoredMove.score
                 }
             }
             

@@ -109,9 +109,12 @@ class Engine {
         
         let millFormed = player.playPiece(node: node)
         
-        if millFormed && nextPlayer().hasTakeableNodes {
+        if (millFormed)  {
             _view?.playSound(fileName: Constants.Sfx.millFormed, type: ".wav")
-            try promptToTakePiece()
+            
+            if(player.type == .humanLocal && nextPlayer().hasTakeableNodes) {
+                try promptToTakePiece()
+            }
         } else {
             _view?.playSound(fileName: Constants.Sfx.placePiece, type: ".wav")
             try nextTurn()
@@ -120,12 +123,7 @@ class Engine {
     
     private func promptToTakePiece() throws {
         _state = .TakingPiece
-        if let aiPlayer = _currentPlayer as? AIPlayer {
-            makeMoveFor(aiPlayer: aiPlayer)
-        } else {
-            try updateSelectableNodes()
-        }
-        
+        try updateSelectableNodes()
     }
     
     private func updateSelectableNodes() throws {
@@ -192,10 +190,7 @@ class Engine {
             case .PlacePiece:
                 aiPlayer.processingState = .Placing
                 try! self.placeNodeFor(player: aiPlayer, nodeId: moveToMake.targetNode.id)
-            case .TakePiece:
-                aiPlayer.processingState = .TakingPiece
-                try! self.takeNodeBelongingTo(player: opponent, nodeId: moveToMake.targetNode.id)
-            case .MovePiece, .FlyPiece:
+            case .MovePiece:
                 aiPlayer.processingState = .Moving
                 
                 guard let destinationNode = moveToMake.destinationNode else {
@@ -206,10 +201,16 @@ class Engine {
                 try! self.moveNodeFor(player: aiPlayer, from: moveToMake.targetNode.id, to: destinationNode.id)
             }
             
-            aiPlayer.processingState = .Waiting
+            if(moveToMake.formsMill) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + aiPlayer.artificialThinkTime) {
+                    aiPlayer.processingState = .TakingPiece
+
+                    if let nodeToTake = moveToMake.nodeToTake {
+                        try! self.takeNodeBelongingTo(player: opponent, nodeId: nodeToTake.id)
+                    }
+                }
+            }
         }
-        
-        
     }
     
     private func nextTurn() throws {
@@ -237,9 +238,12 @@ class Engine {
         
         let millFormed = player.movePiece(from: oldNode, to: newNode)
         
-        if millFormed && nextPlayer().hasTakeableNodes {
+        if (millFormed) {
             _view?.playSound(fileName: Constants.Sfx.millFormed, type: ".wav")
-            try promptToTakePiece()
+            
+            if(player.type == .humanLocal && nextPlayer().hasTakeableNodes) {
+                try promptToTakePiece()
+            }
         } else {
             _view?.playSound(fileName: Constants.Sfx.placePiece, type: ".wav")
             try nextTurn()
@@ -257,6 +261,10 @@ class Engine {
     }
     
     private func switchPlayers() {
+        if let aiPlayer = _currentPlayer as? AIPlayer {
+            aiPlayer.processingState = .Waiting
+        }
+        
         _currentPlayer = nextPlayer()
     }
     

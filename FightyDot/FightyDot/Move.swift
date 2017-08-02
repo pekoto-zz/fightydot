@@ -9,9 +9,11 @@
 import Foundation
 
 class Move: CustomStringConvertible {
+    
     private var _type: MoveType
     private var _targetNode: Node
     private var _destinationNode: Node?
+    private var _nodeToTake: Node?
     
     var type: MoveType {
         get {
@@ -31,6 +33,20 @@ class Move: CustomStringConvertible {
         }
     }
     
+    var nodeToTake: Node? {
+        get {
+            return _nodeToTake
+        } set {
+            _nodeToTake = newValue
+        }
+    }
+    
+    var formsMill: Bool {
+        get {
+            return _nodeToTake != nil
+        }
+    }
+    
     var description: String {
         if let destinationNodeToPrint = _destinationNode {
             return "\(_targetNode.id) -> \(destinationNodeToPrint.id)"
@@ -39,9 +55,10 @@ class Move: CustomStringConvertible {
         }
     }
     
-    init(type: MoveType, targetNode: Node, destinationNode: Node? = nil) {
+    init(type: MoveType, targetNode: Node, destinationNode: Node? = nil, nodeToTake: Node? = nil) {
         _type = type
         _targetNode = targetNode
         _destinationNode = destinationNode
+        _nodeToTake = nodeToTake
     }
 }

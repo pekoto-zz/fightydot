@@ -54,8 +54,6 @@ enum GameType: Int {
 enum MoveType {
     case PlacePiece
     case MovePiece
-    case TakePiece
-    case FlyPiece
 }
 
 enum PieceColour: Int {

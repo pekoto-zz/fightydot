@@ -10,7 +10,7 @@ import Foundation
 
 class AIPlayer: Player {
 
-    private var _lookAheadDepth: Int = 2
+    private var _lookAheadDepth: Int = 3
     private var _moveCalculator: CalculateMoveProtocol
     private var _turn = 1
     
@@ -47,6 +47,7 @@ class AIPlayer: Player {
     override func reset() {
         super.reset()
         _processingState = .Waiting
+        _turn = 1
     }
     
     func hasPlayedNoPieces() -> Bool {
@@ -61,7 +62,7 @@ class AIPlayer: Player {
         let playerClone = self.clone(to: boardClone)
         let opponentClone = opponent.clone(to: boardClone)
         
-        let gameSnapshot = GameSnapshot(board: boardClone, currentPlayer: playerClone, opponent: opponentClone, millFormedLastTurn: millFormed)
+        let gameSnapshot = GameSnapshot(board: boardClone, currentPlayer: playerClone, opponent: opponentClone)
         
         let debugTree = TreeNode<ScoredMove>(data: ScoredMove(move: nil, score: 0))
         

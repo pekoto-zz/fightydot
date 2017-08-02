@@ -16,6 +16,8 @@ class ScoredMove: CustomStringConvertible {
     var move: Move? {
         get {
             return _move
+        } set {
+            _move = newValue
         }
     }
     

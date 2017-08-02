@@ -19,9 +19,9 @@ class GameSnapshot {
     private var _board: Board
     private var _currentPlayer: Player
     private var _opponent: Player
-    private var _move: Move?    // Used to return associated move in minimax
     
-    private var _millFormedLastTurn: Bool
+    // The move used to generate this gamesnapshot
+    private var _move: Move?
     
     var heuristicScore: Int {
         get {
@@ -41,18 +41,26 @@ class GameSnapshot {
         }
     }
     
-    init(board: Board, currentPlayer: Player, opponent: Player, millFormedLastTurn: Bool = false) {
-        _board = board
-        _currentPlayer = currentPlayer
-        _opponent = opponent
-        _millFormedLastTurn = millFormedLastTurn
+    var formsMill: Bool {
+        get {
+            if let moveToMake = move {
+                return moveToMake.formsMill
+            }
+            
+            return false
+        }
     }
     
-    init(board: Board, currentPlayer: Player, opponent: Player, millFormedLastTurn: Bool = false, generatedBy move: Move? = nil) {
+    init(board: Board, currentPlayer: Player, opponent: Player) {
         _board = board
         _currentPlayer = currentPlayer
         _opponent = opponent
-        _millFormedLastTurn = millFormedLastTurn
+    }
+    
+    init(board: Board, currentPlayer: Player, opponent: Player, generatedBy move: Move? = nil) {
+        _board = board
+        _currentPlayer = currentPlayer
+        _opponent = opponent
         _move = move
     }
     
@@ -60,9 +68,9 @@ class GameSnapshot {
     func getPossibleMoves() -> [Move] {
         var possibleMoves: [Move] = []
         
-        if(_millFormedLastTurn) {
-            possibleMoves = getTakingMoves()
-        } else if (_currentPlayer.state == .PlacingPieces) {
+        // TODO for each of the moves here, if it's made, work out if it would result in a mill being formed
+        // and if it would, clone the move, adding on all the nodes that can be taken
+        if (_currentPlayer.state == .PlacingPieces) {
             possibleMoves = getPlacementMoves()
         } else if (_currentPlayer.state == .MovingPieces) {
             possibleMoves = getMovementMoves()
@@ -77,36 +85,27 @@ class GameSnapshot {
     
     // Returns the resulting game snapshot (board & player states) after a certain move is made
     // (We need to store every game state for minimax ranking -- hence why we clone())
-    func make(move: Move) -> GameSnapshot {
+    func getNewSnapshotFrom(move: Move) -> GameSnapshot {
         let board = _board.clone()
         let currentPlayer = _currentPlayer.clone(to: board)
         let opponent = _opponent.clone(to: board)
         
         let targetNode = board.getNode(withID: move.targetNode.id)!
         
-        let nextPlayer: Player
-        let nextOpponent: Player
-        var millFormed = false
-        
         switch (move.type) {
         case .PlacePiece:
-            millFormed = currentPlayer.playPiece(node: targetNode)
-        case .MovePiece, .FlyPiece:
+            _ = currentPlayer.playPiece(node: targetNode)
+        case .MovePiece:
             let destinationNode = board.getNode(withID: move.destinationNode!.id)!
-            millFormed = currentPlayer.movePiece(from: targetNode, to: destinationNode)
-        case .TakePiece:
-            opponent.losePiece(node: move.targetNode)
+            _ = currentPlayer.movePiece(from: targetNode, to: destinationNode)
         }
         
-        if(millFormed) {
-            nextPlayer = currentPlayer
-            nextOpponent = opponent
-        } else {
-            nextPlayer = opponent
-            nextOpponent = currentPlayer
+        if(move.formsMill) {
+            let nodeToTake = board.getNode(withID: move.nodeToTake!.id)!
+            opponent.losePiece(node: nodeToTake)
         }
         
-        return GameSnapshot(board: board, currentPlayer: nextPlayer, opponent: nextOpponent, millFormedLastTurn: millFormed, generatedBy: move)
+        return GameSnapshot(board: board, currentPlayer: opponent, opponent: currentPlayer, generatedBy: move)
     }
     
     func printBoard() {
@@ -127,6 +126,8 @@ class GameSnapshot {
             placementMoves.append(move)
         }
         
+        placementMoves.append(contentsOf: getTakeableNodeMovesFor(moves: placementMoves))
+        
         return placementMoves
     }
     
@@ -140,18 +141,9 @@ class GameSnapshot {
             }
         }
         
+        movementMoves.append(contentsOf: getTakeableNodeMovesFor(moves: movementMoves))
+        
         return movementMoves
-    }
-    
-    private func getTakingMoves() -> [Move] {
-        var takingMoves: [Move] = []
-        
-        for node in _opponent.takeableNodes {
-            let move = Move(type: .TakePiece, targetNode: node)
-            takingMoves.append(move)
-        }
-        
-        return takingMoves
     }
     
     private func getFlyingMoves() -> [Move] {
@@ -159,14 +151,71 @@ class GameSnapshot {
         
         for node in _currentPlayer.movableNodes {
             for emptyNode in _board.getNodes(for: .none) {
-                let move = Move(type: .FlyPiece, targetNode: node, destinationNode: emptyNode)
+                let move = Move(type: .MovePiece, targetNode: node, destinationNode: emptyNode)
                 flyingMoves.append(move)
             }
         }
         
+        flyingMoves.append(contentsOf: getTakeableNodeMovesFor(moves: flyingMoves))
+        
         return flyingMoves
     }
 
+    private func getTakeableNodeMovesFor(moves: [Move]) -> [Move] {
+        var takeableNodeMoves: [Move] = []
+        
+        for move in moves {
+            let millFormed = make(move: move)
+            
+            if(millFormed) {
+                takeableNodeMoves.append(contentsOf: getTakeableNodesFor(move: move))
+            }
+            
+            undo(move: move)
+        }
+        
+        return takeableNodeMoves
+    }
+    
+    private func make(move: Move) -> Bool {
+        let millFormed: Bool
+        
+        switch (move.type) {
+        case .PlacePiece:
+            millFormed = _currentPlayer.playPiece(node: move.targetNode)
+        case .MovePiece:
+            millFormed = _currentPlayer.movePiece(from: move.targetNode, to: move.destinationNode!)
+        }
+        
+        return millFormed
+    }
+    
+    private func undo(move: Move) {
+        switch(move.type) {
+        case .PlacePiece:
+            _currentPlayer.undoPlayPiece(node: move.targetNode)
+        case .MovePiece:
+            _ = _currentPlayer.movePiece(from: move.destinationNode!, to: move.targetNode)
+        }
+    }
+    
+    private func getTakeableNodesFor(move: Move) -> [Move] {
+        var takeableNodeMoves: [Move] = []
+        
+        let takeableNodes = _opponent.takeableNodes
+        
+        if(takeableNodes.count > 0) {
+            move.nodeToTake = takeableNodes[0]
+            
+            for i in 1 ..< takeableNodes.count {
+                let move = Move(type: move.type, targetNode: move.targetNode, destinationNode: move.destinationNode, nodeToTake: takeableNodes[i])
+                takeableNodeMoves.append(move)
+            }
+        }
+        
+        return takeableNodeMoves
+    }
+    
     // Reference: http://www.dasconference.ro/papers/2008/B7.pdf
     // Returns Int.max if green is in a winning position (red lost)
     // Return Int.min if red is in a winning position (green lost)
@@ -193,27 +242,25 @@ class GameSnapshot {
         var score = 0
         
         let state = player.state
-        let millClosedLastTurn = closedMillLastTurn(player: player)
         
         if (state == .PlacingPieces) {
-            score = calculatePlacementScore(player: player, opponent: opponent, millClosedLastTurn: millClosedLastTurn)
+            score = calculatePlacementScore(player: player, opponent: opponent)
         } else if (state == .MovingPieces) {
-            score = calculateMovementScore(player: player, opponent: opponent, millClosedLastTurn: millClosedLastTurn)
+            score = calculateMovementScore(player: player, opponent: opponent)
         } else {
-            score = calculateFlyingScore(player: player, opponent: opponent, millClosedLastTurn: millClosedLastTurn)
+            score = calculateFlyingScore(player: player, opponent: opponent)
         }
         
         return score
     }
     
     // Factors:
-    //  - closed a mill
     //  - number of mills
     //  - blocked oppoent pieces
     //  - number of pieces in play
     //  - two piece configurations (mill can be closed in 1 way)
     //  - three piece configurations (mill can be closed in 2 ways)
-    private func calculatePlacementScore(player: Player, opponent: Player, millClosedLastTurn: Bool) -> Int {
+    private func calculatePlacementScore(player: Player, opponent: Player) -> Int {
         let(twoPieceConfigs, threePieceConfigs) = _board.numOfTwoAndThreePieceConfigurations(for: player.pieceColour)
         
         var score = (_board.numOfMills(for: player.pieceColour) * HeuristicWeights.PlacementPhase.mills)
@@ -222,29 +269,28 @@ class GameSnapshot {
                   + (twoPieceConfigs * HeuristicWeights.PlacementPhase.twoPieceConfigurations)
                   + (threePieceConfigs * HeuristicWeights.PlacementPhase.threePieceConfigurations)
         
-        if(millClosedLastTurn) {
-            score += HeuristicWeights.PlacementPhase.closedMill
+        if(formsMill) {
+            score = score + HeuristicWeights.PlacementPhase.closedMill
         }
         
         return score
     }
     
     // Factors:
-    //  - closed a mill
     //  - number of mills
     //  - blocked opponent pieces
     //  - number of pieces in play
     //  - opened a mill
     //  - double mill
-    private func calculateMovementScore(player: Player, opponent: Player, millClosedLastTurn: Bool) -> Int {
+    private func calculateMovementScore(player: Player, opponent: Player) -> Int {
         var score = (_board.numOfMills(for: player.pieceColour) * HeuristicWeights.MovementPhase.mills)
                   + (opponent.numOfBlockedNodes * HeuristicWeights.MovementPhase.blockedOpponentPieces)
                   + (player.numOfPiecesInPlay * HeuristicWeights.MovementPhase.piecesInPlay)
                   + (_board.numOfOpenMills(for: player.pieceColour) * HeuristicWeights.MovementPhase.openMill)
                   + (_board.numOfDoubleMills(for: player.pieceColour) * HeuristicWeights.MovementPhase.doubleMill)
         
-        if(millClosedLastTurn) {
-            score += HeuristicWeights.MovementPhase.closedMill
+        if(formsMill) {
+            score = score + HeuristicWeights.MovementPhase.closedMill
         }
         
         return score
@@ -254,14 +300,14 @@ class GameSnapshot {
     //  - Two piece configurations (mill can be closed in 1 way)
     //  - Three piece configurations (mill can be closed in 2 ways)
     //  - closed a mill
-    private func calculateFlyingScore(player: Player, opponent: Player, millClosedLastTurn: Bool) -> Int {
+    private func calculateFlyingScore(player: Player, opponent: Player) -> Int {
         let(twoPieceConfigs, threePieceConfigs) = _board.numOfTwoAndThreePieceConfigurations(for: player.pieceColour)
 
         var score = (twoPieceConfigs * HeuristicWeights.FlyingPhase.twoPieceConfigurations)
                   + (threePieceConfigs * HeuristicWeights.FlyingPhase.threePieceConfigurations)
         
-        if(millClosedLastTurn) {
-            score += HeuristicWeights.FlyingPhase.closedMill
+        if(formsMill) {
+            score = score + HeuristicWeights.FlyingPhase.closedMill
         }
         
         return score
@@ -273,9 +319,5 @@ class GameSnapshot {
         } else {
             return (_opponent, _currentPlayer)
         }
-    }
-    
-    private func closedMillLastTurn(player: Player) -> Bool {
-        return player === _currentPlayer && _millFormedLastTurn
     }
 }
