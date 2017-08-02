@@ -64,7 +64,7 @@ class MiniMax: CalculateMoveProtocol {
                 
                 print("GREEN: Move: \(scoredMove.move!.targetNode.id) [\(scoredMove.score)]")
                 
-                if(scoredMove.score > bestMove.score) {
+                if(scoredMove.score >= bestMove.score) {
                     print("GREEN UPDATED BEST MOVE!")
                     bestMove.move = move //scoredMove.move?.clone()
                     bestMove.score = scoredMove.score
@@ -85,7 +85,7 @@ class MiniMax: CalculateMoveProtocol {
                 
                 print("RED: Move: \(scoredMove.move!.targetNode.id) [\(scoredMove.score)]")
                 
-                if(scoredMove.score < bestMove.score) {
+                if(scoredMove.score <= bestMove.score) {
                     print("RED UPDATED BEST MOVE!")
                     bestMove.move = move //scoredMove.move?.clone()
                     bestMove.score = scoredMove.score

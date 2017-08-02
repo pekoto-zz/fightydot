@@ -41,6 +41,16 @@ class GameSnapshot {
         }
     }
     
+    var formsMill: Bool {
+        get {
+            if let moveToMake = move {
+                return moveToMake.formsMill
+            }
+            
+            return false
+        }
+    }
+    
     init(board: Board, currentPlayer: Player, opponent: Player) {
         _board = board
         _currentPlayer = currentPlayer
@@ -253,18 +263,15 @@ class GameSnapshot {
     private func calculatePlacementScore(player: Player, opponent: Player) -> Int {
         let(twoPieceConfigs, threePieceConfigs) = _board.numOfTwoAndThreePieceConfigurations(for: player.pieceColour)
         
-        print("Player: \(player.colour)")
-        print("Mills: \(_board.numOfMills(for: player.pieceColour) * HeuristicWeights.PlacementPhase.mills)")
-        print("Blocked nodes: \(opponent.numOfBlockedNodes * HeuristicWeights.PlacementPhase.blockedOpponentPieces)")
-        print("In play: \(player.numOfPiecesInPlay * HeuristicWeights.PlacementPhase.piecesInPlay)")
-        print("Two piece configs: \(twoPieceConfigs * HeuristicWeights.PlacementPhase.twoPieceConfigurations)")
-        print("Three piece configs: \(threePieceConfigs * HeuristicWeights.PlacementPhase.threePieceConfigurations)")
-        
-        let score = (_board.numOfMills(for: player.pieceColour) * HeuristicWeights.PlacementPhase.mills)
+        var score = (_board.numOfMills(for: player.pieceColour) * HeuristicWeights.PlacementPhase.mills)
                   + (opponent.numOfBlockedNodes * HeuristicWeights.PlacementPhase.blockedOpponentPieces)
                   + (player.numOfPiecesInPlay * HeuristicWeights.PlacementPhase.piecesInPlay)
                   + (twoPieceConfigs * HeuristicWeights.PlacementPhase.twoPieceConfigurations)
                   + (threePieceConfigs * HeuristicWeights.PlacementPhase.threePieceConfigurations)
+        
+        if(formsMill) {
+            score = score + HeuristicWeights.PlacementPhase.closedMill
+        }
         
         return score
     }
@@ -276,11 +283,15 @@ class GameSnapshot {
     //  - opened a mill
     //  - double mill
     private func calculateMovementScore(player: Player, opponent: Player) -> Int {
-        let score = (_board.numOfMills(for: player.pieceColour) * HeuristicWeights.MovementPhase.mills)
+        var score = (_board.numOfMills(for: player.pieceColour) * HeuristicWeights.MovementPhase.mills)
                   + (opponent.numOfBlockedNodes * HeuristicWeights.MovementPhase.blockedOpponentPieces)
                   + (player.numOfPiecesInPlay * HeuristicWeights.MovementPhase.piecesInPlay)
                   + (_board.numOfOpenMills(for: player.pieceColour) * HeuristicWeights.MovementPhase.openMill)
                   + (_board.numOfDoubleMills(for: player.pieceColour) * HeuristicWeights.MovementPhase.doubleMill)
+        
+        if(formsMill) {
+            score = score + HeuristicWeights.MovementPhase.closedMill
+        }
         
         return score
     }
@@ -292,8 +303,12 @@ class GameSnapshot {
     private func calculateFlyingScore(player: Player, opponent: Player) -> Int {
         let(twoPieceConfigs, threePieceConfigs) = _board.numOfTwoAndThreePieceConfigurations(for: player.pieceColour)
 
-        let score = (twoPieceConfigs * HeuristicWeights.FlyingPhase.twoPieceConfigurations)
+        var score = (twoPieceConfigs * HeuristicWeights.FlyingPhase.twoPieceConfigurations)
                   + (threePieceConfigs * HeuristicWeights.FlyingPhase.threePieceConfigurations)
+        
+        if(formsMill) {
+            score = score + HeuristicWeights.FlyingPhase.closedMill
+        }
         
         return score
     }
