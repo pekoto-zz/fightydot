@@ -109,9 +109,12 @@ class Engine {
         
         let millFormed = player.playPiece(node: node)
         
-        if millFormed && nextPlayer().hasTakeableNodes {
+        if (millFormed)  {
             _view?.playSound(fileName: Constants.Sfx.millFormed, type: ".wav")
-            try promptToTakePiece()
+            
+            if(player.type == .humanLocal && nextPlayer().hasTakeableNodes) {
+                try promptToTakePiece()
+            }
         } else {
             _view?.playSound(fileName: Constants.Sfx.placePiece, type: ".wav")
             try nextTurn()
@@ -120,12 +123,7 @@ class Engine {
     
     private func promptToTakePiece() throws {
         _state = .TakingPiece
-        if let aiPlayer = _currentPlayer as? AIPlayer {
-            makeMoveFor(aiPlayer: aiPlayer)
-        } else {
-            try updateSelectableNodes()
-        }
-        
+        try updateSelectableNodes()
     }
     
     private func updateSelectableNodes() throws {
@@ -203,15 +201,16 @@ class Engine {
                 try! self.moveNodeFor(player: aiPlayer, from: moveToMake.targetNode.id, to: destinationNode.id)
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + aiPlayer.artificialThinkTime) {
-                if(moveToMake.formsMill) {
+            if(moveToMake.formsMill) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + aiPlayer.artificialThinkTime) {
+                    aiPlayer.processingState = .TakingPiece
+
                     if let nodeToTake = moveToMake.nodeToTake {
                         try! self.takeNodeBelongingTo(player: opponent, nodeId: nodeToTake.id)
+                        aiPlayer.processingState = .Waiting
                     }
                 }
             }
-            
-            aiPlayer.processingState = .Waiting
         }
         
         
@@ -242,9 +241,12 @@ class Engine {
         
         let millFormed = player.movePiece(from: oldNode, to: newNode)
         
-        if millFormed && nextPlayer().hasTakeableNodes {
+        if (millFormed) {
             _view?.playSound(fileName: Constants.Sfx.millFormed, type: ".wav")
-            try promptToTakePiece()
+            
+            if(player.type == .humanLocal && nextPlayer().hasTakeableNodes) {
+                try promptToTakePiece()
+            }
         } else {
             _view?.playSound(fileName: Constants.Sfx.placePiece, type: ".wav")
             try nextTurn()
