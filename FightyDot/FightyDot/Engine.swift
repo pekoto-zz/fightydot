@@ -17,7 +17,11 @@ class Engine {
     private var _board: Board
     private var _state: GameState = .PlacingPieces {
         didSet {
-            _view?.updateTips(state: _state)
+            if(nextPlayer().type == .AI) {
+                _view?.updateTips(state: .AITurn)
+            } else {
+                _view?.updateTips(state: _state)
+            }
         }
     }
     weak private var _view: EngineDelegate?

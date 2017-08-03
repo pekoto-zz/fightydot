@@ -10,7 +10,7 @@ import Foundation
 
 class AIPlayer: Player {
 
-    private var _lookAheadDepth: Int = 3
+    private var _lookAheadDepth: Int = 2
     private var _moveCalculator: CalculateMoveProtocol
     private var _turn = 1
     

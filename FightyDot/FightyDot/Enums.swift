@@ -37,6 +37,7 @@ enum AnimationDirection {
 }
 
 enum GameState {
+    case AITurn
     case PlacingPieces
     case MovingPieces
     case MovingPieces_PieceSelected
