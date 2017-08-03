@@ -276,6 +276,8 @@ extension GameVC: EngineDelegate {
     
     func updateTips(state: GameState) {
         switch state {
+        case .AITurn:
+            helpLbl.text = Constants.Help.aiTurn
         case .PlacingPieces:
             helpLbl.text = Constants.Help.placePiece
             tipLbl.text = Constants.Tips.makeMove

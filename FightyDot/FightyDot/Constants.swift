@@ -137,6 +137,7 @@ struct Constants {
     }
     
     struct Help {
+        static let aiTurn = "\(PlayerData.defaultAIName) is moving..."
         static let placePiece = "Tap an empty spot to place a piece"
         static let movePiece_Select = "Select a piece to move"
         static let movePiece_Selected = "Drag your piece to a glowing spot"
@@ -167,7 +168,7 @@ struct Constants {
     }
     
     struct PlayerData {
-        static let defaultAIName = "CPU"
+        static let defaultAIName = "AI"
         static let defaultPvpP1Name = "Player 1"
         static let defaultPvpP2Name = "Player 2"
     }
@@ -188,7 +189,7 @@ struct Constants {
     
     struct Tips {
         static let makeMove = "Tip: Get 3 in a row to take your opponent's piece!"
-        static let canFly = "Tip: You only have 3 pieces let -- you can move to anywhere on the board!"
+        static let canFly = "Tip: When you only have 3 pieces left, you can move to anywhere on the board!"
         static let canTakePiece = "Tip: You can't take pieces in a row until all other pieces have been taken first."
         static let restart = "Tap the X in the upper-right to play again"
         static let apology = "I'm terribly sorry about this, but something went wrong.\n\(restart)"
