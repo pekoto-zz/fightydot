@@ -191,8 +191,8 @@ struct Constants {
         static let makeMove = "Tip: Get 3 in a row to take your opponent's piece!"
         static let canFly = "Tip: When you only have 3 pieces left, you can move to anywhere on the board!"
         static let canTakePiece = "Tip: You can't take pieces in a row until all other pieces have been taken first."
-        static let restart = "Tap the X in the upper-right to play again"
-        static let apology = "I'm terribly sorry about this, but something went wrong.\n\(restart)"
+        static let restart = "Tap the X in the upper-right to play again."
+        static let apology = "I'm terribly sorry about this, but something went wrong.\n\(restart)."
     }
     
     struct View {
