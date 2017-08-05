@@ -80,7 +80,8 @@ class AIPlayer: Player {
         
         //debugTree.printTree()
         
-        let bestMove = _moveCalculator.calculateBestMove(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour)
+        // TODO possibly should be alpha = Int.min, beta = Int.max, but since we're a minimizer, swap them?
+        let bestMove = _moveCalculator.calculateBestMoveWithPruning(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour, alpha: Int.min, beta: Int.max)
         
         return bestMove.move
     }

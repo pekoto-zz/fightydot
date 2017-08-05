@@ -98,4 +98,8 @@ class MiniMax: CalculateMoveProtocol {
             return bestMove
         }
     }
+    
+    func calculateBestMoveWithPruning(gameSnapshot: GameSnapshot, depth: Int, playerColour: PlayerColour, alpha: Int, beta: Int) -> ScoredMove {
+        return ScoredMove(move: nil, score: 0)
+    }
 }
