@@ -12,7 +12,7 @@ class AIPlayer: Player {
 
     private var _lookAheadDepth: Int = 2
     private var _moveCalculator: CalculateMoveProtocol
-    private var _turn = 1
+    //private var _turn = 1
     
     private var _processingState: AIPlayerState = .Waiting {
         didSet {
@@ -36,6 +36,14 @@ class AIPlayer: Player {
         }
     }
     
+    var lookAheadDepth: Int {
+        get {
+            return _lookAheadDepth
+        } set {
+            _lookAheadDepth = newValue
+        }
+    }
+    
     init(name: String, colour: PlayerColour, type: PlayerType, isStartingPlayer: Bool, playerNum: PlayerNumber, view: PlayerDelegate?, thinkTime: Double, moveCalculator: CalculateMoveProtocol) throws {
         _processingState = .Waiting
         _artificialThinkTime = thinkTime
@@ -47,7 +55,7 @@ class AIPlayer: Player {
     override func reset() {
         super.reset()
         _processingState = .Waiting
-        _turn = 1
+        //_turn = 1
     }
     
     func hasPlayedNoPieces() -> Bool {
@@ -55,8 +63,8 @@ class AIPlayer: Player {
     }
     
     func getBestMove(board: Board, opponent: Player, millFormed: Bool) -> Move? {
-        print("AI turn: \(_turn)")
-        _turn = _turn + 1
+        //print("AI turn: \(_turn)")
+        //_turn = _turn + 1
         
         let boardClone = board.clone()
         let playerClone = self.clone(to: boardClone)
@@ -64,13 +72,15 @@ class AIPlayer: Player {
         
         let gameSnapshot = GameSnapshot(board: boardClone, currentPlayer: playerClone, opponent: opponentClone)
         
-        let debugTree = TreeNode<ScoredMove>(data: ScoredMove(move: nil, score: 0))
+        //let debugTree = TreeNode<ScoredMove>(data: ScoredMove(move: nil, score: 0))
         
-        let bestMove = _moveCalculator.calculateBestMoveWithDebugTree(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour, tree: debugTree)
+        //let bestMove = _moveCalculator.calculateBestMoveWithDebugTree(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour, tree: debugTree)
         
-        debugTree.data = bestMove
+        //debugTree.data = bestMove
         
-        debugTree.printTree()
+        //debugTree.printTree()
+        
+        let bestMove = _moveCalculator.calculateBestMove(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour)
         
         return bestMove.move
     }

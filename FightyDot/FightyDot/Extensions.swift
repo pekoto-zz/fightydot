@@ -31,6 +31,16 @@ extension Int {
     func isInIdRange() -> Bool {
         return self >= 0 && self < Constants.GameplayNumbers.numOfNodes
     }
+    
+    func switchSign() -> Int {
+        // Int.min * -1 will crash in Swift 3
+        // Possibly because Int.min is 1 less than Int.max?
+        if(self == Int.min) {
+            return Int.max
+        } else {
+            return self * -1
+        }
+    }
 }
 
 extension UIImage{

@@ -5,6 +5,9 @@
 //  Created by Graham McRobbie on 23/07/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.
 //
+//  This is a basic MiniMax algorithm (no pruning)
+//  https://en.wikipedia.org/wiki/Minimax
+//
 
 import Foundation
 

@@ -48,6 +48,7 @@
 		701AF5941F10A6CC00F15A50 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 701AF5751F109ED600F15A50 /* Lato-Regular.ttf */; };
 		701AF5961F10AD3B00F15A50 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 701AF5951F10AD3B00F15A50 /* GoogleService-Info.plist */; };
 		703368F71F26134D00F23DDD /* ScoredMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703368F61F26134D00F23DDD /* ScoredMove.swift */; };
+		7048A6B51F3565DF000683B9 /* NegaMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7048A6B41F3565DF000683B9 /* NegaMax.swift */; };
 		70680B1D1F1645440078342B /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70680B1C1F1645440078342B /* Move.swift */; };
 		708056D11F247FFC0016A3C5 /* MiniMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708056D01F247FFC0016A3C5 /* MiniMax.swift */; };
 		709E155C1F2A17E500501176 /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709E155B1F2A17E500501176 /* TreeNode.swift */; };
@@ -117,6 +118,7 @@
 		701AF5901F10A5CA00F15A50 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		701AF5951F10AD3B00F15A50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		703368F61F26134D00F23DDD /* ScoredMove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoredMove.swift; sourceTree = "<group>"; };
+		7048A6B41F3565DF000683B9 /* NegaMax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NegaMax.swift; sourceTree = "<group>"; };
 		70680B1C1F1645440078342B /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		708056D01F247FFC0016A3C5 /* MiniMax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniMax.swift; sourceTree = "<group>"; };
 		709E155B1F2A17E500501176 /* TreeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				70CD2EF01F14F1ED00F7B14E /* GameSnapshot.swift */,
 				708056D01F247FFC0016A3C5 /* MiniMax.swift */,
 				70680B1C1F1645440078342B /* Move.swift */,
+				7048A6B41F3565DF000683B9 /* NegaMax.swift */,
 				703368F61F26134D00F23DDD /* ScoredMove.swift */,
 				709E155B1F2A17E500501176 /* TreeNode.swift */,
 			);
@@ -610,6 +613,7 @@
 				701AF5561F109E7200F15A50 /* Engine.swift in Sources */,
 				701AF57E1F109FE400F15A50 /* AudioPlayer.swift in Sources */,
 				701AF57D1F109FE400F15A50 /* Animations.swift in Sources */,
+				7048A6B51F3565DF000683B9 /* NegaMax.swift in Sources */,
 				701AF5821F109FE400F15A50 /* Extensions.swift in Sources */,
 				701AF5521F109E6300F15A50 /* GameVC.swift in Sources */,
 				708056D11F247FFC0016A3C5 /* MiniMax.swift in Sources */,
