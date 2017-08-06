@@ -202,4 +202,13 @@ struct Constants {
         static let tapGestureRecognizerIndex = 0
         static let dragGestureRecognizerIndex = 1
     }
+    
+    // To ensure MiniMax algorithms choose at least 1 move when all possible moves are winning moves,
+    // we make the winning scores slighty less than Int.max/Int.min.
+    // redWin is +2 to make the scores more symmetrical in Swift, to stop issues when swapping
+    // alpha/beta during negamax pruning.
+    struct WinScores {
+        static let greenWin = Int.max-1
+        static let redWin = Int.min+2
+    }
 }

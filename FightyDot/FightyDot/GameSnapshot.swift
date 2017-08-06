@@ -225,9 +225,9 @@ class GameSnapshot {
         var score = 0
         
         if(redPlayer.lostGame) {
-            return Int.max
+            return Constants.WinScores.greenWin
         } else if (greenPlayer.lostGame) {
-            return Int.min
+            return Constants.WinScores.redWin
         } else {
             let greenPlayerScore = getScorefor(player: greenPlayer, opponent: redPlayer)
             let redPlayerScore = getScorefor(player: redPlayer, opponent: greenPlayer)

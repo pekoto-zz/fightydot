@@ -53,7 +53,7 @@ class NegaMaxWithPruning: CalculateMoveProtocol {
         
         let bestMove = ScoredMove(move: nil, score: Int.min)
         
-        let possibleMoves = gameSnapshot.getPossibleMoves()
+        let possibleMoves = gameSnapshot.getPossibleMoves().sorted { $0.formsMill && !$1.formsMill }
         
         for move in possibleMoves {
             let nextGameSnapshot = gameSnapshot.getNewSnapshotFrom(move: move)

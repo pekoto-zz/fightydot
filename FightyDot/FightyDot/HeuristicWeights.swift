@@ -88,8 +88,8 @@ struct HeuristicWeights {
         static let mills = 26
         static let blockedOpponentPieces = 1
         static let piecesInPlay = 9
-        static let twoPieceConfigurations = 10  // Mill can be closed in one way (see comments)
-        static let threePieceConfigurations = 7 // Mill can be closed in two ways (see comments)
+        static let twoPieceConfigurations = 10  // Mill can be closed in one way
+        static let threePieceConfigurations = 7 // Mill can be closed in two ways
     }
     
     struct MovementPhase {
@@ -98,11 +98,11 @@ struct HeuristicWeights {
         static let blockedOpponentPieces = 10
         static let piecesInPlay = 11
         static let openMill = 8
-        static let doubleMill = 36  // Moving one piece between mills forms another mill (see comments)
+        static let doubleMill = 36  // Moving one piece between mills forms another mill
     }
     
     struct FlyingPhase {
-        static let twoPieceConfigurations = 16
+        static let twoPieceConfigurations = 15
         static let threePieceConfigurations = 1
         static let closedMill = 16
     }
