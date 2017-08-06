@@ -11,7 +11,7 @@
 
 import Foundation
 
-class NegaMax: CalculateMoveProtocol {
+/*class NegaMax: CalculateMoveProtocol {
     
     private let _playerColourSign: [PlayerColour: Int] = [PlayerColour.green: 1, PlayerColour.red: -1]
     
@@ -49,4 +49,4 @@ class NegaMax: CalculateMoveProtocol {
     private func getNextPlayerColour(currentPlayerColour: PlayerColour) -> PlayerColour {
         return currentPlayerColour == .red   ? .green : .red
     }
-}
+}*/

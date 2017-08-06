@@ -17,7 +17,7 @@ class Engine {
     private var _board: Board
     private var _state: GameState = .PlacingPieces {
         didSet {
-            if(nextPlayer().type == .AI) {
+            if(_state != .TakingPiece && nextPlayer().type == .AI) {
                 _view?.updateTips(state: .AITurn)
             } else {
                 _view?.updateTips(state: _state)

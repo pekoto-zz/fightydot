@@ -11,7 +11,7 @@
 
 import Foundation
 
-class MiniMax: CalculateMoveProtocol {
+/*class MiniMax: CalculateMoveProtocol {
     
     func calculateBestMove(gameSnapshot: GameSnapshot, depth: Int, playerColour: PlayerColour) -> ScoredMove {
         if(depth == 0 || gameSnapshot.isInEndState) {
@@ -102,4 +102,4 @@ class MiniMax: CalculateMoveProtocol {
     func calculateBestMoveWithPruning(gameSnapshot: GameSnapshot, depth: Int, playerColour: PlayerColour, alpha: Int, beta: Int) -> ScoredMove {
         return ScoredMove(move: nil, score: 0)
     }
-}
+} */

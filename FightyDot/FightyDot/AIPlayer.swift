@@ -10,7 +10,7 @@ import Foundation
 
 class AIPlayer: Player {
 
-    private var _lookAheadDepth: Int = 2
+    private var _lookAheadDepth: Int = 3
     private var _moveCalculator: CalculateMoveProtocol
     //private var _turn = 1
     
@@ -81,12 +81,18 @@ class AIPlayer: Player {
         //debugTree.printTree()
         
         // TODO possibly should be alpha = Int.min, beta = Int.max, but since we're a minimizer, swap them?
-        let bestMove = _moveCalculator.calculateBestMoveWithPruning(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour, alpha: Int.min, beta: Int.max)
+        var alpha = Int.min
+        var beta = Int.max
+        
+        let bestMove = _moveCalculator.calculateBestMoveWithPruning(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour, alpha: alpha, beta: beta)
+        
+        // let bestMove = _moveCalculator.calculateBestMove(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour)
         
         return bestMove.move
     }
     
     func pickNodeToPlaceFrom(board: Board) -> Node {
+        return board.getNode(withID: 19)!
         if(pickIntersection()) {
             return pickRandomIntersectionFrom(board: board)
         } else {
