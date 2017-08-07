@@ -30,7 +30,7 @@ class HelpVC: UIViewController {
     
     @IBAction func applyDifficultyBtnTapped(_ sender: Any) {
         saveDifficultyLevel()
-        showAlert(title: "Difficulty updated!", message: "The difficulty has been set to \(_difficulties[_selectedDifficultyIndex]).\n\nGood luck!", confirmBtnTitle: "Okay", completion: nil)
+        showAlert(title: "Difficulty updated!", message: "The difficulty has been set to \(_difficulties[_selectedDifficultyIndex]). It will be updated when you start a new game.\n\nGood luck!", confirmBtnTitle: "Okay", completion: nil)
     }
     
     // MARK: - Private functions

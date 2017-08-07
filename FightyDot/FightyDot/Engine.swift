@@ -45,7 +45,7 @@ class Engine {
         if(gameType == .PlayerVsPlayer) {
             _p2 = try! Player(name: Constants.PlayerData.defaultPvpP2Name, colour: .red, type: .humanLocal, isStartingPlayer: false, playerNum: PlayerNumber.p2, view: engineView.p2View)
         } else {
-            _p2 = try! AIPlayer(name: Constants.PlayerData.defaultAIName, colour: .red, type: .AI, isStartingPlayer: false, playerNum: PlayerNumber.p2, view: engineView.p2View, thinkTime: 0.5, moveCalculator: NegaMaxWithPruning())
+            _p2 = try! AIPlayer(name: Constants.PlayerData.defaultAIName, colour: .red, type: .AI, isStartingPlayer: false, playerNum: PlayerNumber.p2, view: engineView.p2View, thinkTime: 0.5)
         }
         
         _view = engineView
@@ -179,7 +179,7 @@ class Engine {
             if(aiPlayer.hasPlayedNoPieces()) {
                 // If there are no nodes placed yet, just pick a random node
                 // Keeps things unpredictable and avoids a large pointless minimax tree search
-                let targetNode = aiPlayer.pickNodeToPlaceFrom(board: self._board)
+                let targetNode = aiPlayer.pickStartingNodeFrom(board: self._board)
                 bestMove = Move(type: .PlacePiece, targetNode: targetNode)
             } else {
                 bestMove = aiPlayer.getBestMove(board: self._board, opponent: self.nextPlayer(), millFormed: millFormed)

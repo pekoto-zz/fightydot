@@ -77,7 +77,7 @@ class NegaMaxWithPruning: CalculateMoveProtocol {
             }
             
             if(alphaValue >= betaValue) {
-                print("Pruning")
+                //print("Pruning")
                 break
                 //bestMove.score = alphaValue
                 //return bestMove

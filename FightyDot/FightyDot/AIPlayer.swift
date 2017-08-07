@@ -10,18 +10,16 @@ import Foundation
 
 class AIPlayer: Player {
 
-    private var _lookAheadDepth: Int = 3
-    private var _moveCalculator: CalculateMoveProtocol
-    //private var _turn = 1
+    private var _lookAheadDepth: Int = -1
+    private var _moveCalculator: NegaMaxWithPruning = NegaMaxWithPruning()
+    private var _artificialThinkTime: Double = -1
     
     private var _processingState: AIPlayerState = .Waiting {
         didSet {
             view?.update(status: _processingState)
         }
     }
-    
-    private var _artificialThinkTime: Double
-    
+
     var processingState: AIPlayerState {
         get {
             return _processingState
@@ -44,17 +42,21 @@ class AIPlayer: Player {
         }
     }
     
-    init(name: String, colour: PlayerColour, type: PlayerType, isStartingPlayer: Bool, playerNum: PlayerNumber, view: PlayerDelegate?, thinkTime: Double, moveCalculator: CalculateMoveProtocol) throws {
+    init(name: String, colour: PlayerColour, type: PlayerType, isStartingPlayer: Bool, playerNum: PlayerNumber, view: PlayerDelegate?, thinkTime: Double) throws {
+
+        try super.init(name: name, colour: colour, type: type, isStartingPlayer: isStartingPlayer, playerNum: playerNum, view: view)
+        
         _processingState = .Waiting
         _artificialThinkTime = thinkTime
-        _moveCalculator = moveCalculator
+        _moveCalculator = NegaMaxWithPruning()
+        _lookAheadDepth = getLookaheadDepth()
         
-        try super.init(name: name, colour: colour, type: type, isStartingPlayer: isStartingPlayer, playerNum: playerNum, view: view)
     }
     
     override func reset() {
         super.reset()
         _processingState = .Waiting
+        _lookAheadDepth = getLookaheadDepth()
         //_turn = 1
     }
     
@@ -81,18 +83,17 @@ class AIPlayer: Player {
         //debugTree.printTree()
         
         // TODO possibly should be alpha = Int.min, beta = Int.max, but since we're a minimizer, swap them?
-        var alpha = Int.min
-        var beta = Int.max
         
-        let bestMove = _moveCalculator.calculateBestMoveWithPruning(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour, alpha: alpha, beta: beta)
+        print("Depth: \(_lookAheadDepth)")
+        
+        let bestMove = _moveCalculator.calculateBestMoveWithPruning(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour, alpha: Int.min, beta: Int.max)
         
         // let bestMove = _moveCalculator.calculateBestMove(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour)
         
         return bestMove.move
     }
     
-    func pickNodeToPlaceFrom(board: Board) -> Node {
-
+    func pickStartingNodeFrom(board: Board) -> Node {
         if(pickIntersection()) {
             return pickRandomIntersectionFrom(board: board)
         } else {
@@ -101,6 +102,16 @@ class AIPlayer: Player {
     }
     
     // MARK: - Private functions
+    
+    private func getLookaheadDepth() -> Int {
+        let difficulty = UserDefaults.standard.object(forKey: Constants.Settings.difficulty)
+        
+        if(difficulty == nil) {
+            return Difficulty.Normal.rawValue
+        } else {
+            return difficulty as! Int
+        }
+    }
     
     // Usually pick an intersection (arguably the best starting pos)
     // but sometimes pick another node, to stop things being too predictable.
