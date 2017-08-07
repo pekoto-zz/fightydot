@@ -92,7 +92,7 @@ class AIPlayer: Player {
     }
     
     func pickNodeToPlaceFrom(board: Board) -> Node {
-        return board.getNode(withID: 19)!
+
         if(pickIntersection()) {
             return pickRandomIntersectionFrom(board: board)
         } else {
