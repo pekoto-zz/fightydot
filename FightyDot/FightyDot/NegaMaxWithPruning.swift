@@ -45,7 +45,7 @@ class NegaMaxWithPruning: CalculateMoveProtocol {
         //print("Player colour: \(playerColour)")
         
         var alphaValue = alpha
-        var betaValue = beta
+        let betaValue = beta
         
         if(depth == 0 || gameSnapshot.isInEndState) {
             return ScoredMove(move: gameSnapshot.move, score: _playerColourSign[playerColour]! * gameSnapshot.heuristicScore)

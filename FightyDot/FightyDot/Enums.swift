@@ -40,7 +40,7 @@ enum DifficultyLookaheads: Int {
     case Easy = 1
     case Normal = 2
     case Hard = 3
-    case VeryHard = 4
+    case Harder = 4
 }
 
 enum GameState {
