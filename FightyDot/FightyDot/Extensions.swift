@@ -98,4 +98,20 @@ extension UIViewController {
         alertView.modalPresentationStyle = .overCurrentContext
         self.present(alertView, animated: false, completion: nil)
     }
+    
+    func showAlert(title: String, message: String, confirmBtnTitle: String, completion: (() -> ())?) {
+        guard let alertView = self.storyboard!.instantiateViewController(withIdentifier: Constants.View.alertVCStoryboardId) as? AlertVC else {
+            return
+        }
+        
+        alertView.header = title
+        alertView.message = message
+        alertView.confirmBtnTitle = confirmBtnTitle
+        alertView.completion = {
+            completion?()
+        }
+        
+        alertView.modalPresentationStyle = .overCurrentContext
+        self.present(alertView, animated: false, completion: nil)
+    }
 }

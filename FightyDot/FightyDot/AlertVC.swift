@@ -14,15 +14,21 @@ class AlertVC: UIViewController {
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var messageTxt: UITextView!
     @IBOutlet weak var dismissBtn: UIButton!
+    @IBOutlet weak var confirmBtn: UIButton!
     
     var header: String?
     var message: String?
+    var confirmBtnTitle: String?
     var completion: (() -> ())?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         titleLbl.text = header
         messageTxt.text = message
+        
+        if let confirmBtnTxt = confirmBtnTitle {
+            confirmBtn.setTitle(confirmBtnTxt, for: .normal)
+        }
     }
     
     override func viewDidLayoutSubviews() {

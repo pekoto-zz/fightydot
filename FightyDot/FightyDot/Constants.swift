@@ -174,6 +174,7 @@ struct Constants {
     }
     
     struct Settings {
+        static let difficulty = "difficulty"
         static let muteSounds = "muteSounds"
     }
     

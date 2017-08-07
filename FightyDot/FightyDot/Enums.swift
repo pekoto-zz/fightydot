@@ -36,11 +36,12 @@ enum AnimationDirection {
     }
 }
 
-enum DifficultyLookaheads: Int {
+// The number of lookaheads the AI will perform
+enum Difficulty: Int {
     case Easy = 1
     case Normal = 2
     case Hard = 3
-    case Harder = 4
+    case Hardest = 4
 }
 
 enum GameState {
