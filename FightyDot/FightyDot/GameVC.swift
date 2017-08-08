@@ -5,6 +5,9 @@
 //  Created by Graham McRobbie on 18/12/2016.
 //  Copyright © 2016 Graham McRobbie. All rights reserved.
 //
+//  The main view class for playing the game.
+//  Implements EngineDelegate.swift.
+//
 
 import UIKit
 import Firebase
@@ -14,6 +17,7 @@ class GameVC: UIViewController {
     @IBOutlet var nodeImgViews: Array<NodeImageView>!
     @IBOutlet var millViews: Array<MillView>!
     
+    // Player one's view components
     @IBOutlet var p1NameLbl: UILabel!
     @IBOutlet var p1InitialLbl: UILabel!
     @IBOutlet var p1CounterImgs: Array<UIImageView>!
@@ -21,6 +25,7 @@ class GameVC: UIViewController {
     @IBOutlet var p1IconImg: UIImageView!
     @IBOutlet var p1StatusLbl: UILabel!
     
+    // Player two's view components
     @IBOutlet var p2NameLbl: UILabel!
     @IBOutlet var p2InitialLbl: UILabel!
     @IBOutlet var p2CounterImgs: Array<UIImageView>!
@@ -82,7 +87,8 @@ class GameVC: UIViewController {
         guard let currentNodeId = sender.view?.tag else {
             return
         }
-                
+        
+        // Started dragging
         if (sender.state == UIGestureRecognizerState.began) {
             removeAnimatedShadowFromDraggableViews()
             
@@ -93,11 +99,13 @@ class GameVC: UIViewController {
             playSound(fileName: Constants.Sfx.dragStart)
         }
         
+        // Drag in progress
         if (sender.state == UIGestureRecognizerState.changed) {
             nodeImgView.updatePosition(to: sender.location(in: self.view))
             nodeImgView.updateIntersects()
         }
 
+        // Finished dragging
         if ((sender.state == UIGestureRecognizerState.ended) || (sender.state == UIGestureRecognizerState.cancelled))  {
             var validMoveMade = false
             
@@ -171,7 +179,7 @@ class GameVC: UIViewController {
         }
     }
     
-    // Get the views this node can be moved to when moving/flying
+    // Get the other nodes this node can be moved to when moving/flying
     private func getMovableViewsFor(nodeWithId id: Int) throws -> [NodeImageView] {
         let movableNodeIds = try _engine.getMovablePositionsFor(nodeWithId: id)
             
@@ -305,7 +313,7 @@ extension GameVC: EngineDelegate {
     // MARK: - Private functions
     
     // Mills have 2 connectors, represented by 2 views, that connect the 3 nodes.
-    // This function returns the two views associated with a single mill.
+    // This function returns the two connector views associated with a single mill.
     private func getMillsImgsFor(millWithId id: Int) -> (MillView?, MillView?) {
         let firstConnector = millViews.filter { (millConnectorImg) in millConnectorImg.tag == id * 2 }.first
         let secondConnector = millViews.filter { (millConnectorImg) in millConnectorImg.tag == (id * 2) + 1 }.first
@@ -313,7 +321,7 @@ extension GameVC: EngineDelegate {
         return (firstConnector, secondConnector)
     }
     
-    // An extra "pop" animation for emphasis
+    // An extra "pop" animation function for emphasis
     private func popNodesIn(mill: Mill) -> () {
         for node in mill.nodes {
             let nodeImg = getNodeImgViewFor(nodeWithId: node.value.id)

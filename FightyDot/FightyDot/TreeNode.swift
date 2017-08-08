@@ -6,8 +6,7 @@
 //  Copyright © 2017 Graham McRobbie. All rights reserved.
 //
 //  A class to hold a minimax state tree.
-//  Not currently used, but you can add it to MiniMax/Negamax
-//  for debugging/visual representation, if desired.
+//  Not currently used, but you can add it to MiniMax/Negamax for debugging/visual representation, if desired.
 //
 
 import Foundation

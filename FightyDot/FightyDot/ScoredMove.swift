@@ -5,6 +5,10 @@
 //  Created by Graham McRobbie on 24/07/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.
 //
+//  This allows us to pass back both the score and the move from NegaMax.
+//  Most implementations will just pass back a score, which is not much use by itself.
+//
+
 
 import Foundation
 

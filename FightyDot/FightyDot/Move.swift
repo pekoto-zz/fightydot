@@ -5,6 +5,9 @@
 //  Created by Graham McRobbie on 12/07/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.
 //
+//  A move that can be made for a player on the board.
+//  Note: Moving and taking a piece is counted as a single move.
+//
 
 import Foundation
 

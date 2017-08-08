@@ -5,7 +5,8 @@
 //  Created by Graham McRobbie on 29/12/2016.
 //  Copyright © 2016 Graham McRobbie. All rights reserved.
 //  
-//  A basic nine men's morris engine
+//  A basic nine men's morris engine.
+//  This class handles the game logic and calls back to the relevent views.
 //
 
 import Foundation
@@ -15,6 +16,7 @@ class Engine {
     private var _p1: Player
     private var _p2: Player
     private var _board: Board
+    
     private var _state: GameState = .PlacingPieces {
         didSet {
             if(_state != .TakingPiece && nextPlayer().type == .AI) {
@@ -54,7 +56,7 @@ class Engine {
             throw EngineError.InvalidId
         }
         
-        // Prevent taps/drags
+        // Prevent double taps/drags
         _board.disableNodes()
         
         switch(_state) {
@@ -72,7 +74,7 @@ class Engine {
             throw EngineError.InvalidId
         }
         
-        // Prevent taps/drags
+        // Prevent double taps/drags
         _board.disableNodes()
         
         try moveNodeFor(player: _currentPlayer, from: oldId, to: newId)

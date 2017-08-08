@@ -5,6 +5,9 @@
 //  Created by Graham McRobbie on 25/02/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.
 //
+//  The help/settings view.
+//  No explanation needed, I hope :)
+//
 
 import UIKit
 import Firebase

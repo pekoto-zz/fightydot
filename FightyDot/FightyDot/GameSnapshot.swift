@@ -5,11 +5,10 @@
 //  Created by Graham McRobbie on 11/07/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.
 //
-//  Used as nodes in a minimax tree to calculate the best
-//  possible move. Nine men's morris is different from
-//  e.g., chess or noughts and crosses, since you can both
-//  place and move pieces. So the game state needs to include
-//  the players' hands as well as the state of the board.
+//  Used as nodes in the minimax (negamax) tree to calculate the best possible move.
+//  Nine men's morris is different from, e.g., chess or noughts and crosses, since you
+//  can both place and move pieces. So the game state needs to include the players' hands
+//  as well as the state of the board.
 //
 
 import Foundation
@@ -41,10 +40,11 @@ class GameSnapshot {
         }
     }
     
+    // True if the move associated with this snapshot forms a mill
     var formsMill: Bool {
         get {
-            if let moveToMake = move {
-                return moveToMake.formsMill
+            if let associatedMove = move {
+                return associatedMove.formsMill
             }
             
             return false
@@ -64,7 +64,7 @@ class GameSnapshot {
         _move = move
     }
     
-    // Return the possible moves based on the state of this game
+    // Return the moves that are possible based on the state of this game
     func getPossibleMoves() -> [Move] {
         var possibleMoves: [Move] = []
         
@@ -82,7 +82,7 @@ class GameSnapshot {
     }
     
     // Returns the resulting game snapshot (board & player states) after a certain move is made
-    // (We need to store every game state for minimax ranking -- hence why we clone())
+    // (We need to store different game snapshots for minimax/negamax ranking -- hence why we clone())
     func getNewSnapshotFrom(move: Move) -> GameSnapshot {
         let board = _board.clone()
         let currentPlayer = _currentPlayer.clone(to: board)
@@ -159,6 +159,8 @@ class GameSnapshot {
         return flyingMoves
     }
 
+    // If a move forms a mill, append more moves based on the opponent
+    // nodes that can be taken.
     private func getTakeableNodeMovesFor(moves: [Move]) -> [Move] {
         var takeableNodeMoves: [Move] = []
         
@@ -188,15 +190,6 @@ class GameSnapshot {
         return millFormed
     }
     
-    private func undo(move: Move) {
-        switch(move.type) {
-        case .PlacePiece:
-            _currentPlayer.undoPlayPiece(node: move.targetNode)
-        case .MovePiece:
-            _ = _currentPlayer.movePiece(from: move.destinationNode!, to: move.targetNode)
-        }
-    }
-    
     private func getTakeableNodesFor(move: Move) -> [Move] {
         var takeableNodeMoves: [Move] = []
         
@@ -214,10 +207,20 @@ class GameSnapshot {
         return takeableNodeMoves
     }
     
+    private func undo(move: Move) {
+        switch(move.type) {
+        case .PlacePiece:
+            _currentPlayer.undoPlayPiece(node: move.targetNode)
+        case .MovePiece:
+            _ = _currentPlayer.movePiece(from: move.destinationNode!, to: move.targetNode)
+        }
+    }
+    
+    // MARK: - Heuristic evaluation functions
     // Reference: http://www.dasconference.ro/papers/2008/B7.pdf
-    // Returns Int.max if green is in a winning position (red lost)
-    // Return Int.min if red is in a winning position (green lost)
-    // Returns green score - red score otherwise
+    
+    // Returns +ve result if snapshot is favourable for green
+    // Return -ve result if snapshot is favourable for red
     private func evaluateHeuristics() -> Int {
         let (greenPlayer, redPlayer) = getPlayers()
         var score = 0

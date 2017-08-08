@@ -5,6 +5,8 @@
 //  Created by Graham McRobbie on 01/02/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.
 //
+//  A pop-up dialog to display end-of-game alerts, etc.
+//
 
 import UIKit
 
