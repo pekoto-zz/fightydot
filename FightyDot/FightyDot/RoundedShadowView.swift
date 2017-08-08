@@ -1,6 +1,6 @@
 //
 //  RoundedShadowView.swift
-//  Ananke
+//  FightyDot
 //
 //  Created by Graham McRobbie on 04/02/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.

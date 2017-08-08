@@ -1,6 +1,6 @@
 //
 //  Board.swift
-//  Ananke
+//  FightyDot
 //
 //  Created by Graham McRobbie on 23/12/2016.
 //  Copyright © 2016 Graham McRobbie. All rights reserved.
@@ -92,8 +92,8 @@ class Board {
     }
     
     func clone() -> Board {
-        // Clones are used for building game trees/predicting the best move,
-        // so they don't need view delegates.
+        // Clones are used for predicting game state so they don't need view delegates
+        // (they don't update the view)
         let board = Board(view: nil)
         
         for i in 0...board._nodes.count-1 {
@@ -123,7 +123,6 @@ class Board {
     
     // We always use these together when evaluating, so it's more efficient to group the calculations
     func numOfTwoAndThreePieceConfigurations(for colour: PieceColour) -> (twoPieceCount: Int, threePieceCount: Int) {
-        
         var threePieceCount = 0
         
         let twoPieceMills = _mills.filter{ mill in mill.isInTwoPieceConfiguration(for: colour) }

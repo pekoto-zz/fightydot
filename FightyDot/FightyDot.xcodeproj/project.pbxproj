@@ -48,16 +48,13 @@
 		701AF5941F10A6CC00F15A50 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 701AF5751F109ED600F15A50 /* Lato-Regular.ttf */; };
 		701AF5961F10AD3B00F15A50 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 701AF5951F10AD3B00F15A50 /* GoogleService-Info.plist */; };
 		703368F71F26134D00F23DDD /* ScoredMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703368F61F26134D00F23DDD /* ScoredMove.swift */; };
-		7048A6B51F3565DF000683B9 /* NegaMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7048A6B41F3565DF000683B9 /* NegaMax.swift */; };
 		7048A6B71F35990D000683B9 /* NegaMaxWithPruning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7048A6B61F35990D000683B9 /* NegaMaxWithPruning.swift */; };
 		70680B1D1F1645440078342B /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70680B1C1F1645440078342B /* Move.swift */; };
-		708056D11F247FFC0016A3C5 /* MiniMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708056D01F247FFC0016A3C5 /* MiniMax.swift */; };
 		709E155C1F2A17E500501176 /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709E155B1F2A17E500501176 /* TreeNode.swift */; };
 		70CD2EF11F14F1ED00F7B14E /* GameSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CD2EF01F14F1ED00F7B14E /* GameSnapshot.swift */; };
 		70D6ED9A1F0EF106005A8BFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D6ED991F0EF106005A8BFD /* AppDelegate.swift */; };
 		70D6EDA41F0EF106005A8BFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70D6EDA31F0EF106005A8BFD /* Assets.xcassets */; };
 		70DE08A21F23208100DC3ABE /* GameSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DE08A11F23208100DC3ABE /* GameSnapshotTests.swift */; };
-		70ED71AE1F276553000A4AC2 /* CalculateMoveProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ED71AD1F276553000A4AC2 /* CalculateMoveProtocol.swift */; };
 		99F0949C9BD4CA17B86AF2E5 /* Pods_FightyDot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47034AB99EC0E8045B98C0A0 /* Pods_FightyDot.framework */; };
 		D9A2B8CA08D9536980A49BAC /* Pods_FightyDotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F921B4E70188E5E25A24F80 /* Pods_FightyDotTests.framework */; };
 /* End PBXBuildFile section */
@@ -119,10 +116,8 @@
 		701AF5901F10A5CA00F15A50 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		701AF5951F10AD3B00F15A50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		703368F61F26134D00F23DDD /* ScoredMove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoredMove.swift; sourceTree = "<group>"; };
-		7048A6B41F3565DF000683B9 /* NegaMax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NegaMax.swift; sourceTree = "<group>"; };
 		7048A6B61F35990D000683B9 /* NegaMaxWithPruning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NegaMaxWithPruning.swift; sourceTree = "<group>"; };
 		70680B1C1F1645440078342B /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
-		708056D01F247FFC0016A3C5 /* MiniMax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniMax.swift; sourceTree = "<group>"; };
 		709E155B1F2A17E500501176 /* TreeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
 		70CD2EF01F14F1ED00F7B14E /* GameSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSnapshot.swift; sourceTree = "<group>"; };
 		70D6ED961F0EF106005A8BFD /* FightyDot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FightyDot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,7 +125,6 @@
 		70D6EDA31F0EF106005A8BFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		70D6EDA81F0EF106005A8BFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70DE08A11F23208100DC3ABE /* GameSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSnapshotTests.swift; sourceTree = "<group>"; };
-		70ED71AD1F276553000A4AC2 /* CalculateMoveProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculateMoveProtocol.swift; sourceTree = "<group>"; };
 		84518D9BFFDEB5CB9387AA03 /* Pods-FightyDot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightyDot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FightyDot/Pods-FightyDot.debug.xcconfig"; sourceTree = "<group>"; };
 		B648CD8975C30B139822B58E /* Pods-FightyDot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightyDot.release.xcconfig"; path = "Pods/Target Support Files/Pods-FightyDot/Pods-FightyDot.release.xcconfig"; sourceTree = "<group>"; };
 		FD16A49FE8626887A0B2E8ED /* Pods-FightyDotTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FightyDotTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FightyDotTests/Pods-FightyDotTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -191,9 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				70CD2EF01F14F1ED00F7B14E /* GameSnapshot.swift */,
-				708056D01F247FFC0016A3C5 /* MiniMax.swift */,
 				70680B1C1F1645440078342B /* Move.swift */,
-				7048A6B41F3565DF000683B9 /* NegaMax.swift */,
 				7048A6B61F35990D000683B9 /* NegaMaxWithPruning.swift */,
 				703368F61F26134D00F23DDD /* ScoredMove.swift */,
 				709E155B1F2A17E500501176 /* TreeNode.swift */,
@@ -284,7 +276,6 @@
 		70D6EDB21F0EF3DE005A8BFD /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				70ED71AD1F276553000A4AC2 /* CalculateMoveProtocol.swift */,
 				701AF5611F109E8A00F15A50 /* EngineDelegate.swift */,
 				701AF5621F109E8A00F15A50 /* PlayerDelegate.swift */,
 			);
@@ -598,7 +589,6 @@
 				70D6ED9A1F0EF106005A8BFD /* AppDelegate.swift in Sources */,
 				701AF5601F109E8000F15A50 /* AIPlayer.swift in Sources */,
 				701AF55E1F109E8000F15A50 /* Node.swift in Sources */,
-				70ED71AE1F276553000A4AC2 /* CalculateMoveProtocol.swift in Sources */,
 				703368F71F26134D00F23DDD /* ScoredMove.swift in Sources */,
 				701AF58C1F109FFD00F15A50 /* MillView.swift in Sources */,
 				701AF55F1F109E8000F15A50 /* Player.swift in Sources */,
@@ -616,11 +606,9 @@
 				701AF5561F109E7200F15A50 /* Engine.swift in Sources */,
 				701AF57E1F109FE400F15A50 /* AudioPlayer.swift in Sources */,
 				701AF57D1F109FE400F15A50 /* Animations.swift in Sources */,
-				7048A6B51F3565DF000683B9 /* NegaMax.swift in Sources */,
 				701AF5821F109FE400F15A50 /* Extensions.swift in Sources */,
 				701AF5521F109E6300F15A50 /* GameVC.swift in Sources */,
 				7048A6B71F35990D000683B9 /* NegaMaxWithPruning.swift in Sources */,
-				708056D11F247FFC0016A3C5 /* MiniMax.swift in Sources */,
 				701AF55C1F109E8000F15A50 /* Board.swift in Sources */,
 				701AF5801F109FE400F15A50 /* Enums.swift in Sources */,
 				701AF5861F109FF500F15A50 /* RoundedShadowView.swift in Sources */,

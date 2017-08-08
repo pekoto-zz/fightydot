@@ -1,6 +1,6 @@
 //
 //  HelpVC.swift
-//  Ananke
+//  FightyDot
 //
 //  Created by Graham McRobbie on 25/02/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.
@@ -21,6 +21,8 @@ class HelpVC: UIViewController {
         soundEnabledSwitch.isOn = !UserDefaults.standard.bool(forKey: Constants.Settings.muteSounds)
         loadDifficultyLevel()
     }
+    
+    // MARK: - Actions
     
     @IBAction func soundEnabledSwitchChanged(_ sender: UISwitch) {
         let muteSounds = !soundEnabledSwitch.isOn
@@ -55,6 +57,8 @@ class HelpVC: UIViewController {
         UserDefaults.standard.synchronize()
     }
 }
+
+// MARK: PickerViewDelegate
 
 extension HelpVC: UIPickerViewDelegate, UIPickerViewDataSource {
     

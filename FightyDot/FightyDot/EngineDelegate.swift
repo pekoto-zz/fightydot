@@ -1,9 +1,12 @@
 //
 //  EngineViewProtocol.swift
-//  Ananke
+//  FightyDot
 //
 //  Created by Graham McRobbie on 12/01/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.
+//
+//  Implemented in GameVC.swift
+//  These are callbacks made from the engine to update the view.
 //
 
 import Foundation

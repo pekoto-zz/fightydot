@@ -1,6 +1,6 @@
 //
 //  GameVC.swift
-//  Ananke
+//  FightyDot
 //
 //  Created by Graham McRobbie on 18/12/2016.
 //  Copyright © 2016 Graham McRobbie. All rights reserved.

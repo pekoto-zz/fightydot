@@ -68,8 +68,6 @@ class GameSnapshot {
     func getPossibleMoves() -> [Move] {
         var possibleMoves: [Move] = []
         
-        // TODO for each of the moves here, if it's made, work out if it would result in a mill being formed
-        // and if it would, clone the move, adding on all the nodes that can be taken
         if (_currentPlayer.state == .PlacingPieces) {
             possibleMoves = getPlacementMoves()
         } else if (_currentPlayer.state == .MovingPieces) {
@@ -260,6 +258,7 @@ class GameSnapshot {
     //  - number of pieces in play
     //  - two piece configurations (mill can be closed in 1 way)
     //  - three piece configurations (mill can be closed in 2 ways)
+    //  - closed a mill
     private func calculatePlacementScore(player: Player, opponent: Player) -> Int {
         let(twoPieceConfigs, threePieceConfigs) = _board.numOfTwoAndThreePieceConfigurations(for: player.pieceColour)
         
@@ -282,6 +281,7 @@ class GameSnapshot {
     //  - number of pieces in play
     //  - opened a mill
     //  - double mill
+    //  - closed a mill
     private func calculateMovementScore(player: Player, opponent: Player) -> Int {
         var score = (_board.numOfMills(for: player.pieceColour) * HeuristicWeights.MovementPhase.mills)
                   + (opponent.numOfBlockedNodes * HeuristicWeights.MovementPhase.blockedOpponentPieces)

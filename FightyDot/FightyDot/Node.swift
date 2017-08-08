@@ -1,6 +1,6 @@
 //
 //  Node.swift
-//  Ananke
+//  FightyDot
 //
 //  Created by Graham McRobbie on 12/12/2016.
 //  Copyright © 2016 Graham McRobbie. All rights reserved.
@@ -19,7 +19,9 @@ class Node {
             _view?.animate(node: self, to: _colour)
         }
     }
-    private var _activeMillCount: Int = 0 // number of active mills this node is a member of
+    
+    // number of active mills this node is a member of
+    private var _activeMillCount: Int = 0
     private var _isTappable: Bool = true {
         didSet {
             if(_isTappable) {

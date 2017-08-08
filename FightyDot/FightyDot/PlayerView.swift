@@ -1,6 +1,6 @@
 //
 //  PlayerView.swift
-//  Ananke
+//  FightyDot
 //
 //  Created by Graham McRobbie on 31/12/2016.
 //  Copyright © 2016 Graham McRobbie. All rights reserved.

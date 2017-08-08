@@ -1,6 +1,6 @@
 //
 //  BaseEngine.swift
-//  Ananke
+//  FightyDot
 //
 //  Created by Graham McRobbie on 29/12/2016.
 //  Copyright © 2016 Graham McRobbie. All rights reserved.
@@ -32,10 +32,6 @@ class Engine {
                 oldPlayer.isCurrentPlayer = false
             }
             _currentPlayer.isCurrentPlayer = true
-            
-            if let aiPlayer = _currentPlayer as? AIPlayer {
-                makeMoveFor(aiPlayer: aiPlayer)
-            }
         }
     }
     
@@ -58,7 +54,7 @@ class Engine {
             throw EngineError.InvalidId
         }
         
-        // Prevent double moves
+        // Prevent taps/drags
         _board.disableNodes()
         
         switch(_state) {
@@ -76,7 +72,7 @@ class Engine {
             throw EngineError.InvalidId
         }
         
-        // Prevent double moves
+        // Prevent taps/drags
         _board.disableNodes()
         
         try moveNodeFor(player: _currentPlayer, from: oldId, to: newId)
@@ -265,11 +261,13 @@ class Engine {
     }
     
     private func switchPlayers() {
+        _currentPlayer = nextPlayer()
+        
         if let aiPlayer = _currentPlayer as? AIPlayer {
+            makeMoveFor(aiPlayer: aiPlayer)
+        } else if let aiPlayer = nextPlayer() as? AIPlayer {
             aiPlayer.processingState = .Waiting
         }
-        
-        _currentPlayer = nextPlayer()
     }
     
     private func resetPlayers() {

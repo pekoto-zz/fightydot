@@ -406,7 +406,7 @@ class GameSnapshotTests: XCTestCase {
         _p2.losePiece(node: _board.getNode(withID: 20)!)
         _p2.losePiece(node: _board.getNode(withID: 21)!)
         
-        XCTAssertEqual(_gameSnapshot.heuristicScore, Int.max)
+        XCTAssertEqual(_gameSnapshot.heuristicScore, Constants.WinScores.greenWin)
     }
     
     func testHeuristic_RedWinState() {
@@ -428,7 +428,7 @@ class GameSnapshotTests: XCTestCase {
         _p1.losePiece(node: _board.getNode(withID: 5)!)
         _p1.losePiece(node: _board.getNode(withID: 6)!)
         
-        XCTAssertEqual(_gameSnapshot.heuristicScore, Int.min)
+        XCTAssertEqual(_gameSnapshot.heuristicScore, Constants.WinScores.redWin)
     }
     
     func testHeuristic_PlacingGreenWinning() {

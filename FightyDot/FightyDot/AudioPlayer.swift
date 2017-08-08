@@ -1,6 +1,6 @@
 //
 //  AudioPlayer.swift
-//  Ananke
+//  FightyDot
 //
 //  Created by Graham McRobbie on 22/02/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  AIPlayer.swift
-//  Ananke
+//  FightyDot
 //
 //  Created by Graham McRobbie on 19/02/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.
@@ -57,7 +57,6 @@ class AIPlayer: Player {
         super.reset()
         _processingState = .Waiting
         _lookAheadDepth = getLookaheadDepth()
-        //_turn = 1
     }
     
     func hasPlayedNoPieces() -> Bool {
@@ -65,31 +64,14 @@ class AIPlayer: Player {
     }
     
     func getBestMove(board: Board, opponent: Player, millFormed: Bool) -> Move? {
-        //print("AI turn: \(_turn)")
-        //_turn = _turn + 1
-        
         let boardClone = board.clone()
         let playerClone = self.clone(to: boardClone)
         let opponentClone = opponent.clone(to: boardClone)
         
         let gameSnapshot = GameSnapshot(board: boardClone, currentPlayer: playerClone, opponent: opponentClone)
         
-        //let debugTree = TreeNode<ScoredMove>(data: ScoredMove(move: nil, score: 0))
-        
-        //let bestMove = _moveCalculator.calculateBestMoveWithDebugTree(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour, tree: debugTree)
-        
-        //debugTree.data = bestMove
-        
-        //debugTree.printTree()
-        
-        // TODO possibly should be alpha = Int.min, beta = Int.max, but since we're a minimizer, swap them?
-        
-        print("Depth: \(_lookAheadDepth)")
-        
         let bestMove = _moveCalculator.calculateBestMoveWithPruning(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour, alpha: Int.min, beta: Int.max)
-        
-        // let bestMove = _moveCalculator.calculateBestMove(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour)
-        
+                
         return bestMove.move
     }
     

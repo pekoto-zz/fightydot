@@ -5,7 +5,9 @@
 //  Created by Graham McRobbie on 27/07/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.
 //
-//  A class to hold minimax state tree in (for debugging/visual representation, if desired)
+//  A class to hold a minimax state tree.
+//  Not currently used, but you can add it to MiniMax/Negamax
+//  for debugging/visual representation, if desired.
 //
 
 import Foundation
