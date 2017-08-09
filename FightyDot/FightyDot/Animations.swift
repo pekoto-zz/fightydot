@@ -5,6 +5,8 @@
 //  Created by Graham McRobbie on 01/01/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.
 //
+//  Various custom Core Animation animations and effects.
+//
 
 import Foundation
 import UIKit

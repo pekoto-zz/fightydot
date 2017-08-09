@@ -5,11 +5,15 @@
 //  Created by Graham McRobbie on 19/02/2017.
 //  Copyright © 2017 Graham McRobbie. All rights reserved.
 //
+//  An AI player. Uses NegaMax with pruning to calculate which moves to make.
+//  The first move is random, to cut down on excessive tree calls and to keep things interesting.
+//
 
 import Foundation
 
 class AIPlayer: Player {
 
+    // Loaded from difficulty setting in init
     private var _lookAheadDepth: Int = -1
     private var _moveCalculator: NegaMaxWithPruning = NegaMaxWithPruning()
     private var _artificialThinkTime: Double = -1
@@ -63,7 +67,7 @@ class AIPlayer: Player {
         return piecesLeftToPlay == Constants.GameplayNumbers.startingPieces
     }
     
-    func getBestMove(board: Board, opponent: Player, millFormed: Bool) -> Move? {
+    func getBestMove(board: Board, opponent: Player) -> Move? {
         let boardClone = board.clone()
         let playerClone = self.clone(to: boardClone)
         let opponentClone = opponent.clone(to: boardClone)
@@ -75,6 +79,9 @@ class AIPlayer: Player {
         return bestMove.move
     }
     
+    
+    // If there are no nodes placed yet, just pick a random node.
+    // Keeps things unpredictable and avoids a large pointless negamax search
     func pickStartingNodeFrom(board: Board) -> Node {
         if(pickIntersection()) {
             return pickRandomIntersectionFrom(board: board)
@@ -101,6 +108,7 @@ class AIPlayer: Player {
         return arc4random_uniform(10) <= 7
     }
     
+    // Picks an intersection if available
     private func pickRandomIntersectionFrom(board: Board) -> Node {
         let emptyIntersections = board.getNodes(for: .none).filter{ Constants.BoardSetup.intersections.contains($0.id) }
         

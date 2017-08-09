@@ -162,25 +162,37 @@ class Engine {
         
         try nextTurn()
     }
-
-    // Simulate thinking time and make a move.
-    // The engine calls won't fail since nodes come from the board
-    // rather than the view
+    
+    private func nextTurn() throws {
+        _state = nextPlayer().state
+        
+        if(_state == .GameOver) {
+            _view?.gameWon(by: _currentPlayer)
+        } else {
+            switchPlayers()
+            
+            if(_currentPlayer.type != .AI) {
+                try updateSelectableNodes()
+            } else {
+                makeMoveFor(aiPlayer: (_currentPlayer as? AIPlayer)!)
+            }
+        }
+    }
+    
     private func makeMoveFor(aiPlayer: AIPlayer) {
         aiPlayer.processingState = .Thinking
-
-        let millFormed = _state == .TakingPiece
+        
         let opponent = nextPlayer()
         var bestMove: Move?
         
         DispatchQueue.main.asyncAfter(deadline: .now() + aiPlayer.artificialThinkTime) {
+            
+            // Get the move to make
             if(aiPlayer.hasPlayedNoPieces()) {
-                // If there are no nodes placed yet, just pick a random node
-                // Keeps things unpredictable and avoids a large pointless minimax tree search
                 let targetNode = aiPlayer.pickStartingNodeFrom(board: self._board)
                 bestMove = Move(type: .PlacePiece, targetNode: targetNode)
             } else {
-                bestMove = aiPlayer.getBestMove(board: self._board, opponent: self.nextPlayer(), millFormed: millFormed)
+                bestMove = aiPlayer.getBestMove(board: self._board, opponent: self.nextPlayer())
             }
             
             guard let moveToMake = bestMove else {
@@ -188,6 +200,7 @@ class Engine {
                 return
             }
             
+            // Make the move
             switch (moveToMake.type) {
             case .PlacePiece:
                 aiPlayer.processingState = .Placing
@@ -203,28 +216,15 @@ class Engine {
                 try! self.moveNodeFor(player: aiPlayer, from: moveToMake.targetNode.id, to: destinationNode.id)
             }
             
+            // Take a piece
             if(moveToMake.formsMill) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + aiPlayer.artificialThinkTime) {
                     aiPlayer.processingState = .TakingPiece
-
+                    
                     if let nodeToTake = moveToMake.nodeToTake {
                         try! self.takeNodeBelongingTo(player: opponent, nodeId: nodeToTake.id)
                     }
                 }
-            }
-        }
-    }
-    
-    private func nextTurn() throws {
-        _state = nextPlayer().state
-        
-        if(_state == .GameOver) {
-            _view?.gameWon(by: _currentPlayer)
-        } else {
-            switchPlayers()
-            
-            if(_currentPlayer.type != .AI) {
-                try updateSelectableNodes()
             }
         }
     }
@@ -265,9 +265,7 @@ class Engine {
     private func switchPlayers() {
         _currentPlayer = nextPlayer()
         
-        if let aiPlayer = _currentPlayer as? AIPlayer {
-            makeMoveFor(aiPlayer: aiPlayer)
-        } else if let aiPlayer = nextPlayer() as? AIPlayer {
+        if let aiPlayer = nextPlayer() as? AIPlayer {
             aiPlayer.processingState = .Waiting
         }
     }

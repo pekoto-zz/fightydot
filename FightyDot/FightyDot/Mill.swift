@@ -5,6 +5,10 @@
 //  Created by Graham McRobbie on 12/12/2016.
 //  Copyright © 2016 Graham McRobbie. All rights reserved.
 //
+//  A mill is made of an array of three nodes.
+//  It also stores the piece counts in another array (_pieceCounts)
+//  This keeps things fast and makes the mill easy to update.
+//
 
 import Foundation
 import UIKit
@@ -90,8 +94,10 @@ class Mill {
         _colour = otherMill._colour
     }
     
-    // MARK: - Heuristic evaluation helpers
+    // MARK: - Heuristic evaluation functions
 
+    // A mill with 2 pieces of the same colour, and an empty piece next
+    // to an active mill, allowing the player to move a node between mills.
     func isInDoubleMillConfiguration(for colour: PieceColour) -> Bool {
         if(!isInTwoPieceConfiguration(for: colour)) {
             return false
@@ -108,10 +114,13 @@ class Mill {
         return false
     }
     
+    // A mill that has one empty node
     func isInTwoPieceConfiguration(for colour: PieceColour) -> Bool {
         return (_pieceCounts[PieceColour.none.rawValue] == 1) && (_pieceCounts[colour.rawValue] == 2)
     }
     
+    // A mill that has one empty node, and one of its neighbours if of the same colour,
+    // so the player can close the mill next turn
     func isOpen(for colour: PieceColour) -> Bool {
         if(!isInTwoPieceConfiguration(for: colour)) {
             return false

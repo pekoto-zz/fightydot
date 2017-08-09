@@ -5,6 +5,8 @@
 //  Created by Graham McRobbie on 14/12/2016.
 //  Copyright © 2016 Graham McRobbie. All rights reserved.
 //
+//  The standard human player class.
+//
 
 import Foundation
 
@@ -197,6 +199,7 @@ class Player {
         _piecesOnBoard = []
     }
     
+    // When building a tree of possible moves, we clone the players to a possible board state
     func clone(to board: Board) -> Player {
         let player = Player(name: _name, colour: _colour, type: _type, isStartingPlayer: _isStartingPlayer, playerNum: _playerNum, piecesLeftToPlay: _piecesLeftToPlay, isCurrentPlayer: _isCurrentPlayer)
         

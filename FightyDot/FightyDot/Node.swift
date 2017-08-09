@@ -5,6 +5,8 @@
 //  Created by Graham McRobbie on 12/12/2016.
 //  Copyright © 2016 Graham McRobbie. All rights reserved.
 //
+//  A node (spot) on the board
+//
 
 import Foundation
 import UIKit

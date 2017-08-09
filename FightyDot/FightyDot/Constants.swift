@@ -88,7 +88,7 @@ struct Constants {
             [2, 14, 23]     // Node 15
         ]
         
-        // These can arguably be the best starting positions
+        // These are arguably the best starting nodes
         static let intersections = [4, 10, 13, 19]
     }
     
@@ -204,10 +204,10 @@ struct Constants {
         static let dragGestureRecognizerIndex = 1
     }
     
-    // To ensure MiniMax algorithms choose at least 1 move when all possible moves are winning moves,
+    // To ensure MiniMax/NegaMax algorithms choose at least 1 move when all possible moves are winning moves,
     // we make the winning scores slighty less than Int.max/Int.min.
-    // redWin is +2 to make the scores more symmetrical in Swift, to stop issues when swapping
-    // alpha/beta during negamax pruning.
+    // redWin is +2 to make the scores more "symmetrical", and to stop issues when swapping
+    // alpha/beta during negamax pruning. (In Swift 3, Int.max != Int.min * -1)
     struct WinScores {
         static let greenWin = Int.max-1
         static let redWin = Int.min+2

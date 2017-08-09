@@ -5,6 +5,7 @@
 //  Created by Graham McRobbie on 23/12/2016.
 //  Copyright © 2016 Graham McRobbie. All rights reserved.
 //
+//  The board is represented by an array of nodes, which form mills.
 //  The board looks like this:
 //
 //  0) 0---------1---------2
@@ -121,7 +122,10 @@ class Board {
         return _mills.filter{ mill in mill.isOpen(for: colour) }.count
     }
     
-    // We always use these together when evaluating, so it's more efficient to group the calculations
+    // We always use two and three pieces configs together when evaluating, so it's more efficient to group the calculations
+    // A two piece configuration means the mill can be closed in one way.
+    // A three piece configuration means two two-piece config mills intersect, meaning the player has two ways to close the mill.
+    // It is difficult to block a three piece configuration.
     func numOfTwoAndThreePieceConfigurations(for colour: PieceColour) -> (twoPieceCount: Int, threePieceCount: Int) {
         var threePieceCount = 0
         
