@@ -34,7 +34,7 @@ extension Int {
     
     func switchSign() -> Int {
         // Int.min * -1 will crash in Swift 3
-        // Possibly because Int.min is 1 less than Int.max?
+        // Possibly because Int.min is 1 less than Int.max
         if(self == Int.min) {
             return Int.max
         } else {

@@ -5,6 +5,8 @@
 //  Created by Graham McRobbie on 08/12/2016.
 //  Copyright © 2016 Graham McRobbie. All rights reserved.
 //
+//  Used for the main app background.
+//
 
 import UIKit
 
