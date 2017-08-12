@@ -6,7 +6,7 @@ Fighty Dot is a Swift implementation of [nine men's morris](https://en.wikipedia
 ### Screenshots
 <img src="https://github.com/pekoto/fightydot/blob/master/screenshot-1.jpg" width="248" height="442" /> <img src="https://github.com/pekoto/fightydot/blob/master/screenshot-2.jpg" width="248" height="442" /> <img src="https://github.com/pekoto/fightydot/blob/master/screenshot-3.jpg" width="248" height="442" />
 
-_App store screenshots designed using [Sketch](https://www.sketchapp.com/)_
+_App store screenshots designed using [Sketch](https://www.sketchapp.com/)_.
 
 ### Features
 - Player vs. AI
@@ -23,7 +23,7 @@ In some ways, the game can be seen as a battle between strength and manoeuvrabil
 The game dates back to Roman times, and is mentioned in Ovid.
 
 ## Setup
-Open FightyDot.xcworkspace in Xcode. The project should build cleanly, but you need to set up your own Firebase config :) 
+Open FightyDot.xcworkspace in Xcode. The code should build cleanly, but you need to set up your own Firebase config :) 
 
 ### Firebase Setup (~5-10 minutes)
 The Firebase pods are included in the project, so you don't need to download them.
