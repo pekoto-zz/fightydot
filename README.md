@@ -3,7 +3,10 @@ Fighty Dot is a Swift implementation of [nine men's morris](https://en.wikipedia
 
 [App store link](#) (**TODO**)
 
-<img src="https://github.com/pekoto/fightydot/blob/master/screenshot-1.jpg" width="310" height="552" /> <img src="https://github.com/pekoto/fightydot/blob/master/screenshot-1.jpg" width="310" height="552" /><img src="https://github.com/pekoto/fightydot/blob/master/screenshot-1.jpg" width="310" height="552" />
+### Screenshots
+<img src="https://github.com/pekoto/fightydot/blob/master/screenshot-1.jpg" width="248" height="442" /> <img src="https://github.com/pekoto/fightydot/blob/master/screenshot-1.jpg" width="310" height="552" /> <img src="https://github.com/pekoto/fightydot/blob/master/screenshot-1.jpg" width="310" height="552" />
+
+_App store screenshots designed using [Sketch](https://www.sketchapp.com/)_
 
 ### Features
 - Player vs. AI
