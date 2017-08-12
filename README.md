@@ -84,7 +84,7 @@ These are based on the heuristics in [this](http://www.dasconference.ro/papers/2
 See `HeuristicWeights.swift` for the exact weights.
 
 ## Design
-I designed the app and icons using [Sketch](https://www.sketchapp.com/). I'm not much of a designer and this part probably took me longer than the code, if I'm honest. But I learnt a lot :)
+I designed the app and icons using [Sketch](https://www.sketchapp.com/). I'm not much of a designer and this part probably took me longer than the code, if I'm honest. But I learnt a lot :) Trying to design something **simple** that looks **good** is **hard**.
 
 ## Acknowledgements
 Special thanks to stzzy.
