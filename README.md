@@ -69,7 +69,7 @@ Fighty Dot uses the following heuristics to evaluate a game state:
 * The number of mills
 * the number of blocked opponent pieces
 * The number of player pieces on the board
-* The number of two piece configurations (adding one more piece closes the mill)
+* The number of two piece configurations (adding one more piece closes a mill)
 * The number of three piece configurations (2 two-piece configuration mills that intersect -- this is great during the placement phase because then your opponent can't stop you forming a mill)
 * The number of open mills (A two-piece configuration where the empty piece has a neighbour that is the same colour. When moving, that piece can then be moved into the empty spot, forming a mill.)
 * The number of double mills (a piece can be moved back and forth between two mills, completing one of them every turn)
