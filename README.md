@@ -82,6 +82,8 @@ See `HeuristicWeights.swift` for the exact weights.
 I designed the app and icons using [Sketch](https://www.sketchapp.com/). I'm not much of a designer and this part probably took me longer than the code, if I'm honest. But I learnt a lot :)
 
 ## Acknowledgements
+Special thanks to stzzy.
+
 ### Fonts
 Lato fonts are licensed under the [Open Font License](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL)
 
