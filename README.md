@@ -3,6 +3,8 @@ Fighty Dot is a Swift implementation of [nine men's morris](https://en.wikipedia
 
 [App store link](#) (**TODO**)
 
+![Fighty Dot Screenshot 1](https://github.com/pekoto/fightydot/blob/master/screenshot-1.jpg)
+
 ### Features
 - Player vs. AI
 - Player vs. Player (turn-based)
