@@ -62,7 +62,7 @@ Overall, I would say the AI plays a good game. I've only managed to beat it once
 Setting the difficulty to easy will cut the lookahead distance to one -- probably the same as a beginner human player -- and should be relatively easy to beat if you've played a few games before.
 
 #### Heuristic evalation
-All minimax-type algorithms require a heuristic evalation function so that they can judge how good a game state is for a particular player. Nine men's morris is complicated that the game takes place in three phases: placing, moving, and flying. A good move in one phase is not necessarily a good move in another. So the game uses different heuristics depending on the state the player is in.
+All minimax-type algorithms require a heuristic evalation function so that they can judge how good a game state is for a particular player. Nine men's morris is complex because the game takes place in three phases: placing, moving, and flying. A good move in one phase is not necessarily a good move in another. So the game uses different heuristics depending on the state the player is in.
 
 Fighty Dot uses the following heuristics to evaluate a game state:
 * Whether a mill was closed
