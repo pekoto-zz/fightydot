@@ -18,7 +18,7 @@ In some ways, the game can be seen as a battle between strength and manoeuvrabil
 The game dates back to Roman times, and is mentioned in Ovid.
 
 ## Setup
-Open FightyDot.xcworkspace in Xcode. The project should build cleanly, but you need to setup your own Firebase config :) 
+Open FightyDot.xcworkspace in Xcode. The project should build cleanly, but you need to set up your own Firebase config :) 
 
 ### Firebase Setup (~5-10 minutes)
 The Firebase pods are included in the project, so you don't need to download them.
