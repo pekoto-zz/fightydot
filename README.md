@@ -3,6 +3,7 @@ Fighty Dot is a Swift implementation of [nine men's morris](https://en.wikipedia
 
 [App store link](#) (**TODO**)
 
+<img src="https://github.com/pekoto/fightydot/blob/master/screenshot-1.jpg" width="200" height="200" />
 ![Fighty Dot Screenshot 1](https://github.com/pekoto/fightydot/blob/master/screenshot-1.jpg=100x20)
 
 ### Features
