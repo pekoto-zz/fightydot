@@ -1,7 +1,7 @@
 # Fighty Dot
 Fighty Dot is a Swift implementation of [nine men's morris](https://en.wikipedia.org/wiki/Nine_Men%27s_Morris) for iOS.
 
-[App store link](#) (**TODO**)
+[View in the app store](https://itunes.apple.com/th/app/fighty-dot-single-local-multiplayer-board-game/id1270536013?mt=8)
 
 ### Screenshots
 <img src="https://github.com/pekoto/fightydot/blob/master/screenshot-1.jpg" width="248" height="442" /> <img src="https://github.com/pekoto/fightydot/blob/master/screenshot-2.jpg" width="248" height="442" /> <img src="https://github.com/pekoto/fightydot/blob/master/screenshot-3.jpg" width="248" height="442" />
