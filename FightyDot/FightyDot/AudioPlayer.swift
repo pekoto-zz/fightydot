@@ -17,6 +17,11 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     private static let sharedPlayer: AudioPlayer = { return AudioPlayer() }()
     private var container = [String : AVAudioPlayer]()
     
+    override init() {
+        super.init()
+        try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+    }
+    
     static func playFile(named name: String, type: String) throws {
         var player: AVAudioPlayer?
         let key = name+type

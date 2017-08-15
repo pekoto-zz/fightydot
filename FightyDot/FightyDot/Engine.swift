@@ -99,6 +99,7 @@ class Engine {
         resetPlayers()
         _board.reset()
         _state = .PlacingPieces
+        _view?.updateTips(state: _state)
         _view?.playSound(fileName: Constants.Sfx.startGame, type: ".wav")
     }
     
