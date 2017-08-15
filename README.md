@@ -1,7 +1,12 @@
 # Fighty Dot
 Fighty Dot is a Swift implementation of [nine men's morris](https://en.wikipedia.org/wiki/Nine_Men%27s_Morris) for iOS.
 
-[App store link](#) (**TODO**)
+[View in the app store](https://itunes.apple.com/th/app/fighty-dot-single-local-multiplayer-board-game/id1270536013?mt=8)
+
+### Screenshots
+<img src="https://github.com/pekoto/fightydot/blob/master/screenshot-1.jpg" width="248" height="442" /> <img src="https://github.com/pekoto/fightydot/blob/master/screenshot-2.jpg" width="248" height="442" /> <img src="https://github.com/pekoto/fightydot/blob/master/screenshot-3.jpg" width="248" height="442" />
+
+_App store screenshots designed using [Sketch](https://www.sketchapp.com/)_.
 
 ### Features
 - Player vs. AI
@@ -18,7 +23,7 @@ In some ways, the game can be seen as a battle between strength and manoeuvrabil
 The game dates back to Roman times, and is mentioned in Ovid.
 
 ## Setup
-Open FightyDot.xcworkspace in Xcode. The project should build cleanly, but you need to set up your own Firebase config :) 
+Open FightyDot.xcworkspace in Xcode. The code should build cleanly, but you need to set up your own Firebase config :) 
 
 ### Firebase Setup (~5-10 minutes)
 The Firebase pods are included in the project, so you don't need to download them.
@@ -79,7 +84,7 @@ These are based on the heuristics in [this](http://www.dasconference.ro/papers/2
 See `HeuristicWeights.swift` for the exact weights.
 
 ## Design
-I designed the app and icons using [Sketch](https://www.sketchapp.com/). I'm not much of a designer and this part probably took me longer than the code, if I'm honest. But I learnt a lot :)
+I designed the app and icons using [Sketch](https://www.sketchapp.com/). I'm not much of a designer and this part probably took me longer than the code, if I'm honest. But I learnt a lot :) Trying to design something **simple** that looks **good** is **hard**.
 
 ## Acknowledgements
 Special thanks to stzzy.
