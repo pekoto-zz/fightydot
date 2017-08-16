@@ -239,6 +239,6 @@ class Player {
     }
     
     private func hasLost() -> Bool {
-        return ((_piecesLeftToPlay == 0) && (_piecesOnBoard.count <= Constants.GameplayNumbers.loseThreshold)) || ((_piecesOnBoard.count >= Constants.GameplayNumbers.loseThreshold) && (movableNodes.count == 0))
+        return ((_piecesLeftToPlay == 0) && (_piecesOnBoard.count <= Constants.GameplayNumbers.loseThreshold)) || ((_piecesLeftToPlay == 0) && (_piecesOnBoard.count >= Constants.GameplayNumbers.loseThreshold) && (movableNodes.count == 0))
     }
 }
