@@ -145,6 +145,17 @@ class Board {
         return (twoPieceMills.count, threePieceCount)
     }
     
+    // Serialize to a dict for upload to Firebase
+    func toDict() -> Dictionary<String, Any> {
+        var dict = Dictionary<String, Any>()
+        
+        for node in _nodes {
+            dict["board_node_\(node.id)"] = NSNumber(value: node.colour.rawValue)
+        }
+        
+        return dict
+    }
+    
     // MARK: - Private functions
     
     private func setup(view: EngineDelegate?) {

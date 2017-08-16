@@ -74,8 +74,22 @@ class GameVC: UIViewController {
             return
         }
 
-        // Engine calls should only fail if the game/storyboard has been configured incorrectly
-        try! _engine.handleNodeTapFor(nodeWithId: nodeId)
+        // Engine calls should only fail if the game/storyboard has been configured incorrectly,
+        // but if they do fail we can't really recover from them since the state is invalid.
+        do {
+            try _engine.handleNodeTapFor(nodeWithId: nodeId)
+        } catch {
+            _engine.uploadStateToFirebase(msg: "Failed to handle tap for node \(nodeId). Error: \(error).")
+            showAlert(title: "\(Constants.AlertMessages.errorTitle)", message: Constants.AlertMessages.errorMsg) {
+                self._engine.reset()
+            }
+        }
+        
+        // TODO log error details, node id, and show reset button, and do same for other error location
+       // Analytics.logEvent(Constants.FirebaseEvents.gameComplete, parameters: ["gameType": NSNumber(value: _gameType.rawValue)])
+       // showAlert(title: "\(player.name) \(Constants.AlertMessages.won)", message: Constants.AlertMessages.playAgain) {
+       //     self._engine.reset()
+       // }
     }
     
     // Used when moving or flying pieces
@@ -113,7 +127,16 @@ class GameVC: UIViewController {
                 guard let newNodeId = nodeImgView.getLastIntersectingMoveSpot()?.tag else {
                     return
                 }
-                try! _engine.handleNodeDragged(from: currentNodeId, to: newNodeId)
+                
+                do {
+                    try _engine.handleNodeDragged(from: currentNodeId, to: newNodeId)
+                } catch {
+                    _engine.uploadStateToFirebase(msg: "Failed to handle  drag from \(currentNodeId) to \(newNodeId). Error: \(error).")
+                    showAlert(title: "\(Constants.AlertMessages.errorTitle)", message: Constants.AlertMessages.errorMsg) {
+                        self._engine.reset()
+                    }
+                }
+                
                 validMoveMade = true
             }
             

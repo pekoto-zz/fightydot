@@ -26,6 +26,12 @@ extension Collection where Index == Int {
     }
 }
 
+extension Dictionary {
+    mutating func merge(with dictionary: Dictionary) {
+        dictionary.forEach { updateValue($1, forKey: $0) }
+    }
+}
+
 extension Int {
     
     func isInIdRange() -> Bool {

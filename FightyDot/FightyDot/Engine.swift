@@ -10,6 +10,7 @@
 //
 
 import Foundation
+import Firebase
 
 class Engine {
     
@@ -101,6 +102,18 @@ class Engine {
         _state = .PlacingPieces
         _view?.updateTips(state: _state)
         _view?.playSound(fileName: Constants.Sfx.startGame, type: ".wav")
+    }
+    
+    // For error reporting
+    func uploadStateToFirebase(msg: String) {
+        var paramDict = Dictionary<String, Any>()
+        paramDict["state"] = "\(_state)"
+        paramDict["msg"] = msg
+        
+        Analytics.logEvent(Constants.FirebaseEvents.engineState, parameters: paramDict)
+        Analytics.logEvent(Constants.FirebaseEvents.boardState, parameters: _board.toDict())
+        Analytics.logEvent(Constants.FirebaseEvents.playerOneState, parameters: _p1.toDict())
+        Analytics.logEvent(Constants.FirebaseEvents.playerTwoState, parameters: _p2.toDict())
     }
     
     // MARK: - Private functions

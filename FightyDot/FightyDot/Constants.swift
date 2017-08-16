@@ -14,7 +14,7 @@ struct Constants {
         static let won = "won!"
         static let playAgain = "Tap Play Again to, well, you know..."
         static let errorTitle = "Oh no!"
-        static let errorMsg = "I'm sorry to say this, but something went wrong.\n\(Tips.restart)"
+        static let errorMsg = "I'm sorry to say this, but something went wrong. A developer has been notified. Meanwhile, let's count this as a win :)"
     }
     
     struct AnimationKeys {
@@ -117,7 +117,11 @@ struct Constants {
     }
     
     struct FirebaseEvents {
+        static let boardState = "board_state"
+        static let engineState = "engine_state"
         static let gameComplete = "game_complete"
+        static let playerOneState = "player_1_state"
+        static let playerTwoState = "player_2_state"
         static let soundToggled = "sound_toggled"
     }
     

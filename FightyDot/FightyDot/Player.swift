@@ -216,6 +216,18 @@ class Player {
         return player
     }
     
+    // Serialize to a dict for upload to Firebase
+    func toDict() -> Dictionary<String, Any> {
+        var dict = Dictionary<String, Any>()
+        
+        dict["player_number"] = NSNumber(value: _playerNum.rawValue)
+        dict["current_player"] = "\(_isCurrentPlayer)"
+        dict["pieces_left_to_play"] = NSNumber(value: _piecesLeftToPlay)
+        dict["pieces_on_board_count"] = NSNumber(value: _piecesOnBoard.count)
+        
+        return dict
+    }
+    
     // MARK: - Heuristic evaluation helpers
 
     var numOfBlockedNodes: Int {
