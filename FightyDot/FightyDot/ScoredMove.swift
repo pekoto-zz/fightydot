@@ -45,5 +45,4 @@ class ScoredMove: CustomStringConvertible {
         _move = move
         _score = score
     }
-    
 }

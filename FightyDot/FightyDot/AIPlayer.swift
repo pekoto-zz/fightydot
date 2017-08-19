@@ -67,14 +67,14 @@ class AIPlayer: Player {
         return piecesLeftToPlay == Constants.GameplayNumbers.startingPieces
     }
     
-    func getBestMove(board: Board, opponent: Player) -> Move? {
+    func getBestMove(board: Board, opponent: Player) throws -> Move? {
         let boardClone = board.clone()
         let playerClone = self.clone(to: boardClone)
         let opponentClone = opponent.clone(to: boardClone)
         
         let gameSnapshot = GameSnapshot(board: boardClone, currentPlayer: playerClone, opponent: opponentClone)
         
-        let bestMove = _moveCalculator.calculateBestMoveWithPruning(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour, alpha: Int.min, beta: Int.max)
+        let bestMove = try _moveCalculator.calculateBestMoveWithPruning(gameSnapshot: gameSnapshot, depth: _lookAheadDepth, playerColour: colour, alpha: Int.min, beta: Int.max)
                 
         return bestMove.move
     }

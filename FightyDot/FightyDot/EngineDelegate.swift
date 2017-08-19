@@ -17,11 +17,12 @@ protocol EngineDelegate: class {
 
     func animate(node: Node, to newColour: PieceColour)
     func animate(mill: Mill, to newColour: PieceColour)
+    func disableInteractionFor(node: Node)
     func enableDragDisableTapFor(node: Node)
     func enableTapDisableDragFor(node: Node)
-    func disableInteractionFor(node: Node)
-    func reset(mill: Mill)
     func gameWon(by player: Player)
+    func handleEngineError(logMsg: String)
     func playSound(fileName: String, type: String)
+    func reset(mill: Mill)
     func updateTips(state: GameState)
 }

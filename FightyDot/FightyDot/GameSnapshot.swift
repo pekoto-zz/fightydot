@@ -83,23 +83,31 @@ class GameSnapshot {
     
     // Returns the resulting game snapshot (board & player states) after a certain move is made
     // (We need to store different game snapshots for minimax/negamax ranking -- hence why we clone())
-    func getNewSnapshotFrom(move: Move) -> GameSnapshot {
+    func getNewSnapshotFrom(move: Move) throws -> GameSnapshot {
         let board = _board.clone()
         let currentPlayer = _currentPlayer.clone(to: board)
         let opponent = _opponent.clone(to: board)
         
-        let targetNode = board.getNode(withID: move.targetNode.id)!
+        guard let targetNode = board.getNode(withID: move.targetNode.id) else {
+            throw AIError.FailedToGetTargetNode
+        }
         
         switch (move.type) {
         case .PlacePiece:
             _ = currentPlayer.playPiece(node: targetNode)
         case .MovePiece:
-            let destinationNode = board.getNode(withID: move.destinationNode!.id)!
+            guard let moveDestinationNode = move.destinationNode, let destinationNode = board.getNode(withID: (moveDestinationNode.id)) else {
+                throw AIError.FailedToGetDestinationNode
+            }
+
             _ = currentPlayer.movePiece(from: targetNode, to: destinationNode)
         }
         
         if(move.formsMill) {
-            let nodeToTake = board.getNode(withID: move.nodeToTake!.id)!
+            guard let moveNodeToTake = move.nodeToTake, let nodeToTake = board.getNode(withID: moveNodeToTake.id) else {
+                throw AIError.FailedToGetNodeToTake
+            }
+            
             opponent.losePiece(node: nodeToTake)
         }
         

@@ -8,6 +8,12 @@
 
 import Foundation
 
+enum AIError: Error {
+    case FailedToGetDestinationNode
+    case FailedToGetNodeToTake
+    case FailedToGetTargetNode
+}
+
 enum EngineError: Error {
     case InvalidId
     case InvalidState

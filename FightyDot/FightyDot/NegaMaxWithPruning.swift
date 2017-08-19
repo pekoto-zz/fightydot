@@ -15,7 +15,7 @@ class NegaMaxWithPruning {
     
     private let _playerColourSign: [PlayerColour: Int] = [PlayerColour.green: 1, PlayerColour.red: -1]
     
-    func calculateBestMoveWithPruning(gameSnapshot: GameSnapshot, depth: Int, playerColour: PlayerColour, alpha: Int, beta: Int) -> ScoredMove {
+    func calculateBestMoveWithPruning(gameSnapshot: GameSnapshot, depth: Int, playerColour: PlayerColour, alpha: Int, beta: Int) throws -> ScoredMove {
         var alphaValue = alpha
         let betaValue = beta
         
@@ -31,11 +31,11 @@ class NegaMaxWithPruning {
         
         for move in possibleMoves {
             // Make the move and get a new game snapshot
-            let nextGameSnapshot = gameSnapshot.getNewSnapshotFrom(move: move)
+            let nextGameSnapshot = try gameSnapshot.getNewSnapshotFrom(move: move)
             let nextPlayerColour = getNextPlayerColour(currentPlayerColour: playerColour)
             
             // Basically do an adversarial search to work out what the best position is for each player
-            let scoredMove = calculateBestMoveWithPruning(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: nextPlayerColour, alpha: betaValue.switchSign(), beta: alphaValue.switchSign())
+            let scoredMove = try calculateBestMoveWithPruning(gameSnapshot: nextGameSnapshot, depth: depth-1, playerColour: nextPlayerColour, alpha: betaValue.switchSign(), beta: alphaValue.switchSign())
             scoredMove.score = scoredMove.score.switchSign()
             
             if(scoredMove.score > bestMove.score) {
