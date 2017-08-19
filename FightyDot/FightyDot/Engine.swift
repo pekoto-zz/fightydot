@@ -51,7 +51,7 @@ class Engine {
         _currentPlayer = _p1.isStartingPlayer ? _p1 : _p2
         _board = Board(view: engineView)
         
-       // dummyState()
+       //dummyState()
     }
     
     func dummyState() {
@@ -95,7 +95,7 @@ class Engine {
         
         _ = _p2.playPiece(node: _board.getNode(withID: 3)!)
         _ = _p2.playPiece(node: _board.getNode(withID: 10)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 18)!) */
+        _ = _p2.playPiece(node: _board.getNode(withID: 18)!)*/
         
         // CRASH STATE 2
         /*_ = _p2.playPiece(node: _board.getNode(withID: 0)!)
@@ -123,7 +123,7 @@ class Engine {
         _p1.losePiece(node: _board.getNode(withID: 22)!) */
         
         // CRASH STATE 3
-        _ = _p2.playPiece(node: _board.getNode(withID: 1)!)
+        /*_ = _p2.playPiece(node: _board.getNode(withID: 1)!)
         _ = _p2.playPiece(node: _board.getNode(withID: 3)!)
         _ = _p2.playPiece(node: _board.getNode(withID: 7)!)
         _ = _p2.playPiece(node: _board.getNode(withID: 6)!)
@@ -151,7 +151,7 @@ class Engine {
         _p1.losePiece(node: _board.getNode(withID: 22)!)
         _p1.losePiece(node: _board.getNode(withID: 19)!)
         _p1.losePiece(node: _board.getNode(withID: 0)!)
-        _p1.losePiece(node: _board.getNode(withID: 2)!)
+        _p1.losePiece(node: _board.getNode(withID: 2)!)*/
 
         _state = .MovingPieces
     }
@@ -206,7 +206,7 @@ class Engine {
         _state = .PlacingPieces
         _view?.updateTips(state: _state)
         _view?.playSound(fileName: Constants.Sfx.startGame, type: ".wav")
-        dummyState()
+       // dummyState()
     }
     
     // For error reporting
