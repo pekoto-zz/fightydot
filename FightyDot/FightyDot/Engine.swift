@@ -50,110 +50,6 @@ class Engine {
         _view = engineView
         _currentPlayer = _p1.isStartingPlayer ? _p1 : _p2
         _board = Board(view: engineView)
-        
-       //dummyState()
-    }
-    
-    func dummyState() {
-        
-        // CRASH STATE 1
-        /*_ = _p1.playPiece(node: _board.getNode(withID: 0)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 2)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 23)!)
-
-        
-        _p1.losePiece(node: _board.getNode(withID: 0)!)
-        _p1.losePiece(node: _board.getNode(withID: 1)!)
-        _p1.losePiece(node: _board.getNode(withID: 2)!)
-        _p1.losePiece(node: _board.getNode(withID: 23)!)
-
-        
-        _ = _p1.playPiece(node: _board.getNode(withID: 4)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 12)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 13)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 15)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 21)!)
-        
-    
-        _ = _p2.playPiece(node: _board.getNode(withID: 0)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 1)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 2)!)
-        
-        _p2.losePiece(node: _board.getNode(withID: 0)!)
-        _p2.losePiece(node: _board.getNode(withID: 1)!)
-        _p2.losePiece(node: _board.getNode(withID: 2)!)
-        
-        _ = _p2.playPiece(node: _board.getNode(withID: 0)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 1)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 2)!)
-        
-        _p2.losePiece(node: _board.getNode(withID: 0)!)
-        _p2.losePiece(node: _board.getNode(withID: 1)!)
-        _p2.losePiece(node: _board.getNode(withID: 2)!)
-
-        
-        _ = _p2.playPiece(node: _board.getNode(withID: 3)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 10)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 18)!)*/
-        
-        // CRASH STATE 2
-        /*_ = _p2.playPiece(node: _board.getNode(withID: 0)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 2)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 6)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 8)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 9)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 16)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 20)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 21)!)
-        
-        _ = _p2.playPiece(node: _board.getNode(withID: 22)!)
-        _p2.losePiece(node: _board.getNode(withID: 22)!)
-        
-        _ = _p1.playPiece(node: _board.getNode(withID: 1)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 5)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 12)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 13)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 14)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 17)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 19)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 23)!)
-        
-        _ = _p1.playPiece(node: _board.getNode(withID: 22)!)
-        _p1.losePiece(node: _board.getNode(withID: 22)!) */
-        
-        // CRASH STATE 3
-        /*_ = _p2.playPiece(node: _board.getNode(withID: 1)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 3)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 7)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 6)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 10)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 18)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 22)!)
-        
-        _ = _p2.playPiece(node: _board.getNode(withID: 0)!)
-        _ = _p2.playPiece(node: _board.getNode(withID: 2)!)
-        _p2.losePiece(node: _board.getNode(withID: 0)!)
-        _p2.losePiece(node: _board.getNode(withID: 2)!)
-        
-        _ = _p1.playPiece(node: _board.getNode(withID: 9)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 12)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 14)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 15)!)
-
-        _ = _p1.playPiece(node: _board.getNode(withID: 21)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 19)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 23)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 0)!)
-        _ = _p1.playPiece(node: _board.getNode(withID: 2)!)
-
-        _p1.losePiece(node: _board.getNode(withID: 21)!)
-        _p1.losePiece(node: _board.getNode(withID: 22)!)
-        _p1.losePiece(node: _board.getNode(withID: 19)!)
-        _p1.losePiece(node: _board.getNode(withID: 0)!)
-        _p1.losePiece(node: _board.getNode(withID: 2)!)*/
-
-        _state = .MovingPieces
     }
     
     func handleNodeTapFor(nodeWithId nodeId: Int) throws {
@@ -192,7 +88,7 @@ class Engine {
         
         switch(_state) {
         case .MovingPieces:
-            return (_board.getNode(withID: id)?.emptyNeighbours.map { $0.id})!
+            return (_board.getNode(withID: id)?.emptyNeighbours.map { $0.value.id})!
         case .FlyingPieces:
             return _board.getNodes(for: .none).map { $0.id }
         default:
@@ -206,7 +102,6 @@ class Engine {
         _state = .PlacingPieces
         _view?.updateTips(state: _state)
         _view?.playSound(fileName: Constants.Sfx.startGame, type: ".wav")
-       // dummyState()
     }
     
     // For error reporting
@@ -312,7 +207,7 @@ class Engine {
             // Get the move to make
             if(aiPlayer.hasPlayedNoPieces()) {
                 let targetNode = aiPlayer.pickStartingNodeFrom(board: self._board)
-                bestMove = Move(type: .PlacePiece, targetNode: targetNode)
+                bestMove = Move(type: .PlacePiece, targetNodeId: targetNode.id)
             } else {
                 do {
                     try bestMove = aiPlayer.getBestMove(board: self._board, opponent: self.nextPlayer())
@@ -331,22 +226,22 @@ class Engine {
             case .PlacePiece:
                 aiPlayer.processingState = .Placing
                 do {
-                    try self.placeNodeFor(player: aiPlayer, nodeId: moveToMake.targetNode.id)
+                    try self.placeNodeFor(player: aiPlayer, nodeId: moveToMake.targetNodeId)
                 } catch {
-                    self._view?.handleEngineError(logMsg: "Failed to place piece with id \(moveToMake.targetNode.id) for AI player. (\(error))")
+                    self._view?.handleEngineError(logMsg: "Failed to place piece with id \(moveToMake.targetNodeId) for AI player. (\(error))")
                 }
             case .MovePiece:
                 aiPlayer.processingState = .Moving
                 
-                guard let destinationNode = moveToMake.destinationNode else {
+                guard let destinationNodeId = moveToMake.destinationNodeId else {
                     self._view?.handleEngineError(logMsg: "Failed to get destination node for AI player.")
                     return
                 }
                 
                 do {
-                    try self.moveNodeFor(player: aiPlayer, from: moveToMake.targetNode.id, to: destinationNode.id)
+                    try self.moveNodeFor(player: aiPlayer, from: moveToMake.targetNodeId, to: destinationNodeId)
                 } catch {
-                    self._view?.handleEngineError(logMsg: "Failed to move piece from \(moveToMake.targetNode.id) to \(destinationNode.id) for AI player. (\(error))")
+                    self._view?.handleEngineError(logMsg: "Failed to move piece from \(moveToMake.targetNodeId) to \(destinationNodeId) for AI player. (\(error))")
                 }
             }
             
@@ -355,11 +250,11 @@ class Engine {
                 DispatchQueue.main.asyncAfter(deadline: .now() + aiPlayer.artificialThinkTime) {
                     aiPlayer.processingState = .TakingPiece
                     
-                    if let nodeToTake = moveToMake.nodeToTake {
+                    if let nodeToTake = moveToMake.nodeToTakeId {
                         do {
-                            try self.takeNodeBelongingTo(player: opponent, nodeId: nodeToTake.id)
+                            try self.takeNodeBelongingTo(player: opponent, nodeId: nodeToTake)
                         } catch {
-                            self._view?.handleEngineError(logMsg: "Failed to take piece \(nodeToTake.id) for AI player. (\(error))")
+                            self._view?.handleEngineError(logMsg: "Failed to take piece \(nodeToTake) for AI player. (\(error))")
 
                         }
                     }

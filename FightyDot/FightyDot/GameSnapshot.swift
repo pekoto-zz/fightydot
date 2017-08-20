@@ -65,15 +65,15 @@ class GameSnapshot {
     }
     
     // Return the moves that are possible based on the state of this game
-    func getPossibleMoves() -> [Move] {
+    func getPossibleMoves() throws -> [Move] {
         var possibleMoves: [Move] = []
         
         if (_currentPlayer.state == .PlacingPieces) {
-            possibleMoves = getPlacementMoves()
+            possibleMoves = try getPlacementMoves()
         } else if (_currentPlayer.state == .MovingPieces) {
-            possibleMoves = getMovementMoves()
+            possibleMoves = try getMovementMoves()
         } else if (_currentPlayer.state == .FlyingPieces) {
-            possibleMoves = getFlyingMoves()
+            possibleMoves = try getFlyingMoves()
         } else if (_currentPlayer.state == .GameOver) {
             possibleMoves = []
         }
@@ -88,7 +88,7 @@ class GameSnapshot {
         let currentPlayer = _currentPlayer.clone(to: board)
         let opponent = _opponent.clone(to: board)
         
-        guard let targetNode = board.getNode(withID: move.targetNode.id) else {
+        guard let targetNode = board.getNode(withID: move.targetNodeId) else {
             throw AIError.FailedToGetTargetNode
         }
         
@@ -96,7 +96,7 @@ class GameSnapshot {
         case .PlacePiece:
             _ = currentPlayer.playPiece(node: targetNode)
         case .MovePiece:
-            guard let moveDestinationNode = move.destinationNode, let destinationNode = board.getNode(withID: (moveDestinationNode.id)) else {
+            guard let moveDestinationNodeId = move.destinationNodeId, let destinationNode = board.getNode(withID: moveDestinationNodeId) else {
                 throw AIError.FailedToGetDestinationNode
             }
 
@@ -104,7 +104,7 @@ class GameSnapshot {
         }
         
         if(move.formsMill) {
-            guard let moveNodeToTake = move.nodeToTake, let nodeToTake = board.getNode(withID: moveNodeToTake.id) else {
+            guard let moveNodeToTakeId = move.nodeToTakeId, let nodeToTake = board.getNode(withID: moveNodeToTakeId) else {
                 throw AIError.FailedToGetNodeToTake
             }
             
@@ -115,7 +115,7 @@ class GameSnapshot {
     }
     
     func printBoard() {
-        _board.print()
+        _board.printState()
     }
     
     func printScore() {
@@ -124,75 +124,83 @@ class GameSnapshot {
     
     // MARK: - Private functions
 
-    private func getPlacementMoves() -> [Move] {
+    private func getPlacementMoves() throws -> [Move] {
         var placementMoves: [Move] = []
         
         for node in _board.getNodes(for: .none) {
-            let move = Move(type: .PlacePiece, targetNode: node)
+            let move = Move(type: .PlacePiece, targetNodeId: node.id)
             placementMoves.append(move)
         }
         
-        placementMoves.append(contentsOf: getTakeableNodeMovesFor(moves: placementMoves))
+        try placementMoves.append(contentsOf: getTakeableNodeMovesFor(moves: placementMoves))
         
         return placementMoves
     }
     
-    private func getMovementMoves() -> [Move] {
+    private func getMovementMoves() throws -> [Move] {
         var movementMoves: [Move] = []
         
         for node in _currentPlayer.movableNodes {
             for emptyNeighbour in node.emptyNeighbours {
-                let move = Move(type: .MovePiece, targetNode: node, destinationNode: emptyNeighbour)
+                let move = Move(type: .MovePiece, targetNodeId: node.id, destinationNodeId: emptyNeighbour.value.id)
                 movementMoves.append(move)
             }
         }
         
-        movementMoves.append(contentsOf: getTakeableNodeMovesFor(moves: movementMoves))
+        try movementMoves.append(contentsOf: getTakeableNodeMovesFor(moves: movementMoves))
         
         return movementMoves
     }
     
-    private func getFlyingMoves() -> [Move] {
+    private func getFlyingMoves() throws -> [Move] {
         var flyingMoves: [Move] = []
         
         for node in _currentPlayer.movableNodes {
             for emptyNode in _board.getNodes(for: .none) {
-                let move = Move(type: .MovePiece, targetNode: node, destinationNode: emptyNode)
+                let move = Move(type: .MovePiece, targetNodeId: node.id, destinationNodeId: emptyNode.id)
                 flyingMoves.append(move)
             }
         }
         
-        flyingMoves.append(contentsOf: getTakeableNodeMovesFor(moves: flyingMoves))
+        try flyingMoves.append(contentsOf: getTakeableNodeMovesFor(moves: flyingMoves))
         
         return flyingMoves
     }
 
     // If a move forms a mill, append more moves based on the opponent
     // nodes that can be taken.
-    private func getTakeableNodeMovesFor(moves: [Move]) -> [Move] {
+    private func getTakeableNodeMovesFor(moves: [Move]) throws -> [Move] {
         var takeableNodeMoves: [Move] = []
         
         for move in moves {
-            let millFormed = make(move: move)
+            let millFormed = try make(move: move)
             
             if(millFormed) {
                 takeableNodeMoves.append(contentsOf: getTakeableNodesFor(move: move))
             }
             
-            undo(move: move)
+            try undo(move: move)
         }
         
         return takeableNodeMoves
     }
     
-    private func make(move: Move) -> Bool {
+    private func make(move: Move) throws -> Bool {
         let millFormed: Bool
+        
+        guard let targetNode = _board.getNode(withID: move.targetNodeId) else {
+            throw AIError.FailedToGetTargetNode
+        }
         
         switch (move.type) {
         case .PlacePiece:
-            millFormed = _currentPlayer.playPiece(node: move.targetNode)
+            millFormed = _currentPlayer.playPiece(node: targetNode)
         case .MovePiece:
-            millFormed = _currentPlayer.movePiece(from: move.targetNode, to: move.destinationNode!)
+            guard let destinationNode = _board.getNode(withID: move.destinationNodeId!) else {
+                throw AIError.FailedToGetDestinationNode
+            }
+            
+            millFormed = _currentPlayer.movePiece(from: targetNode, to: destinationNode)
         }
         
         return millFormed
@@ -204,10 +212,10 @@ class GameSnapshot {
         let takeableNodes = _opponent.takeableNodes
         
         if(takeableNodes.count > 0) {
-            move.nodeToTake = takeableNodes[0]
+            move.nodeToTakeId = takeableNodes[0].id
             
             for i in 1 ..< takeableNodes.count {
-                let move = Move(type: move.type, targetNode: move.targetNode, destinationNode: move.destinationNode, nodeToTake: takeableNodes[i])
+                let move = Move(type: move.type, targetNodeId: move.targetNodeId, destinationNodeId: move.destinationNodeId, nodeToTakeId: takeableNodes[i].id)
                 takeableNodeMoves.append(move)
             }
         }
@@ -215,12 +223,20 @@ class GameSnapshot {
         return takeableNodeMoves
     }
     
-    private func undo(move: Move) {
+    private func undo(move: Move) throws {
+        guard let targetNode = _board.getNode(withID: move.targetNodeId) else {
+            throw AIError.FailedToGetTargetNode
+        }
+        
         switch(move.type) {
         case .PlacePiece:
-            _currentPlayer.undoPlayPiece(node: move.targetNode)
+            _currentPlayer.undoPlayPiece(node: targetNode)
         case .MovePiece:
-            _ = _currentPlayer.movePiece(from: move.destinationNode!, to: move.targetNode)
+            guard let destinationNode = _board.getNode(withID: move.destinationNodeId!) else {
+                throw AIError.FailedToGetDestinationNode
+            }
+            
+            _ = _currentPlayer.movePiece(from: destinationNode, to: targetNode)
         }
     }
     

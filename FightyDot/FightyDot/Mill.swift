@@ -106,7 +106,7 @@ class Mill {
         let emptyNode = _nodes.filter{ node in node.value.colour == .none}.first
         
         for neighbour in (emptyNode?.value.neighbours)! {
-            if(neighbour.inActiveMill && neighbour.colour == colour) {
+            if(neighbour.value.inActiveMill && neighbour.value.colour == colour) {
                 return true
             }
         }
@@ -130,11 +130,11 @@ class Mill {
         
         for neighbour in (emptyNode?.value.neighbours)! {
             // Check neighbour is not in the mill we're checking
-            if _nodes.contains(where: {node in node.value.id == neighbour.id}) {
+            if _nodes.contains(where: {node in node.value.id == neighbour.value.id}) {
                 continue
             }
             
-            if(neighbour.colour == colour) {
+            if(neighbour.value.colour == colour) {
                 return true
             }
         }

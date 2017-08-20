@@ -27,7 +27,7 @@ class NegaMaxWithPruning {
         
         // Get the possible moves and sort them.
         // Moves that form mills are probably best. We can use that heuristic to optimize a bit.
-        let possibleMoves = gameSnapshot.getPossibleMoves().sorted { $0.formsMill && !$1.formsMill }
+        let possibleMoves = try gameSnapshot.getPossibleMoves().sorted { $0.formsMill && !$1.formsMill }
         
         for move in possibleMoves {
             // Make the move and get a new game snapshot

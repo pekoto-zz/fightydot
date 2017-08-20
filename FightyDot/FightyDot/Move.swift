@@ -14,9 +14,9 @@ import Foundation
 class Move: CustomStringConvertible {
     
     private var _type: MoveType
-    private var _targetNode: Node
-    private var _destinationNode: Node?
-    private var _nodeToTake: Node?
+    private var _targetNodeId: Int
+    private var _destinationNodeId: Int? = nil
+    private var _nodeToTakeId: Int? = nil
     
     var type: MoveType {
         get {
@@ -24,44 +24,44 @@ class Move: CustomStringConvertible {
         }
     }
     
-    var targetNode: Node {
+    var targetNodeId: Int {
         get {
-            return _targetNode
+            return _targetNodeId
         }
     }
     
-    var destinationNode: Node? {
+    var destinationNodeId: Int? {
         get {
-            return _destinationNode
+            return _destinationNodeId
         }
     }
     
-    var nodeToTake: Node? {
+    var nodeToTakeId: Int? {
         get {
-            return _nodeToTake
+            return _nodeToTakeId
         } set {
-            _nodeToTake = newValue
+            _nodeToTakeId = newValue
         }
     }
     
     var formsMill: Bool {
         get {
-            return _nodeToTake != nil
+            return _nodeToTakeId != nil
         }
     }
     
     var description: String {
-        if let destinationNodeToPrint = _destinationNode {
-            return "\(_targetNode.id) -> \(destinationNodeToPrint.id)"
+        if let destinationNodeToPrint = _destinationNodeId {
+            return "\(_targetNodeId) -> \(destinationNodeToPrint)"
         } else {
-            return "\(_targetNode.id)"
+            return "\(_targetNodeId)"
         }
     }
     
-    init(type: MoveType, targetNode: Node, destinationNode: Node? = nil, nodeToTake: Node? = nil) {
+    init(type: MoveType, targetNodeId: Int, destinationNodeId: Int? = nil, nodeToTakeId: Int? = nil) {
         _type = type
-        _targetNode = targetNode
-        _destinationNode = destinationNode
-        _nodeToTake = nodeToTake
+        _targetNodeId = targetNodeId
+        _destinationNodeId = destinationNodeId
+        _nodeToTakeId = nodeToTakeId
     }
 }

@@ -76,7 +76,7 @@ class Board {
         }
     }
     
-    func print() {
+    func printState() {
         Swift.print("\(_nodes[0].printColour())---------\(_nodes[1].printColour())---------\(_nodes[2].printColour())")
         Swift.print("|         |         |")
         Swift.print("|  \(_nodes[3].printColour())------\(_nodes[4].printColour())------\(_nodes[5].printColour())  |")
@@ -184,7 +184,7 @@ class Board {
     private func connectNodesTo(nodes: [Node], using nodeNeighbours: [[Int]]) {
         for i in 0...nodeNeighbours.count-1 {
             for neighbourIndex in nodeNeighbours[i] {
-                nodes[i].neighbours.append(nodes[neighbourIndex])
+                nodes[i].neighbours.append(Unowned(value: nodes[neighbourIndex]))
             }
         }
     }

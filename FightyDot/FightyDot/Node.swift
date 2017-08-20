@@ -14,7 +14,7 @@ import UIKit
 class Node {
  
     private var _id: Int
-    private var _neighbours: [Node]
+    private var _neighbours: [Unowned<Node>]
     private var _mills: [Mill]
     private var _colour: PieceColour = PieceColour.none {
         didSet {
@@ -46,9 +46,10 @@ class Node {
         }
     }
     
-    var emptyNeighbours: [Node] {
+    var emptyNeighbours: [Unowned<Node>] {
         get {
-            return _neighbours.filter { node in node.colour == .none }
+            
+            return _neighbours.filter { node in node.value.colour == .none }
         }
     }
     
@@ -58,7 +59,7 @@ class Node {
         }
     }
     
-    var neighbours: [Node] {
+    var neighbours: [Unowned<Node>] {
         get {
             return _neighbours
         } set {
@@ -119,7 +120,7 @@ class Node {
     init(id: Int, view: EngineDelegate?) {
         _id = id
         _view = view
-        _neighbours = [Node]()
+        _neighbours = [Unowned<Node>]()
         _mills = [Mill]()
     }
     
