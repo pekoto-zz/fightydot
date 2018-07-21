@@ -13,6 +13,6 @@ import UIKit
 class MainTabBarVC: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
-        UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: Constants.FontNames.regular, size:10)!], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: UIFont(name: Constants.FontNames.regular, size:10)!], for: .normal)
     }
 }

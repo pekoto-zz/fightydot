@@ -69,7 +69,7 @@ class GameVC: UIViewController {
     // MARK: - Actions
     
     // Used when placing or taking pieces
-    func nodeTapped(sender: UITapGestureRecognizer) {
+    @objc func nodeTapped(sender: UITapGestureRecognizer) {
         guard let nodeId = sender.view?.tag else {
             return
         }
@@ -84,7 +84,7 @@ class GameVC: UIViewController {
     }
     
     // Used when moving or flying pieces
-    func nodeDragged(sender: UIPanGestureRecognizer!) {
+    @objc func nodeDragged(sender: UIPanGestureRecognizer!) {
         guard let nodeImgView = sender.view as? NodeImageView else {
             return
         }

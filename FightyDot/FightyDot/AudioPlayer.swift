@@ -35,7 +35,7 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
                 return
             }
                     
-            player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: fileToPlay), fileTypeHint: AVFileTypeWAVE)
+            player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: fileToPlay), fileTypeHint: AVFileType.wav.rawValue)
             sharedPlayer.container[key] = player
         }
         
